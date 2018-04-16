@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>Sameera Perera</Authors>
+    <Product>"Either" Monad-like Implementation for dealing with operation results in C#</Product>
+    <AssemblyVersion>1.1.0.0</AssemblyVersion>
+    <FileVersion>1.1.0.0</FileVersion>
+    <Version>1.1.0</Version>
+    <PackageId>Codoxide.Outcome</PackageId>
+    <AssemblyName>Codoxide.Outcome</AssemblyName>
+  </PropertyGroup>
+
+</Project>
