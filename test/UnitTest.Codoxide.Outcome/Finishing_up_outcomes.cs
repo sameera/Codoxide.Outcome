@@ -6,7 +6,7 @@ using Xunit;
 
 namespace UnitTest.Codoxide.Outcome
 {
-    public class TestFinishingUpTheOutcome
+    public class Finishing_up_outcomes
     {
 
         [Fact]

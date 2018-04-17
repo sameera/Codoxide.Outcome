@@ -22,6 +22,65 @@ namespace Codoxide
             Failure = failure;
         }
 
+        //public Outcome<T> Then(Action onSuccess = null, Action<Failure> onFailure = null)
+        //{
+        //    if (this.IsSuccessful && onSuccess != null)
+        //    {
+        //        onSuccess();
+        //    }
+        //    else if (!this.IsSuccessful && onFailure != null)
+        //    {
+        //        onFailure(this.Failure);
+        //    }
+        //    return this;
+        //}
+
+        //public Outcome<T> Then(Action<T> onSuccess = null, Action<Failure> onFailure = null)
+        //{
+        //    if (this.IsSuccessful && onSuccess != null)
+        //    {
+        //        onSuccess(this.Result);
+        //    }
+        //    else if (!this.IsSuccessful && onFailure != null)
+        //    {
+        //        onFailure(this.Failure);
+        //    }
+        //    return this;
+        //}
+
+        //public Outcome<T> Then(Func<T, T> onSuccess = null, Action<Failure> onFailure = null)
+        //{
+        //    if (this.IsSuccessful && onSuccess != null)
+        //    {
+        //        return onSuccess(this.Result);
+        //    }
+        //    else if (!this.IsSuccessful && onFailure != null)
+        //    {
+        //        onFailure(this.Failure);
+        //    }
+        //    return this;
+        //}
+
+        //public Outcome<T> Then(Func<T, T> onSuccess = null, Func<Failure, T> onFailure = null)
+        //{
+        //    if (this.IsSuccessful && onSuccess != null)
+        //    {
+        //        return onSuccess(this.Result);
+        //    }
+        //    else if (this.IsSuccessful)
+        //    {
+        //        return this;
+        //    }
+        //    else if (onFailure != null)
+        //    {
+        //        return onFailure(this.Failure);
+        //    }
+        //    else
+        //    {
+        //        return this;
+        //    }
+        //}
+
         private Outcome(T result, Failure failure)
         {
             this.Result = result;

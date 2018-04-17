@@ -53,6 +53,13 @@ namespace Codoxide
             return outcome;
         }
 
+        public static Outcome<T> Then<T>(this Outcome<T> outcome, Func<T, Outcome<T>> fn)
+        {
+            if (outcome.IsSuccessful) return fn(outcome.Result);
+
+            return outcome;
+        }
+
         public static Outcome<U> Then<T, U>(this Outcome<T> outcome, Func<Outcome<U>> fn)
         {
             if (outcome.IsSuccessful) return fn();

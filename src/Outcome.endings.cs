@@ -18,6 +18,11 @@ namespace Codoxide
             }
         }
 
+        public static void EndWith<T>(this Outcome<T> outcome, Action onSuccess = null, Action<Failure> onFailure = null)
+        {
+            outcome.EndWith(r => onSuccess(), onFailure);
+        }
+
         public static ReturnType Return<T, ReturnType>(this Outcome<T> outcome, Func<T, ReturnType> onSuccess = null, Func<Failure, ReturnType> onFailure = null)
         {
             if (outcome.IsSuccessful)

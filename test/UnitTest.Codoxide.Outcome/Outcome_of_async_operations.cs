@@ -5,7 +5,7 @@ using Xunit;
 
 namespace UnitTest.Codoxide.Outcome
 {
-    public class TestOutcomeOfAsyncOperations
+    public class Outcome_of_async_operations
     {
         [Fact]
         public async Task Outcome_of_an_async_method_will_be_unwrapped_by_the_chain()
