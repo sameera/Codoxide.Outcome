@@ -8,11 +8,11 @@ namespace Codoxide
     {
         public static void EndWith<T>(this Outcome<T> outcome, Action<T> onSuccess = null, Action<Failure> onFailure = null)
         {
-            if (outcome.IsSuccessful)
+            if (outcome.IsSuccessful && onSuccess != null)
             {
                 onSuccess(outcome.Result);
             }
-            else
+            else if (!outcome.IsSuccessful && onFailure != null)
             {
                 onFailure(outcome.Failure);
             }
@@ -25,13 +25,17 @@ namespace Codoxide
 
         public static ReturnType Return<T, ReturnType>(this Outcome<T> outcome, Func<T, ReturnType> onSuccess = null, Func<Failure, ReturnType> onFailure = null)
         {
-            if (outcome.IsSuccessful)
+            if (outcome.IsSuccessful && onSuccess != null)
             {
                 return onSuccess(outcome.Result);
             }
-            else
+            else if (!outcome.IsSuccessful && onFailure != null)
             {
                 return onFailure(outcome.Failure);
+            }
+            else
+            {
+                return default(ReturnType);
             }
         }
 

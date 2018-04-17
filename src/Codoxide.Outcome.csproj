@@ -4,12 +4,19 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Sameera Perera</Authors>
-    <Product>"Either" Monad-like Implementation for dealing with operation results in C#</Product>
-    <AssemblyVersion>1.1.7.0</AssemblyVersion>
-    <FileVersion>1.1.7.0</FileVersion>
-    <Version>1.1.7</Version>
+    <Product>Outcome&lt;T&gt;</Product>
+    <AssemblyVersion>1.1.8.0</AssemblyVersion>
+    <FileVersion>1.1.8.0</FileVersion>
+    <Version>1.1.8</Version>
     <PackageId>Codoxide.Outcome</PackageId>
     <AssemblyName>Codoxide.Outcome</AssemblyName>
+    <RepositoryUrl>https://github.com/sameera/Codoxide.Outcome</RepositoryUrl>
+    <RepositoryType>Git</RepositoryType>
+    <PackageTags>either monad, c#, chaining, result, functional</PackageTags>
+    <Description>"Either" Monad-like Implementation for dealing with operation results in C#</Description>
+    <Copyright>Sameera Perera</Copyright>
+    <PackageLicenseUrl>https://github.com/sameera/Codoxide.Outcome/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/sameera/Codoxide.Outcome</PackageProjectUrl>
   </PropertyGroup>
 
 </Project>

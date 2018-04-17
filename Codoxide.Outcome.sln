@@ -7,6 +7,16 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTest.Codoxide.Outcome",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Codoxide.Outcome", "src\Codoxide.Outcome.csproj", "{C5DEDFEA-433C-4267-92E5-2F8C3C4BAA84}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{754C100E-881E-4174-A4DB-62D1E27DFEDA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{3D0B8035-9A35-4F4D-BBD8-E8692269FFCC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F5A8E855-A496-4ADA-8DAC-8641F12F3DFE}"
+	ProjectSection(SolutionItems) = preProject
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,6 +34,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CC19D60C-EA9D-4B6C-92E3-4146DEA7E9A1} = {3D0B8035-9A35-4F4D-BBD8-E8692269FFCC}
+		{C5DEDFEA-433C-4267-92E5-2F8C3C4BAA84} = {754C100E-881E-4174-A4DB-62D1E27DFEDA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7E64B6BB-A671-4E71-B557-EC5C9E91CBAA}
