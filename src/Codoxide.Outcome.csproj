@@ -5,9 +5,9 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Sameera Perera</Authors>
     <Product>"Either" Monad-like Implementation for dealing with operation results in C#</Product>
-    <AssemblyVersion>1.1.0.0</AssemblyVersion>
-    <FileVersion>1.1.0.0</FileVersion>
-    <Version>1.1.0</Version>
+    <AssemblyVersion>1.1.6.0</AssemblyVersion>
+    <FileVersion>1.1.6.0</FileVersion>
+    <Version>1.1.6</Version>
     <PackageId>Codoxide.Outcome</PackageId>
     <AssemblyName>Codoxide.Outcome</AssemblyName>
   </PropertyGroup>
