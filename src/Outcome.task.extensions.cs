@@ -24,7 +24,7 @@ namespace Codoxide
         public static async Task<Outcome<T>> Then<T>(this Task<Outcome<T>> asyncPromise, Func<T> func)
         {
             var outcome = await asyncPromise;
-            if (outcome.IsSuccessful) new Outcome<T>(func());
+            if (outcome.IsSuccessful) return new Outcome<T>(func());
 
             return outcome;
         }
@@ -32,7 +32,7 @@ namespace Codoxide
         public static async Task<Outcome<ResultType>> Then<T, ResultType>(this Task<Outcome<T>> asyncPromise, Func<ResultType> func)
         {
             var outcome = await asyncPromise;
-            if (outcome.IsSuccessful) new Outcome<ResultType>(func());
+            if (outcome.IsSuccessful) return new Outcome<ResultType>(func());
 
             return Outcome<ResultType>.Reject(outcome.Failure);
         }
@@ -40,7 +40,7 @@ namespace Codoxide
         public static async Task<Outcome<ResultType>> Then<T, ResultType>(this Task<Outcome<T>> asyncPromise, Func<T, ResultType> func)
         {
             var outcome = await asyncPromise;
-            if (outcome.IsSuccessful) new Outcome<ResultType>(func(outcome.Result));
+            if (outcome.IsSuccessful) return new Outcome<ResultType>(func(outcome.Result));
 
             return Outcome<ResultType>.Reject(outcome.Failure);
         }
@@ -56,7 +56,7 @@ namespace Codoxide
         public static async Task<Outcome<T>> Then<T>(this Task<Outcome<T>> asyncPromise, Func<Task<T>> asyncFunc)
         {
             var outcome = await asyncPromise;
-            if (outcome.IsSuccessful) new Outcome<T>(await asyncFunc());
+            if (outcome.IsSuccessful) return new Outcome<T>(await asyncFunc());
 
             return outcome;
         }

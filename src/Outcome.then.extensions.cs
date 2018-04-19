@@ -18,7 +18,7 @@ namespace Codoxide
             return outcome;
         }
 
-        public static Outcome<T> Then<T, U>(this Outcome<T> outcome, out U output, OutAction<U> action)
+        public static Outcome<T> Then<T, OutType>(this Outcome<T> outcome, out OutType output, OutAction<OutType> action)
         {
             if (outcome.IsSuccessful)
             {
@@ -26,13 +26,13 @@ namespace Codoxide
             }
             else
             {
-                output = default(U);
+                output = default(OutType);
             }
 
             return outcome;
         }
 
-        public static Outcome<T> Then<T, U>(this Outcome<T> outcome, out U output, OutAction<T, U> action)
+        public static Outcome<T> Then<T, OutType>(this Outcome<T> outcome, out OutType output, OutAction<T, OutType> action)
         {
             if (outcome.IsSuccessful)
             {
@@ -40,7 +40,7 @@ namespace Codoxide
             }
             else
             {
-                output = default(U);
+                output = default(OutType);
             }
 
             return outcome;
@@ -60,28 +60,28 @@ namespace Codoxide
             return outcome;
         }
 
-        public static Outcome<U> Then<T, U>(this Outcome<T> outcome, Func<Outcome<U>> fn)
+        public static Outcome<ResultType> Then<T, ResultType>(this Outcome<T> outcome, Func<Outcome<ResultType>> fn)
         {
             if (outcome.IsSuccessful) return fn();
 
-            return Outcome<U>.Reject(outcome.Failure);
+            return Outcome<ResultType>.Reject(outcome.Failure);
         }
 
-        public static Outcome<U> Then<T, U>(this Outcome<T> outcome, Func<U> fn)
+        public static Outcome<ResultType> Then<T, ResultType>(this Outcome<T> outcome, Func<ResultType> fn)
         {
-            if (outcome.IsSuccessful) return new Outcome<U>(fn());
+            if (outcome.IsSuccessful) return new Outcome<ResultType>(fn());
 
-            return Outcome<U>.Reject(outcome.Failure);
+            return Outcome<ResultType>.Reject(outcome.Failure);
         }
 
-        public static Outcome<ReturnType> Then<T, ReturnType>(this Outcome<T> outcome, Func<T, ReturnType> fn)
+        public static Outcome<ResultType> Then<T, ResultType>(this Outcome<T> outcome, Func<T, ResultType> fn)
         {
-            if (outcome.IsSuccessful) return new Outcome<ReturnType>(fn(outcome.Result));
+            if (outcome.IsSuccessful) return new Outcome<ResultType>(fn(outcome.Result));
 
-            return Outcome<ReturnType>.Reject(outcome.Failure);
+            return Outcome<ResultType>.Reject(outcome.Failure);
         }
 
-        public static Outcome<T> Then<T, U>(this Outcome<T> outcome, out U output, OutFunc<U, Outcome<T>> fn)
+        public static Outcome<T> Then<T, OutType>(this Outcome<T> outcome, out OutType output, OutFunc<OutType, Outcome<T>> fn)
         {
             if (outcome.IsSuccessful)
             {
@@ -89,7 +89,7 @@ namespace Codoxide
             }
             else
             {
-                output = default(U);
+                output = default(OutType);
                 return outcome;
             }
         }
