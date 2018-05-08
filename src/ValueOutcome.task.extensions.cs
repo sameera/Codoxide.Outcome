@@ -62,6 +62,14 @@ namespace Codoxide
             return outcome;
         }
 
+        public static async Task<(T result, Failure failure)> Then<T>(this Task<(T result, Failure failure)> asyncPromise, Func<T, Task<T>> asyncFunc)
+        {
+            var outcome = await asyncPromise;
+            if (outcome.failure == null) return (await asyncFunc(outcome.result), null);
+
+            return outcome;
+        }
+
         public static async Task<(T result, Failure failure)> Then<T>(this Task<(T result, Failure failure)> asyncPromise, Func<Task<(T result, Failure failure)>> aysncFunc)
         {
             var outcome = await asyncPromise;

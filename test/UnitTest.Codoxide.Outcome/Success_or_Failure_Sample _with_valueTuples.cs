@@ -66,7 +66,7 @@ namespace UnitTest.Codoxide.Outcome
             }
             else
             {
-                throw new InvalidOperationException("The randome failure");
+                throw new InvalidOperationException("The random failure");
             }
         }
     }

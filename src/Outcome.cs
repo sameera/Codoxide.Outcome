@@ -54,7 +54,5 @@ namespace Codoxide
         public static implicit operator Outcome<T>(Exception exception) => new Outcome<T>(Fail(exception));
 
         public static implicit operator Outcome<T>((T result, Failure failure) outcome) => new Outcome<T>(outcome.result, outcome.failure);
-
-
     }
 }
