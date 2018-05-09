@@ -32,6 +32,12 @@ namespace Codoxide
 
         public T ResultOrDefault() => this.IsSuccessful ? this.Result : default(T);
 
+        public void Deconstruct(out T result, out Failure failure)
+        {
+            failure = this.FailureOrDefault();
+            result = this.ResultOrDefault();
+        }
+
         public static Outcome<T> Reject(string reason)
         {
             return new Outcome<T>(new Failure(reason));
