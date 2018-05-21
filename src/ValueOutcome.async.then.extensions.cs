@@ -41,25 +41,51 @@ namespace Codoxide
             return (default(ReturnType), outcome.failure);
         }
 
-        public static async Task<(ReturnType result, Failure failure)> Then<T, ReturnType>(this (T result, Failure failure) outcome, Func<T, Task<ReturnType>> asyncFunc)
+        public static async Task<(ReturnType result, Failure failure)> 
+            Then<T, ReturnType>(
+            this (T result, Failure failure) outcome, 
+            Func<T, Task<ReturnType>> asyncFunc
+            )
         {
             if (outcome.failure == null) return (await asyncFunc(outcome.result), null);
 
             return (default(ReturnType), outcome.failure);
         }
 
-        public static async Task<(ReturnType result, Failure failure)> Then<T, ReturnType>(this (T result, Failure failure) outcome, Func<Task<(ReturnType result, Failure failure)>> asyncFunc)
+        public static async Task<(ReturnType result, Failure failure)> 
+            Then<T, ReturnType>
+            (this (T result, Failure failure) outcome, Func<Task<(ReturnType result, Failure failure)>> asyncFunc)
         {
             if (outcome.failure == null) return await asyncFunc();
 
             return (default(ReturnType), outcome.failure);
         }
 
-        public static async Task<(ReturnType result, Failure failure)> Then<T, ReturnType>(this (T result, Failure failure) outcome, Func<T, Task<(ReturnType result, Failure failure)>> asyncFunc)
+        public static async Task<(ReturnType result, Failure failure)> 
+            Then<T, ReturnType>
+            (this (T result, Failure failure) outcome, Func<T, Task<(ReturnType result, Failure failure)>> asyncFunc)
         {
             if (outcome.failure == null) return await asyncFunc(outcome.result);
 
             return (default(ReturnType), outcome.failure);
+        }
+
+        public static async Task<(ResultType result, Failure failure)> 
+            Then<T, ResultType>
+            (this (T result, Failure failure) outcome, Func<Task<Outcome<ResultType>>> fn)
+        {
+            if (outcome.failure == null) return await fn();
+
+            return (default(ResultType), outcome.failure);
+        }
+
+        public static async Task<(ResultType result, Failure failure)> 
+            Then<T, ResultType>
+            (this (T result, Failure failure) outcome, Func<T, Task<Outcome<ResultType>>> asyncFunc)
+        {
+            if (outcome.failure == null) return await asyncFunc(outcome.result);
+
+            return (default(ResultType), outcome.failure);
         }
     }
 }

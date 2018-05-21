@@ -1,5 +1,6 @@
 ﻿using Codoxide.Outcomes;
 using System;
+using System.Threading.Tasks;
 
 namespace Codoxide
 {
@@ -33,5 +34,36 @@ namespace Codoxide
             return outcome;
         }
 
+        public static async Task<Outcome<T>> Catch<T>(this Task<Outcome<T>> asyncOutcome, Action action)
+        {
+            var outcome = await asyncOutcome;
+            if (!outcome.IsSuccessful) action();
+
+            return outcome;
+        }
+
+        public static async Task<Outcome<T>> Catch<T>(this Task<Outcome<T>> asyncOutcome, Func<Outcome<T>> fn)
+        {
+            var outcome = await asyncOutcome;
+            if (!outcome.IsSuccessful) return fn();
+
+            return outcome;
+        }
+
+        public static async Task<Outcome<T>> Catch<T>(this Task<Outcome<T>> asyncOutcome, Action<Failure> action)
+        {
+            var outcome = await asyncOutcome;
+            if (!outcome.IsSuccessful) action(outcome.Failure);
+
+            return outcome;
+        }
+
+        public static async Task<Outcome<T>> Catch<T>(this Task<Outcome<T>> asyncOutcome, Func<Failure, Outcome<T>> fn)
+        {
+            var outcome = await asyncOutcome;
+            if (!outcome.IsSuccessful) return fn(outcome.Failure);
+
+            return outcome;
+        }
     }
 }

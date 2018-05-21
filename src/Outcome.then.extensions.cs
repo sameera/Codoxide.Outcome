@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Codoxide.Outcomes;
+using System;
 
 namespace Codoxide
 {
@@ -60,13 +61,6 @@ namespace Codoxide
             return outcome;
         }
 
-        public static Outcome<ResultType> Then<T, ResultType>(this Outcome<T> outcome, Func<Outcome<ResultType>> fn)
-        {
-            if (outcome.IsSuccessful) return fn();
-
-            return Outcome<ResultType>.Reject(outcome.Failure);
-        }
-
         public static Outcome<ResultType> Then<T, ResultType>(this Outcome<T> outcome, Func<ResultType> fn)
         {
             if (outcome.IsSuccessful) return new Outcome<ResultType>(fn());
@@ -74,9 +68,30 @@ namespace Codoxide
             return Outcome<ResultType>.Reject(outcome.Failure);
         }
 
+        public static Outcome<ResultType> Then<T, ResultType>(this Outcome<T> outcome, Func<Outcome<ResultType>> fn)
+        {
+            if (outcome.IsSuccessful) return fn();
+
+            return Outcome<ResultType>.Reject(outcome.Failure);
+        }
+
+        public static Outcome<ResultType> Then<T, ResultType>(this Outcome<T> outcome, Func<ValueTuple<ResultType, Failure>> fn)
+        {
+            if (outcome.IsSuccessful) return (Outcome<ResultType>)fn();
+
+            return Outcome<ResultType>.Reject(outcome.Failure);
+        }
+
         public static Outcome<ResultType> Then<T, ResultType>(this Outcome<T> outcome, Func<T, ResultType> fn)
         {
             if (outcome.IsSuccessful) return new Outcome<ResultType>(fn(outcome.Result));
+
+            return Outcome<ResultType>.Reject(outcome.Failure);
+        }
+
+        public static Outcome<ResultType> Then<T, ResultType>(this Outcome<T> outcome, Func<T, ValueTuple<ResultType, Failure>> fn)
+        {
+            if (outcome.IsSuccessful) return (Outcome<ResultType>)fn(outcome.Result);
 
             return Outcome<ResultType>.Reject(outcome.Failure);
         }

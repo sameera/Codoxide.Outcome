@@ -21,5 +21,22 @@ namespace UnitTest.Codoxide.Outcome
             result.Should().Be(null);
             failure.Reason.Should().Be("Test Failure");
         }
+
+        [Fact]
+        public void Convert_Outcome_to_ValueOutcome()
+        {
+            Outcome<string> outcome = new Outcome<string>("AAB");
+            (string result, Failure failure) valueOutcome;
+            valueOutcome = outcome;
+
+            valueOutcome.result.Should().Be("AAB");
+            valueOutcome.failure.Should().BeNull();
+
+            outcome = FixedOutcomes.Fail("Test Failure");
+            valueOutcome = outcome;
+            valueOutcome.result.Should().Be(null);
+            valueOutcome.failure.Reason.Should().Be("Test Failure");
+
+        }
     }
 }

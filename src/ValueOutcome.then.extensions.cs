@@ -1,29 +1,27 @@
 ﻿using Codoxide.Outcomes;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Codoxide
 {
     public static partial class ValueOutcomeExtensions
     {
-        public static (T result, Failure failure) Then<T>(this (T result, Failure failure) outcome, Action action)
+        public static (T result, Failure failure) Then<T>(this ValueTuple<T, Failure> outcome, Action action)
         {
-            if (outcome.failure == null) action();
+            if (outcome.Item2 == null) action();
 
             return outcome;
         }
 
-        public static (T result, Failure failure) Then<T>(this (T result, Failure failure) outcome, Action<T> action)
+        public static (T result, Failure failure) Then<T>(this ValueTuple<T, Failure> outcome, Action<T> action)
         {
-            if (outcome.failure == null) action(outcome.result);
+            if (outcome.Item2 == null) action(outcome.Item1);
 
             return outcome;
         }
 
-        public static (T result, Failure failure) Then<T, OutType>(this (T result, Failure failure) outcome, out OutType output, OutAction<OutType> action)
+        public static (T result, Failure failure) Then<T, OutType>(this ValueTuple<T, Failure> outcome, out OutType output, OutAction<OutType> action)
         {
-            if (outcome.failure == null)
+            if (outcome.Item2 == null)
             {
                 action(out output);
             }
@@ -35,11 +33,11 @@ namespace Codoxide
             return outcome;
         }
 
-        public static (T result, Failure failure) Then<T, OutType>(this (T result, Failure failure) outcome, out OutType output, OutAction<T, OutType> action)
+        public static (T result, Failure failure) Then<T, OutType>(this ValueTuple<T, Failure> outcome, out OutType output, OutAction<T, OutType> action)
         {
-            if (outcome.failure == null)
+            if (outcome.Item2 == null)
             {
-                action(outcome.result, out output);
+                action(outcome.Item1, out output);
             }
             else
             {
@@ -49,44 +47,58 @@ namespace Codoxide
             return outcome;
         }
 
-        public static (T result, Failure failure) Then<T>(this (T result, Failure failure) outcome, Func<(T result, Failure failure)> fn)
+        public static (T result, Failure failure) Then<T>(this ValueTuple<T, Failure> outcome, Func<ValueTuple<T, Failure>> fn)
         {
-            if (outcome.failure == null) return fn();
+            if (outcome.Item2 == null) return fn();
 
             return outcome;
         }
 
-        public static (T result, Failure failure) Then<T>(this (T result, Failure failure) outcome, Func<T, (T result, Failure failure)> fn)
+        public static (T result, Failure failure) Then<T>(this ValueTuple<T, Failure> outcome, Func<T, ValueTuple<T, Failure>> fn)
         {
-            if (outcome.failure == null) return fn(outcome.result);
+            if (outcome.Item2 == null) return fn(outcome.Item1);
 
             return outcome;
         }
 
-        public static (ResultType result, Failure failure) Then<T, ResultType>(this (T result, Failure failure) outcome, Func<(ResultType result, Failure failure)> fn)
+        public static (ResultType result, Failure failure) Then<T, ResultType>(this ValueTuple<T, Failure> outcome, Func<ValueTuple<ResultType, Failure>> fn)
         {
-            if (outcome.failure == null) return fn();
+            if (outcome.Item2 == null) return fn();
 
-            return (default(ResultType), outcome.failure);
+            return (default(ResultType), outcome.Item2);
         }
 
-        public static (ResultType result, Failure failure) Then<T, ResultType>(this (T result, Failure failure) outcome, Func<ResultType> fn)
+        public static (ResultType result, Failure failure) Then<T, ResultType>(this ValueTuple<T, Failure> outcome, Func<ResultType> fn)
         {
-            if (outcome.failure == null) return (fn(), null);
+            if (outcome.Item2 == null) return (fn(), null);
 
-            return (default(ResultType), outcome.failure);
+            return (default(ResultType), outcome.Item2);
         }
 
-        public static (ResultType result, Failure failure) Then<T, ResultType>(this (T result, Failure failure) outcome, Func<T, ResultType> fn)
+        public static (ResultType result, Failure failure) Then<T, ResultType>(this ValueTuple<T, Failure> outcome, Func<Outcome<ResultType>> fn)
         {
-            if (outcome.failure == null) return (fn(outcome.result), null);
+            if (outcome.Item2 == null) return fn();
 
-            return (default(ResultType), outcome.failure);
+            return (default(ResultType), outcome.Item2);
         }
 
-        public static (T result, Failure failure) Then<T, OutType>(this (T result, Failure failure) outcome, out OutType output, OutFunc<OutType, (T result, Failure failure)> fn)
+        public static (ResultType result, Failure failure) Then<T, ResultType>(this ValueTuple<T, Failure> outcome, Func<T, ResultType> fn)
         {
-            if (outcome.failure == null)
+            if (outcome.Item2 == null) return (fn(outcome.Item1), null);
+
+            return (default(ResultType), outcome.Item2);
+        }
+
+        public static (ResultType result, Failure failure) Then<T, ResultType>(this ValueTuple<T, Failure> outcome, Func<T, Outcome<ResultType>> fn)
+        {
+            if (outcome.Item2 == null) return fn(outcome.Item1);
+
+            return (default(ResultType), outcome.Item2);
+        }
+
+        public static (T result, Failure failure) Then<T, OutType>(this ValueTuple<T, Failure> outcome, out OutType output, OutFunc<OutType, ValueTuple<T, Failure>> fn)
+        {
+            if (outcome.Item2 == null)
             {
                 return fn(out output);
             }
@@ -97,11 +109,11 @@ namespace Codoxide
             }
         }
 
-        public static (T result, Failure failure) Then<T, OutType>(this (T result, Failure failure) outcome, out OutType output, ParameterziedOutFunc<T, OutType, (T result, Failure failure)> fn)
+        public static (T result, Failure failure) Then<T, OutType>(this ValueTuple<T, Failure> outcome, out OutType output, ParameterziedOutFunc<T, OutType, ValueTuple<T, Failure>> fn)
         {
-            if (outcome.failure == null)
+            if (outcome.Item2 == null)
             {
-                return fn(outcome.result, out output);
+                return fn(outcome.Item1, out output);
             }
             else
             {
@@ -110,29 +122,29 @@ namespace Codoxide
             }
         }
 
-        public static (ResultType result, Failure failure) Then<T, OutType, ResultType>(this (T result, Failure failure) outcome, out OutType output, ParameterziedOutFunc<T, OutType, ResultType> fn)
+        public static (ResultType result, Failure failure) Then<T, OutType, ResultType>(this ValueTuple<T, Failure> outcome, out OutType output, ParameterziedOutFunc<T, OutType, ResultType> fn)
         {
-            if (outcome.failure == null)
+            if (outcome.Item2 == null)
             {
-                return (fn(outcome.result, out output), null);
+                return (fn(outcome.Item1, out output), null);
             }
             else
             {
                 output = default(OutType);
-                return (default(ResultType), outcome.failure);
+                return (default(ResultType), outcome.Item2);
             }
         }
 
-        public static (T result, Failure failure) ThenIf<T>(this (T result, Failure failure) outcome, bool condition, Action action)
+        public static (T result, Failure failure) ThenIf<T>(this ValueTuple<T, Failure> outcome, bool condition, Action action)
         {
-            if (outcome.result != null && condition) action();
+            if (outcome.Item2 == null && condition) action();
 
             return outcome;
         }
 
-        public static (T result, Failure failure) ThenIf<T>(this (T result, Failure failure) outcome, bool condition, Func<(T result, Failure failure)> fn)
+        public static (T result, Failure failure) ThenIf<T>(this ValueTuple<T, Failure> outcome, bool condition, Func<ValueTuple<T, Failure>> fn)
         {
-            if (outcome.result != null && condition) return fn();
+            if (outcome.Item2 == null && condition) return fn();
 
             return outcome;
         }
