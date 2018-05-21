@@ -17,5 +17,12 @@ namespace Codoxide.Outcomes
         {
             this.Exception = exception;
         }
+
+        public override string ToString()
+        {
+            return this.Exception == null 
+                ? this.Reason 
+                : string.Concat(this.Reason, "\r\n", this.Exception);
+        }
     }
 }
