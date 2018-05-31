@@ -23,9 +23,25 @@ namespace Codoxide
             Failure = failure;
         }
 
+        public Outcome(Func<T> fn)
+        {
+            try
+            {
+                Result = fn();
+                Failure = null;
+            }
+            catch (Exception ex)
+            {
+                Result = default(T);
+                Failure = Fail(ex);
+            }
+        }
+
         public Failure FailureOrDefault() => this.IsSuccessful ? null : Failure;
 
         public T ResultOrDefault() => this.IsSuccessful ? Result : default(T);
+
+        public Exception ExceptionOrDefault() => Failure?.ToException();
 
         public void Deconstruct(out T result, out Failure failure)
         {

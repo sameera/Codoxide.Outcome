@@ -12,23 +12,9 @@ namespace Codoxide
             return outcome;
         }
 
-        public static async Task<Outcome<T>> Then<T>(this Outcome<T> outcome, Func<Task<T>> asyncFunc)
+        public static async Task<Outcome<T>> Then<T>(this Outcome<T> outcome, Func<T, Task> asyncAction)
         {
-            if (outcome.IsSuccessful) return new Outcome<T>(await asyncFunc());
-
-            return outcome;
-        }
-
-        public static async Task<Outcome<T>> Then<T>(this Outcome<T> outcome, Func<Task<Outcome<T>>> asyncFunc)
-        {
-            if (outcome.IsSuccessful) return await asyncFunc();
-
-            return outcome;
-        }
-
-        public static async Task<Outcome<T>> Then<T>(this Outcome<T> outcome, Func<T, Task<Outcome<T>>> asyncFunc)
-        {
-            if (outcome.IsSuccessful) return await asyncFunc(outcome.Result);
+            if (outcome.IsSuccessful) await asyncAction(outcome.Result);
 
             return outcome;
         }
@@ -39,13 +25,6 @@ namespace Codoxide
 
             return Outcome<ReturnType>.Reject(outcome.Failure);
         }
-
-        //public static async Task<Outcome<T>> Then<T>(this Outcome<T> outcome, Func<T, Task<T>> asyncFunc)
-        //{
-        //    if (outcome.IsSuccessful) return new Outcome<T>(await asyncFunc(outcome.Result));
-
-        //    return outcome;
-        //}
 
         public static async Task<Outcome<ReturnType>> Then<T, ReturnType>(this Outcome<T> outcome, Func<T, Task<ReturnType>> asyncFunc)
         {

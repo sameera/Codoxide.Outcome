@@ -5,20 +5,23 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Sameera Perera</Authors>
     <Product>Outcome&lt;T&gt;</Product>
-    <AssemblyVersion>3.1.1.0</AssemblyVersion>
-    <FileVersion>3.1.1.0</FileVersion>
-    <Version>3.1.1</Version>
+    <AssemblyVersion>3.2.2.0</AssemblyVersion>
+    <FileVersion>3.2.2.0</FileVersion>
+    <Version>3.2.2</Version>
     <PackageId>Codoxide.Outcome</PackageId>
     <AssemblyName>Codoxide.Outcome</AssemblyName>
     <RepositoryUrl>https://github.com/sameera/Codoxide.Outcome</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
-    <PackageTags>either monad, c#, chaining, result, functional</PackageTags>
+    <PackageTags>either monad, c#, chaining, result, functional, try</PackageTags>
     <Description>"Either" Monad-like Implementation for dealing with operation results in C#</Description>
     <Copyright>Sameera Perera</Copyright>
     <PackageLicenseUrl>https://github.com/sameera/Codoxide.Outcome/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/sameera/Codoxide.Outcome</PackageProjectUrl>
     <PackageReleaseNotes>[3.0.0] Outcome&lt;T&gt; is now an immutable value type. Chain them as much as you need without the GC pressure.
-[3.1.1] Added Catch support for Task&lt;Outcome&lt;T&gt;&gt;</PackageReleaseNotes>
+[3.1.1] Added Catch support for Task&lt;Outcome&lt;T&gt;&gt;
+[3.2.0] ExceptionOrDefault method to get retrieve the failure as an exception.
+[3.2.1] Added a few missing ThenTry and Try overloads for handling Tasks.
+[3.2.0] Function Wrapper constructor and async support for ThenTry</PackageReleaseNotes>
     <RootNamespace>Codoxide</RootNamespace>
   </PropertyGroup>
 

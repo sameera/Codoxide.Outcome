@@ -18,6 +18,18 @@ namespace Codoxide.Outcomes
             this.Exception = exception;
         }
 
+        public Exception ToException()
+        {
+            if (this.Exception != null)
+            {
+                return this.Exception;
+            }
+            else
+            {
+                return new OutcomeException(this.Reason);
+            }
+        }
+
         public override string ToString()
         {
             return this.Exception == null 
