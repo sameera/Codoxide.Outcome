@@ -6,6 +6,12 @@ namespace Codoxide
 {
     static partial class OutcomeExtensions
     {
+        public static OutcomeFinalizer<T, ReturnType> Return<T, ReturnType>(this Outcome<T> outcome, Func<T, ReturnType> successHandler)
+        {
+            return new OutcomeFinalizer<T, ReturnType>(outcome).OnSuccess(successHandler);
+        }
+
+        [Obsolete("Use Return-Catch-Unwrap pattern.")]
         public static void EndWith<T>(this Outcome<T> outcome, Action<T> onSuccess = null, Action<Failure> onFailure = null)
         {
             if (outcome.IsSuccessful && onSuccess != null)
@@ -18,16 +24,48 @@ namespace Codoxide
             }
         }
 
+        [Obsolete("Use Return-Catch-Unwrap pattern.")]
         public static void EndWith<T>(this Outcome<T> outcome, Action onSuccess = null, Action<Failure> onFailure = null)
         {
             outcome.EndWith(r => onSuccess(), onFailure);
         }
 
-        public static ReturnType Return<T, ReturnType>(this Outcome<T> outcome, Func<T, ReturnType> onSuccess = null, Func<Failure, ReturnType> onFailure = null)
+        [Obsolete("Use Return-Catch-Unwrap pattern.")]
+        public static async Task EndWith<T>(this Task<Outcome<T>> asyncOutcome, Action<T> onSuccess = null, Action<Failure> onFailure = null)
+        {
+            var outcome = await asyncOutcome;
+            outcome.EndWith(onSuccess, onFailure);
+        }
+
+        [Obsolete("Use Return-Catch-Unwrap pattern.")]
+        public static async Task<ReturnType> Return<T, ReturnType>(
+                this Task<Outcome<T>> asyncOutcome,
+                Func<T, ReturnType> onSuccess = null,
+                Func<Failure, ReturnType> onFailure = null,
+                Func<Exception, ReturnType> onException = null,
+                ReturnType fallBack = default(ReturnType)
+            )
+        {
+            var outcome = await asyncOutcome;
+            return outcome.Return(onSuccess, onFailure, onException, fallBack);
+        }
+
+        [Obsolete("Use Return-Catch-Unwrap pattern.")]
+        public static ReturnType Return<T, ReturnType>(
+                this Outcome<T> outcome, 
+                Func<T, ReturnType> onSuccess = null,
+                Func<Failure, ReturnType> onFailure = null,
+                Func<Exception, ReturnType> onException = null,
+                ReturnType fallBack = default(ReturnType)
+            )
         {
             if (outcome.IsSuccessful && onSuccess != null)
             {
                 return onSuccess(outcome.Result);
+            }
+            else if (!outcome.IsSuccessful && outcome.Failure.Exception != null && onException != null)
+            {
+                return onException(outcome.Failure.Exception);
             }
             else if (!outcome.IsSuccessful && onFailure != null)
             {
@@ -35,71 +73,8 @@ namespace Codoxide
             }
             else
             {
-                return default(ReturnType);
+                return fallBack;
             }
-        }
-
-        public static async Task EndWith<T>(this Task<Outcome<T>> asyncOutcome, Action<T> onSuccess = null, Action<Failure> onFailure = null)
-        {
-            var outcome = await asyncOutcome;
-            outcome.EndWith(onSuccess, onFailure);
-        }
-
-        public static async Task<ReturnType> Return<T, ReturnType>(this Task<Outcome<T>> asyncOutcome, Func<T, ReturnType> onSuccess = null, Func<Failure, ReturnType> onFailure = null)
-        {
-            var outcome = await asyncOutcome;
-            return outcome.Return(onSuccess, onFailure);
         }
     }
 }
-
-//namespace Codoxide
-//{
-//    using static FixedOutcomes;
-
-//    public class SafeExecutionContext<T>
-//    {
-//        private readonly Outcome<T> _outcome;
-
-//        public void Reject(string reason)
-//        {
-//            _outcome.Failure = new Outcomes.Failure(reason);
-//        }
-
-//        public void Try(Action action)
-//        {
-//            try
-//            {
-//                action();
-//            }
-//            catch (Exception ex)
-//            {
-//                _outcome.Failure = Fail(ex);
-//            }
-//        }
-
-//        internal SafeExecutionContext(Outcome<T> outcome)
-//        {
-//            _outcome = outcome;
-//        }
-//    }
-
-//    partial class Outcome<T>
-//    {
-//        //public ResultType Fulfill<ResultType>(Func<T, ResultType> func)
-//        //{
-//        //    if (this.IsSuccessful) return func(this.Result);
-
-//        //    return default(ResultType);
-//        //}
-
-//        public Outcome<T> Then(Action<SafeExecutionContext<T>> action)
-//        {
-//            if (this.IsSuccessful)
-//            {
-//                action(new SafeExecutionContext<T>(this));
-//            }
-//            return this;
-//        }
-//    }
-//}

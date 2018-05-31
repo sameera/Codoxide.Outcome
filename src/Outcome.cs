@@ -37,31 +37,6 @@ namespace Codoxide
             }
         }
 
-        public ReturnType Return<ReturnType>(
-                Func<T, ReturnType> onSuccess = null,
-                Func<Failure, ReturnType> onFailure = null,
-                Func<Exception, ReturnType> onException = null,
-                ReturnType fallBack = default(ReturnType)
-            )
-        {
-            if (this.IsSuccessful && onSuccess != null)
-            {
-                return onSuccess(Result);
-            }
-            else if (!this.IsSuccessful && Failure.Exception != null && onException != null)
-            {
-                return onException(Failure.Exception);
-            }
-            else if (!this.IsSuccessful && onFailure != null)
-            {
-                return onFailure(Failure);
-            }
-            else
-            {
-                return fallBack;
-            }
-        }
-
         public Failure FailureOrDefault() => this.IsSuccessful ? null : Failure;
 
         public T ResultOrDefault() => this.IsSuccessful ? Result : default(T);
