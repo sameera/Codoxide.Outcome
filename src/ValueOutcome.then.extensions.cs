@@ -3,6 +3,7 @@ using System;
 
 namespace Codoxide
 {
+    [Obsolete("ValueOutcomes are obsolete. Use Outcome<T>")]
     public static partial class ValueOutcomeExtensions
     {
         public static (T result, Failure failure) Then<T>(this ValueTuple<T, Failure> outcome, Action action)

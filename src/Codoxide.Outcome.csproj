@@ -5,9 +5,9 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Sameera Perera</Authors>
     <Product>Outcome&lt;T&gt;</Product>
-    <AssemblyVersion>3.5.0.0</AssemblyVersion>
-    <FileVersion>3.5.0.0</FileVersion>
-    <Version>3.5.0</Version>
+    <AssemblyVersion>3.6.1.0</AssemblyVersion>
+    <FileVersion>3.6.1.0</FileVersion>
+    <Version>3.6.1</Version>
     <PackageId>Codoxide.Outcome</PackageId>
     <AssemblyName>Codoxide.Outcome</AssemblyName>
     <RepositoryUrl>https://github.com/sameera/Codoxide.Outcome</RepositoryUrl>
@@ -17,7 +17,9 @@
     <Copyright>Sameera Perera</Copyright>
     <PackageLicenseUrl>https://github.com/sameera/Codoxide.Outcome/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/sameera/Codoxide.Outcome</PackageProjectUrl>
-    <PackageReleaseNotes>Introduces the Return-Catch-Unwarp pattern to unwrap an outcome to a simple result.</PackageReleaseNotes>
+    <PackageReleaseNotes>[3.5] Introduces the Return-Catch-Unwarp pattern to unwrap an outcome to a simple result.
+[3.6] Introduces Outcome.Of&lt;T&gt; for wrapping existing methods in to Outcomes.
+[3.6.1] Additional ThenIf handlers</PackageReleaseNotes>
     <RootNamespace>Codoxide</RootNamespace>
   </PropertyGroup>
 

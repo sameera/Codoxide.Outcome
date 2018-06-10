@@ -44,16 +44,6 @@ namespace Codoxide
             return this;
         }
 
-        public OutcomeFinalizer<T, ReturnType> Catch(Func<Exception, ReturnType> handler)
-        {
-            if (!_isHandled && !_outcome.IsSuccessful && _outcome.Failure.Exception != null)
-            {
-                _isHandled = true;
-                _returnValue = handler(_outcome.Failure.Exception);
-            }
-            return this;
-        }
-
         public OutcomeFinalizer<T, ReturnType> Catch(Func<Failure, ReturnType> handler)
         {
             if (!_isHandled && !_outcome.IsSuccessful)
@@ -62,16 +52,6 @@ namespace Codoxide
                 _returnValue = handler(_outcome.Failure);
             }
 
-            return this;
-        }
-
-        public async Task<OutcomeFinalizer<T, ReturnType>> Then(Func<T, Task<ReturnType>> handler)
-        {
-            if (_outcome.IsSuccessful)
-            {
-                _isHandled = true;
-                _returnValue = await handler(_outcome.Result);
-            }
             return this;
         }
 
@@ -85,16 +65,16 @@ namespace Codoxide
             return this;
         }
 
-        public async Task<OutcomeFinalizer<T, ReturnType>> Catch(Func<Exception, Task<ReturnType>> handler)
-        {
-            if (!_isHandled && !_outcome.IsSuccessful && _outcome.Failure.Exception != null)
-            {
-                _isHandled = true;
-                _returnValue = await handler(_outcome.Failure.Exception);
-            }
+        //public async Task<OutcomeFinalizer<T, ReturnType>> Catch(Func<Exception, Task<ReturnType>> handler)
+        //{
+        //    if (!_isHandled && !_outcome.IsSuccessful && _outcome.Failure.Exception != null)
+        //    {
+        //        _isHandled = true;
+        //        _returnValue = await handler(_outcome.Failure.Exception);
+        //    }
 
-            return this;
-        }
+        //    return this;
+        //}
 
         public async Task<OutcomeFinalizer<T, ReturnType>> Catch(Func<Failure, Task<ReturnType>> handler)
         {

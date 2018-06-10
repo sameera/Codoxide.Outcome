@@ -134,19 +134,5 @@ namespace Codoxide
                 return Outcome<ResultType>.Reject(outcome.Failure);
             }
         }
-
-        public static Outcome<T> ThenIf<T>(this Outcome<T> outcome, bool condition, Action action)
-        {
-            if (outcome.IsSuccessful && condition) action();
-
-            return outcome;
-        }
-
-        public static Outcome<T> ThenIf<T>(this Outcome<T> outcome, bool condition, Func<Outcome<T>> fn)
-        {
-            if (outcome.IsSuccessful && condition) return fn();
-
-            return outcome;
-        }
     }
 }
