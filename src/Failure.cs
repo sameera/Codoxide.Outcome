@@ -4,16 +4,21 @@ namespace Codoxide.Outcomes
 {
     public class Failure
     {
+        public const int GeneralFailure = 500;
+
         public string Reason { get; }
 
         public Exception Exception { get; }
 
-        public Failure(string reason)
+        public int FailureCode { get; }
+
+        public Failure(string reason, int failureCode = GeneralFailure)
         {
             this.Reason = reason;
+            this.FailureCode = failureCode;
         }
 
-        public Failure(string reason, Exception exception) : this(reason)
+        public Failure(string reason, Exception exception, int failureCode = GeneralFailure) : this(reason, failureCode)
         {
             this.Exception = exception;
         }
@@ -26,7 +31,7 @@ namespace Codoxide.Outcomes
             }
             else
             {
-                return new OutcomeException(this.Reason);
+                return new OutcomeException(this.Reason) { FailureCode = this.FailureCode };
             }
         }
 

@@ -7,85 +7,31 @@ namespace Codoxide
 
     static partial class OutcomeExtensions
     {
-        public static Outcome<T> ThenTry<T>(this Outcome<T> outcome, Action action)
+        private static Outcome<ResultType> Try<T, ResultType>(this Outcome<T> @this, Func<Outcome<ResultType>> fn)
         {
-            if (outcome.IsSuccessful)
-            {
-                try
-                {
-                    action();
-                }
-                catch (Exception ex)
-                {
-                    return new Outcome<T>(Fail(ex));
-                }
-            }
-
-            return outcome;
-        }
-
-        public static Outcome<T> ThenTry<T>(this Outcome<T> outcome, Action<T> action)
-        {
-            if (outcome.IsSuccessful)
-            {
-                try
-                {
-                    action(outcome.Result);
-                }
-                catch (Exception ex)
-                {
-                    return new Outcome<T>(Fail(ex));
-                }
-            }
-
-            return outcome;
-        }
-
-        public static Outcome<ResultType> ThenTry<T, ResultType>(this Outcome<T> outcome, Func<Outcome<ResultType>> fn)
-        {
-            if (!outcome.IsSuccessful) return new Outcome<ResultType>(outcome.Failure);
-
             try
             {
                 return fn();
             }
-            catch (Exception ex)
+            catch (Exception x)
             {
-                return new Outcome<ResultType>(Fail(ex));
-            }
-        }
-        
-        public static Outcome<ResultType> ThenTry<T, ResultType>(this Outcome<T> outcome, Func<ResultType> fn)
-        {
-            if (!outcome.IsSuccessful) return new Outcome<ResultType>(outcome.Failure);
-
-            try
-            {
-                return new Outcome<ResultType>(fn());
-            }
-            catch (Exception ex)
-            {
-                return new Outcome<ResultType>(Fail(ex));
+                return Outcome<ResultType>.Reject(Fail(x));
             }
         }
 
-        public static Outcome<ResultType> ThenTry<T, ResultType>(this Outcome<T> outcome, Func<T, ResultType> fn)
-        {
-            if (!outcome.IsSuccessful) return new Outcome<ResultType>(outcome.Failure);
+        public static Outcome<T> ThenTry<T>(this Outcome<T> @this, Action action) => @this.Try(() => @this.Then(action));
 
-            try
-            {
-                return new Outcome<ResultType>(fn(outcome.Result));
-            }
-            catch (Exception ex)
-            {
-                return new Outcome<ResultType>(Fail(ex));
-            }
-        }
+        public static Outcome<T> ThenTry<T>(this Outcome<T> @this, Action<T> action) => @this.Try(() => @this.Then(action));
 
-        public static async Task<Outcome<T>> ThenTry<T>(this Outcome<T> outcome, Func<Task> action)
+        public static Outcome<ResultType> ThenTry<T, ResultType>(this Outcome<T> @this, Func<Outcome<ResultType>> fn) => @this.Try(() => @this.Then(fn));
+
+        public static Outcome<ResultType> ThenTry<T, ResultType>(this Outcome<T> @this, Func<ResultType> fn) => @this.Try(() => @this.Then(fn));
+
+        public static Outcome<ResultType> ThenTry<T, ResultType>(this Outcome<T> @this, Func<T, ResultType> fn) => @this.Try(() => @this.Then(fn));
+
+        public static async Task<Outcome<T>> ThenTry<T>(this Outcome<T> @this, Func<Task> action)
         {
-            if (outcome.IsSuccessful)
+            if (@this.IsSuccessful)
             {
                 try
                 {
@@ -97,36 +43,36 @@ namespace Codoxide
                 }
             }
 
-            return outcome;
+            return @this;
         }       
 
-        public static async Task<Outcome<ResultType>> ThenTry<T, ResultType>(this Outcome<T> outcome, Func<Task<Outcome<ResultType>>> fn)
+        public static async Task<Outcome<ResultType>> ThenTry<T, ResultType>(this Outcome<T> @this, Func<Task<Outcome<ResultType>>> fn)
         {
-            if (outcome.IsSuccessful)
+            if (@this.IsSuccessful)
             {
                 return await fn();
             }
             else
             {
-                return new Outcome<ResultType>(outcome.Failure);
+                return new Outcome<ResultType>(@this.Failure);
             }
         }
 
-        public static async Task<Outcome<ResultType>> ThenTry<T, ResultType>(this Outcome<T> outcome, Func<T, Task<Outcome<ResultType>>> fn)
+        public static async Task<Outcome<ResultType>> ThenTry<T, ResultType>(this Outcome<T> @this, Func<T, Task<Outcome<ResultType>>> fn)
         {
-            if (outcome.IsSuccessful)
+            if (@this.IsSuccessful)
             {
-                return await fn(outcome.Result);
+                return await fn(@this.Result);
             }
             else
             {
-                return new Outcome<ResultType>(outcome.Failure);
+                return new Outcome<ResultType>(@this.Failure);
             }
         }
 
-        public static async Task<Outcome<ResultType>> ThenTry<T, ResultType>(this Outcome<T> outcome, Func<Task<ResultType>> fn)
+        public static async Task<Outcome<ResultType>> ThenTry<T, ResultType>(this Outcome<T> @this, Func<Task<ResultType>> fn)
         {
-            if (!outcome.IsSuccessful) new Outcome<ResultType>(outcome.Failure);
+            if (!@this.IsSuccessful) new Outcome<ResultType>(@this.Failure);
 
             try
             {
@@ -139,13 +85,13 @@ namespace Codoxide
             }
         }
 
-        public static async Task<Outcome<ResultType>> ThenTry<T, ResultType>(this Outcome<T> outcome, Func<T, Task<ResultType>> fn)
+        public static async Task<Outcome<ResultType>> ThenTry<T, ResultType>(this Outcome<T> @this, Func<T, Task<ResultType>> fn)
         {
-            if (!outcome.IsSuccessful) new Outcome<ResultType>(outcome.Failure);
+            if (!@this.IsSuccessful) new Outcome<ResultType>(@this.Failure);
 
             try
             {
-                var result = await fn(outcome.Result);
+                var result = await fn(@this.Result);
                 return new Outcome<ResultType>(result);
             }
             catch (Exception ex)

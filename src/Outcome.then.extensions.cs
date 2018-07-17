@@ -5,133 +5,70 @@ namespace Codoxide
 {
     static partial class OutcomeExtensions
     {
-        public static Outcome<T> Then<T>(this Outcome<T> outcome, Action action)
-        {
-            if (outcome.IsSuccessful) action();
+        public static Outcome<T> Then<T>(this Outcome<T> @this, Action action) => @this.When(true, action);
 
-            return outcome;
+        public static Outcome<T> Then<T>(this Outcome<T> @this, Action<T> action) => @this.When(true, action);
+
+        public static Outcome<T> Then<T, OutType>(this Outcome<T> @this, out OutType output, OutAction<OutType> action) => @this.When(true, out output, action);
+
+        public static Outcome<T> Then<T, OutType>(this Outcome<T> @this, out OutType output, OutAction<T, OutType> action) => @this.When(true, out output, action);
+
+        public static Outcome<T> Then<T, OutType>(this Outcome<T> @this, out OutType output, OutFunc<OutType, Outcome<T>> fn) => @this.When(true, out output, fn);
+
+        public static Outcome<T> Then<T, OutType>(this Outcome<T> @this, out OutType output, ParameterziedOutFunc<T, OutType, Outcome<T>> fn) => @this.When(true, out output, fn);
+
+        public static Outcome<ResultType> Then<T, ResultType>(this Outcome<T> @this, Func<ResultType> fn)
+        {
+            if (@this.IsSuccessful) return new Outcome<ResultType>(fn());
+
+            return Outcome<ResultType>.Reject(@this.Failure);
         }
 
-        public static Outcome<T> Then<T>(this Outcome<T> outcome, Action<T> action)
+        public static Outcome<ResultType> Then<T, ResultType>(this Outcome<T> @this, Func<Outcome<ResultType>> fn)
         {
-            if (outcome.IsSuccessful) action(outcome.Result);
+            if (@this.IsSuccessful) return fn();
 
-            return outcome;
+            return Outcome<ResultType>.Reject(@this.Failure);
         }
 
-        public static Outcome<T> Then<T, OutType>(this Outcome<T> outcome, out OutType output, OutAction<OutType> action)
+        public static Outcome<ResultType> Then<T, ResultType>(this Outcome<T> @this, Func<T, Outcome<ResultType>> fn)
         {
-            if (outcome.IsSuccessful)
+            if (@this.IsSuccessful) return fn(@this.Result);
+
+            return Outcome<ResultType>.Reject(@this.Failure);
+        }
+
+        public static Outcome<ResultType> Then<T, ResultType>(this Outcome<T> @this, Func<ValueTuple<ResultType, Failure>> fn)
+        {
+            if (@this.IsSuccessful) return (Outcome<ResultType>)fn();
+
+            return Outcome<ResultType>.Reject(@this.Failure);
+        }
+
+        public static Outcome<ResultType> Then<T, ResultType>(this Outcome<T> @this, Func<T, ResultType> fn)
+        {
+            if (@this.IsSuccessful) return new Outcome<ResultType>(fn(@this.Result));
+
+            return Outcome<ResultType>.Reject(@this.Failure);
+        }
+
+        public static Outcome<ResultType> Then<T, ResultType>(this Outcome<T> @this, Func<T, ValueTuple<ResultType, Failure>> fn)
+        {
+            if (@this.IsSuccessful) return (Outcome<ResultType>)fn(@this.Result);
+
+            return Outcome<ResultType>.Reject(@this.Failure);
+        }
+
+        public static Outcome<ResultType> When<T, OutType, ResultType>(this Outcome<T> @this, out OutType output, ParameterziedOutFunc<T, OutType, ResultType> fn)
+        {
+            if (@this.IsSuccessful)
             {
-                action(out output);
+                return fn(@this.Result, out output);
             }
             else
             {
                 output = default(OutType);
-            }
-
-            return outcome;
-        }
-
-        public static Outcome<T> Then<T, OutType>(this Outcome<T> outcome, out OutType output, OutAction<T, OutType> action)
-        {
-            if (outcome.IsSuccessful)
-            {
-                action(outcome.Result, out output);
-            }
-            else
-            {
-                output = default(OutType);
-            }
-
-            return outcome;
-        }
-
-        public static Outcome<T> Then<T>(this Outcome<T> outcome, Func<Outcome<T>> fn)
-        {
-            if (outcome.IsSuccessful) return fn();
-
-            return outcome;
-        }
-
-        public static Outcome<T> Then<T>(this Outcome<T> outcome, Func<T, Outcome<T>> fn)
-        {
-            if (outcome.IsSuccessful) return fn(outcome.Result);
-
-            return outcome;
-        }
-
-        public static Outcome<ResultType> Then<T, ResultType>(this Outcome<T> outcome, Func<ResultType> fn)
-        {
-            if (outcome.IsSuccessful) return new Outcome<ResultType>(fn());
-
-            return Outcome<ResultType>.Reject(outcome.Failure);
-        }
-
-        public static Outcome<ResultType> Then<T, ResultType>(this Outcome<T> outcome, Func<Outcome<ResultType>> fn)
-        {
-            if (outcome.IsSuccessful) return fn();
-
-            return Outcome<ResultType>.Reject(outcome.Failure);
-        }
-
-        public static Outcome<ResultType> Then<T, ResultType>(this Outcome<T> outcome, Func<ValueTuple<ResultType, Failure>> fn)
-        {
-            if (outcome.IsSuccessful) return (Outcome<ResultType>)fn();
-
-            return Outcome<ResultType>.Reject(outcome.Failure);
-        }
-
-        public static Outcome<ResultType> Then<T, ResultType>(this Outcome<T> outcome, Func<T, ResultType> fn)
-        {
-            if (outcome.IsSuccessful) return new Outcome<ResultType>(fn(outcome.Result));
-
-            return Outcome<ResultType>.Reject(outcome.Failure);
-        }
-
-        public static Outcome<ResultType> Then<T, ResultType>(this Outcome<T> outcome, Func<T, ValueTuple<ResultType, Failure>> fn)
-        {
-            if (outcome.IsSuccessful) return (Outcome<ResultType>)fn(outcome.Result);
-
-            return Outcome<ResultType>.Reject(outcome.Failure);
-        }
-
-        public static Outcome<T> Then<T, OutType>(this Outcome<T> outcome, out OutType output, OutFunc<OutType, Outcome<T>> fn)
-        {
-            if (outcome.IsSuccessful)
-            {
-                return fn(out output);
-            }
-            else
-            {
-                output = default(OutType);
-                return outcome;
-            }
-        }
-
-        public static Outcome<T> Then<T, OutType>(this Outcome<T> outcome, out OutType output, ParameterziedOutFunc<T, OutType, Outcome<T>> fn)
-        {
-            if (outcome.IsSuccessful)
-            {
-                return fn(outcome.Result, out output);
-            }
-            else
-            {
-                output = default(OutType);
-                return Outcome<T>.Reject(outcome.Failure);
-            }
-        }
-
-        public static Outcome<ResultType> Then<T, OutType, ResultType>(this Outcome<T> outcome, out OutType output, ParameterziedOutFunc<T, OutType, ResultType> fn)
-        {
-            if (outcome.IsSuccessful)
-            {
-                return new Outcome<ResultType>(fn(outcome.Result, out output));
-            }
-            else
-            {
-                output = default(OutType);
-                return Outcome<ResultType>.Reject(outcome.Failure);
+                return Outcome<ResultType>.Reject(@this.Failure);
             }
         }
     }

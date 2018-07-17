@@ -6,6 +6,8 @@ namespace Codoxide.Outcomes
     [Serializable]
     internal class OutcomeException : Exception
     {
+        public int FailureCode { get; internal set; } = Failure.GeneralFailure;
+
         public OutcomeException()
         {
         }
