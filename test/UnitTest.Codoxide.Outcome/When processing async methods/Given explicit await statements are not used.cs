@@ -10,7 +10,7 @@ namespace _.When_processing_async_methods
         [Fact]
         public async void It_still_waits_for_the_statements_to_end()
         {
-            await this.DoValueOutcome()
+            await this.DoAsyncParameterizedOutcome(100d)
                 .Then(number => {
                     return this.DoAsyncParameterizedOutcome(number);
                 }).Then(result => {
@@ -21,7 +21,7 @@ namespace _.When_processing_async_methods
                 });
         }
 
-        private async Task<double> DoAsyncParameterizedOutcome(int number)
+        private async Task<double> DoAsyncParameterizedOutcome(double number)
         {
             await Task.Delay(1000);
             return number;
