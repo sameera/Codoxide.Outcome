@@ -27,7 +27,7 @@ namespace _.When_finishing_off_an_outcome
 
         [Fact]
         public async Task It_executes_the_catch_handler_of_the_exception_thrown()
-        {
+        {            
             var finalOutcome = await Begin()
                 .ThenTry(i => {
                     throw new InvalidOperationException();

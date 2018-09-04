@@ -5,7 +5,7 @@ namespace Codoxide
     using System.Threading.Tasks;
     using static FixedOutcomes;
 
-    static partial class OutcomeExtensions
+    public static class OutcomeThenTryTaskExtensions
     {
         public static async Task<Outcome<T>> ThenTry<T>(this Task<Outcome<T>> asyncPromise, Action action)
         {

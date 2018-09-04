@@ -3,19 +3,19 @@ using System;
 
 namespace Codoxide
 {
-    static partial class OutcomeExtensions
+    public static class OutcomeThenExtensions
     {
-        public static Outcome<T> Then<T>(this Outcome<T> @this, Action action) => @this.When(true, action);
+        public static Outcome<T> Then<T>(this Outcome<T> @this, Action action) => @this.Then(true, action);
 
-        public static Outcome<T> Then<T>(this Outcome<T> @this, Action<T> action) => @this.When(true, action);
+        public static Outcome<T> Then<T>(this Outcome<T> @this, Action<T> action) => @this.Then(true, action);
 
-        public static Outcome<T> Then<T, OutType>(this Outcome<T> @this, out OutType output, OutAction<OutType> action) => @this.When(true, out output, action);
+        //public static Outcome<T> Then<T, OutType>(this Outcome<T> @this, out OutType output, OutAction<OutType> action) => @this.When(true, out output, action);
 
-        public static Outcome<T> Then<T, OutType>(this Outcome<T> @this, out OutType output, OutAction<T, OutType> action) => @this.When(true, out output, action);
+        //public static Outcome<T> Then<T, OutType>(this Outcome<T> @this, out OutType output, OutAction<T, OutType> action) => @this.When(true, out output, action);
 
-        public static Outcome<T> Then<T, OutType>(this Outcome<T> @this, out OutType output, OutFunc<OutType, Outcome<T>> fn) => @this.When(true, out output, fn);
+        //public static Outcome<T> Then<T, OutType>(this Outcome<T> @this, out OutType output, OutFunc<OutType, Outcome<T>> fn) => @this.When(true, out output, fn);
 
-        public static Outcome<T> Then<T, OutType>(this Outcome<T> @this, out OutType output, ParameterziedOutFunc<T, OutType, Outcome<T>> fn) => @this.When(true, out output, fn);
+        //public static Outcome<T> Then<T, OutType>(this Outcome<T> @this, out OutType output, ParameterziedOutFunc<T, OutType, Outcome<T>> fn) => @this.When(true, out output, fn);
 
         public static Outcome<ResultType> Then<T, ResultType>(this Outcome<T> @this, Func<ResultType> fn)
         {

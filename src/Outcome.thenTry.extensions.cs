@@ -5,7 +5,7 @@ namespace Codoxide
     using System.Threading.Tasks;
     using static FixedOutcomes;
 
-    static partial class OutcomeExtensions
+    public static class OutcomeThenTryExtensions
     {
         private static Outcome<ResultType> Try<T, ResultType>(this Outcome<T> @this, Func<Outcome<ResultType>> fn)
         {

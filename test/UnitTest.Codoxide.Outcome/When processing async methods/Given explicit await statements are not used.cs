@@ -21,7 +21,7 @@ namespace _.When_processing_async_methods
                 });
         }
 
-        private async Task<double> DoAsyncParameterizedOutcome(double number)
+        private async Task<Outcome<double>> DoAsyncParameterizedOutcome(double number)
         {
             await Task.Delay(1000);
             return number;

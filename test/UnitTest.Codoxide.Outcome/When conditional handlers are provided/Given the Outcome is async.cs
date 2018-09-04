@@ -13,25 +13,25 @@ namespace _.When_conditional_handlers_are_provided
             bool[] hitCounter = new bool[4];
 
             await Begin()
-                .ThenIf(value => value == 100, async value => {
+                .Then(value => value == 100, async value => {
                     // Predicate evaluates to true. Should hit.
                     hitCounter[0] = true;
 
                     await Task.Delay(1);
                 })
-                .ThenIf(value => value == 101, async () => {
+                .Then(value => value == 101, async () => {
                     // Predicate evalutes to false. Should not hit.
                     hitCounter[1] = true;
 
                     await Task.Delay(1);
                 })
-                .ThenIf(true, async () => {
+                .Then(true, async () => {
                     // Condition is true. Should hit.
                     hitCounter[2] = true;
 
                     await Task.Delay(1);
                 })
-                .ThenIf(false, async () => {
+                .Then(false, async () => {
                     // Condition is false. Should not hit.
                     hitCounter[3] = true;
 

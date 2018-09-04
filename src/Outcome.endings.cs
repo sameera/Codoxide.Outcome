@@ -4,77 +4,51 @@ using System.Threading.Tasks;
 
 namespace Codoxide
 {
-    static partial class OutcomeExtensions
+    public static partial class OutcomeExtensions
     {
         public static OutcomeFinalizer<T, ReturnType> Return<T, ReturnType>(this Outcome<T> outcome, Func<T, ReturnType> successHandler)
         {
             return new OutcomeFinalizer<T, ReturnType>(outcome).OnSuccess(successHandler);
         }
 
-        [Obsolete("Use Return-Catch-Unwrap pattern.")]
-        public static void EndWith<T>(this Outcome<T> outcome, Action<T> onSuccess = null, Action<Failure> onFailure = null)
+        public static async Task<OutcomeFinalizer<T, ReturnType>> Return<T, ReturnType>(this Task<Outcome<T>> @this, Func<T, ReturnType> successHandler)
         {
-            if (outcome.IsSuccessful && onSuccess != null)
-            {
-                onSuccess(outcome.Result);
-            }
-            else if (!outcome.IsSuccessful && onFailure != null)
-            {
-                onFailure(outcome.Failure);
-            }
+            var outcome = await @this;
+            return new OutcomeFinalizer<T, ReturnType>(outcome).OnSuccess(successHandler);
         }
 
-        [Obsolete("Use Return-Catch-Unwrap pattern.")]
-        public static void EndWith<T>(this Outcome<T> outcome, Action onSuccess = null, Action<Failure> onFailure = null)
+        public static async Task<OutcomeFinalizer<T, ReturnType>> 
+            Catch<T, ReturnType, ExceptionType>(
+                this Task<OutcomeFinalizer<T, ReturnType>> @this,
+                Func<ExceptionType, Task<ReturnType>> handler) where ExceptionType : Exception
         {
-            outcome.EndWith(r => onSuccess(), onFailure);
+            var finalizer = await @this;
+            return await finalizer.Catch(handler);
         }
 
-        [Obsolete("Use Return-Catch-Unwrap pattern.")]
-        public static async Task EndWith<T>(this Task<Outcome<T>> asyncOutcome, Action<T> onSuccess = null, Action<Failure> onFailure = null)
+        public static async Task<OutcomeFinalizer<T, ReturnType>> 
+            Catch<T, ReturnType>(
+                this Task<OutcomeFinalizer<T, ReturnType>> @this, 
+                Func<Failure, Task<ReturnType>> handler)
         {
-            var outcome = await asyncOutcome;
-            outcome.EndWith(onSuccess, onFailure);
+            var finalizer = await @this;
+            return await finalizer.Catch(handler);
         }
 
-        [Obsolete("Use Return-Catch-Unwrap pattern.")]
-        public static async Task<ReturnType> Return<T, ReturnType>(
-                this Task<Outcome<T>> asyncOutcome,
-                Func<T, ReturnType> onSuccess = null,
-                Func<Failure, ReturnType> onFailure = null,
-                Func<Exception, ReturnType> onException = null,
-                ReturnType fallBack = default(ReturnType)
-            )
+        public static async Task<OutcomeFinalizer<T, ReturnType>> 
+            Catch<T, ReturnType>(
+                this Task<OutcomeFinalizer<T, ReturnType>> @this,
+                Func<Failure, ReturnType> handler)
         {
-            var outcome = await asyncOutcome;
-            return outcome.Return(onSuccess, onFailure, onException, fallBack);
+            var finalizer = await @this;
+            return finalizer.Catch(handler);
         }
 
-        [Obsolete("Use Return-Catch-Unwrap pattern.")]
-        public static ReturnType Return<T, ReturnType>(
-                this Outcome<T> outcome, 
-                Func<T, ReturnType> onSuccess = null,
-                Func<Failure, ReturnType> onFailure = null,
-                Func<Exception, ReturnType> onException = null,
-                ReturnType fallBack = default(ReturnType)
-            )
+        public static async Task<ReturnType> Unwrap<T, ReturnType>(this Task<OutcomeFinalizer<T, ReturnType>> @this)
         {
-            if (outcome.IsSuccessful && onSuccess != null)
-            {
-                return onSuccess(outcome.Result);
-            }
-            else if (!outcome.IsSuccessful && outcome.Failure.Exception != null && onException != null)
-            {
-                return onException(outcome.Failure.Exception);
-            }
-            else if (!outcome.IsSuccessful && onFailure != null)
-            {
-                return onFailure(outcome.Failure);
-            }
-            else
-            {
-                return fallBack;
-            }
+            var finalizer = await @this;
+            return finalizer.Unwrap();
         }
+        
     }
 }

@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace Codoxide
 {
-    static partial class OutcomeExtensions
+    public static class OutcomeAsyncExtensions
     {
         public static async Task<Outcome<T>> Then<T>(this Outcome<T> outcome, Func<Task> asyncAction)
         {

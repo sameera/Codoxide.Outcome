@@ -1,8 +1,5 @@
 ﻿using Codoxide;
 using FluentAssertions;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Xunit;
 
 namespace _.When_conditional_handlers_are_provided
@@ -15,19 +12,19 @@ namespace _.When_conditional_handlers_are_provided
             bool[] hitCounter = new bool[4];
 
             Begin()
-                .ThenIf(value => value == 100, value => {
+                .Then(value => value == 100, value => {
                     // Predicate evaluates to true. Should hit.
                     hitCounter[0] = true;
                 })
-                .ThenIf(value => value == 101, () => {
+                .Then(value => value == 101, () => {
                     // Predicate evalutes to false. Should not hit.
                     hitCounter[1] = true;
                 })
-                .ThenIf(true, () => {
+                .Then(true, () => {
                     // Condition is true. Should hit.
                     hitCounter[2] = true;
                 })
-                .ThenIf(false, () => {
+                .Then(false, () => {
                     // Condition is false. Should not hit.
                     hitCounter[3] = true;
                 });
@@ -35,6 +32,33 @@ namespace _.When_conditional_handlers_are_provided
             hitCounter.Should().ContainInOrder(new[] {
                 true, false, true, false
             });
+        }
+
+        [Fact]
+        public void It_executes_the_handler_or_the_alternate_based_on_condition()
+        {
+            int[] hitCounter = new int[4];
+
+            Begin()
+                .Then(
+                    value => value == 100, 
+                    value => {
+                        // Predicate evaluates to true. Should hit.
+                        hitCounter[0] = 0;
+                    }, 
+                    value => {
+                        hitCounter[0] = 1;
+                    })
+                .Then(value => value == 101, 
+                    value => {
+                        // Predicate evalutes to false. Should not hit.
+                        hitCounter[1] = 0;
+                    },
+                    value => {
+                        hitCounter[1] = 1;
+                    });
+
+            hitCounter.Should().ContainInOrder(new[] { 0, 1 });
         }
 
         private Outcome<int> Begin()

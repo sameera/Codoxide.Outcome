@@ -4,58 +4,58 @@ using System.Threading.Tasks;
 
 namespace Codoxide
 {
-    static partial class OutcomeExtensions
+    public static class OutcomeWhenPredicateExtensions
     {
-        public static Outcome<T> When<T>(
+        public static Outcome<T> Then<T>(
                 this Outcome<T> @this, 
                 Predicate<T> predicate, 
                 Action action
-            ) => @this.When(@this.IsSuccessful && predicate(@this.Result), action);
+            ) => @this.Then(@this.IsSuccessful && predicate(@this.Result), action);
 
-        public static Outcome<T> When<T>(
+        public static Outcome<T> Then<T>(
                 this Outcome<T> @this, 
                 Predicate<T> predicate, 
                 Action<T> action
-            ) => @this.When(@this.IsSuccessful && predicate(@this.Result), action);
+            ) => @this.Then(@this.IsSuccessful && predicate(@this.Result), action);
 
-        public static Outcome<T> When<T>(
+        public static Outcome<T> Then<T>(
                 this Outcome<T> @this,
                 Predicate<T> predicate,
                 Func<T> fn
-            ) => @this.When(@this.IsSuccessful && predicate(@this.Result), fn);
+            ) => @this.Then(@this.IsSuccessful && predicate(@this.Result), fn);
 
-        public static Outcome<T> When<T>(
+        public static Outcome<T> Then<T>(
                 this Outcome<T> @this,
                 Predicate<T> predicate,
                 Func<Failure> fn
-            ) => @this.When(@this.IsSuccessful && predicate(@this.Result), fn);
+            ) => @this.Then(@this.IsSuccessful && predicate(@this.Result), fn);
 
-        public static Outcome<T> When<T, OutType>(
-                this Outcome<T> @this, 
-                Predicate<T> predicate, 
-                out OutType output, 
-                OutAction<OutType> action
-            ) => @this.When(@this.IsSuccessful && predicate(@this.Result), out output, action);
+        //public static Outcome<T> When<T, OutType>(
+        //        this Outcome<T> @this, 
+        //        Predicate<T> predicate, 
+        //        out OutType output, 
+        //        OutAction<OutType> action
+        //    ) => @this.When(@this.IsSuccessful && predicate(@this.Result), out output, action);
 
-        public static Outcome<T> When<T, OutType>(
-                this Outcome<T> @this, 
-                Predicate<T> predicate, 
-                out OutType output, 
-                OutAction<T, OutType> action
-            ) => @this.When(@this.IsSuccessful && predicate(@this.Result), out output, action);
+        //public static Outcome<T> When<T, OutType>(
+        //        this Outcome<T> @this, 
+        //        Predicate<T> predicate, 
+        //        out OutType output, 
+        //        OutAction<T, OutType> action
+        //    ) => @this.When(@this.IsSuccessful && predicate(@this.Result), out output, action);
 
-        public static Outcome<T> When<T, OutType>(
-                this Outcome<T> @this, 
-                Predicate<T> predicate, 
-                out OutType output, OutFunc<OutType, Outcome<T>> fn) => @this.When(@this.IsSuccessful && predicate(@this.Result), out output, fn);
+        //public static Outcome<T> When<T, OutType>(
+        //        this Outcome<T> @this, 
+        //        Predicate<T> predicate, 
+        //        out OutType output, OutFunc<OutType, Outcome<T>> fn) => @this.When(@this.IsSuccessful && predicate(@this.Result), out output, fn);
 
-        public static Outcome<T> When<T, OutType>(
-                this Outcome<T> @this, 
-                Predicate<T> predicate, 
-                out OutType output, 
-                ParameterziedOutFunc<T, OutType, Outcome<T>> fn) => @this.When(@this.IsSuccessful && predicate(@this.Result), out output, fn);
+        //public static Outcome<T> When<T, OutType>(
+        //        this Outcome<T> @this, 
+        //        Predicate<T> predicate, 
+        //        out OutType output, 
+        //        ParameterziedOutFunc<T, OutType, Outcome<T>> fn) => @this.When(@this.IsSuccessful && predicate(@this.Result), out output, fn);
 
-        public static async Task<Outcome<T>> When<T>(this Task<Outcome<T>> @this, Predicate<T> condition, Action action)
+        public static async Task<Outcome<T>> Then<T>(this Task<Outcome<T>> @this, Predicate<T> condition, Action action)
         {
             var outcome = await @this;
 
@@ -64,7 +64,7 @@ namespace Codoxide
             return outcome;
         }
 
-        public static async Task<Outcome<T>> When<T>(this Task<Outcome<T>> @this, Predicate<T> condition, Action<T> action)
+        public static async Task<Outcome<T>> Then<T>(this Task<Outcome<T>> @this, Predicate<T> condition, Action<T> action)
         {
             var outcome = await @this;
 
@@ -73,7 +73,7 @@ namespace Codoxide
             return outcome;
         }
 
-        public static async Task<Outcome<T>> When<T>(this Task<Outcome<T>> @this, Predicate<T> condition, Func<Task> action)
+        public static async Task<Outcome<T>> Then<T>(this Task<Outcome<T>> @this, Predicate<T> condition, Func<Task> action)
         {
             var outcome = await @this;
 
@@ -82,7 +82,7 @@ namespace Codoxide
             return outcome;
         }
 
-        public static async Task<Outcome<T>> When<T>(this Task<Outcome<T>> @this, Predicate<T> condition, Func<T, Task> action)
+        public static async Task<Outcome<T>> Then<T>(this Task<Outcome<T>> @this, Predicate<T> condition, Func<T, Task> action)
         {
             var outcome = await @this;
 
@@ -91,7 +91,7 @@ namespace Codoxide
             return outcome;
         }
 
-        public static async Task<Outcome<T>> When<T>(this Task<Outcome<T>> @this, Predicate<T> condition, Func<T> fn)
+        public static async Task<Outcome<T>> Then<T>(this Task<Outcome<T>> @this, Predicate<T> condition, Func<T> fn)
         {
             var outcome = await @this;
 
@@ -100,7 +100,7 @@ namespace Codoxide
             return outcome;
         }
 
-        public static async Task<Outcome<T>> When<T>(this Task<Outcome<T>> @this, Predicate<T> condition, Func<T, T> fn)
+        public static async Task<Outcome<T>> Then<T>(this Task<Outcome<T>> @this, Predicate<T> condition, Func<T, T> fn)
         {
             var outcome = await @this;
 
@@ -109,7 +109,7 @@ namespace Codoxide
             return outcome;
         }
 
-        public static async Task<Outcome<T>> When<T>(this Task<Outcome<T>> @this, Predicate<T> condition, Func<Failure> fn)
+        public static async Task<Outcome<T>> Then<T>(this Task<Outcome<T>> @this, Predicate<T> condition, Func<Failure> fn)
         {
             var outcome = await @this;
 
@@ -118,7 +118,7 @@ namespace Codoxide
             return outcome;
         }
 
-        public static async Task<Outcome<T>> When<T>(this Task<Outcome<T>> @this, Predicate<T> condition, Func<T, Failure> fn)
+        public static async Task<Outcome<T>> Then<T>(this Task<Outcome<T>> @this, Predicate<T> condition, Func<T, Failure> fn)
         {
             var outcome = await @this;
 
@@ -127,7 +127,7 @@ namespace Codoxide
             return outcome;
         }
 
-        public static async Task<Outcome<T>> When<T>(this Task<Outcome<T>> @this, Predicate<T> condition, Func<Task<T>> fn)
+        public static async Task<Outcome<T>> Then<T>(this Task<Outcome<T>> @this, Predicate<T> condition, Func<Task<T>> fn)
         {
             var outcome = await @this;
 
@@ -136,7 +136,7 @@ namespace Codoxide
             return outcome;
         }
 
-        public static async Task<Outcome<T>> When<T>(this Task<Outcome<T>> @this, Predicate<T> condition, Func<T, Task<T>> fn)
+        public static async Task<Outcome<T>> Then<T>(this Task<Outcome<T>> @this, Predicate<T> condition, Func<T, Task<T>> fn)
         {
             var outcome = await @this;
 
@@ -145,7 +145,7 @@ namespace Codoxide
             return outcome;
         }
 
-        public static async Task<Outcome<T>> When<T>(this Task<Outcome<T>> @this, Predicate<T> condition, Func<Task<Failure>> fn)
+        public static async Task<Outcome<T>> Then<T>(this Task<Outcome<T>> @this, Predicate<T> condition, Func<Task<Failure>> fn)
         {
             var outcome = await @this;
 
@@ -154,7 +154,7 @@ namespace Codoxide
             return outcome;
         }
 
-        public static async Task<Outcome<T>> When<T>(this Task<Outcome<T>> @this, Predicate<T> condition, Func<T, Task<Failure>> fn)
+        public static async Task<Outcome<T>> Then<T>(this Task<Outcome<T>> @this, Predicate<T> condition, Func<T, Task<Failure>> fn)
         {
             var outcome = await @this;
 

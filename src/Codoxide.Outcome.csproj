@@ -5,7 +5,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Sameera Perera</Authors>
     <Product>Outcome&lt;T&gt;</Product>
-    <Version>3.7.5</Version>
+    <Version>3.8.7</Version>
     <PackageId>Codoxide.Outcome</PackageId>
     <AssemblyName>Codoxide.Outcome</AssemblyName>
     <RepositoryUrl>https://github.com/sameera/Codoxide.Outcome</RepositoryUrl>
@@ -18,7 +18,9 @@
     <PackageReleaseNotes>[3.5] Introduces the Return-Catch-Unwarp pattern to unwrap an outcome to a simple result.
 [3.6] Introduces Outcome.Of&lt;T&gt; for wrapping existing methods in to Outcomes.
 [3.7] Introduces Outcome.When for conditional execution
-[3.7.1] Specify failure code when failing</PackageReleaseNotes>
+[3.7.1] Specify failure code when failing
+[3.7.6] When and Otherwise
+[3.8] When is also called Then now</PackageReleaseNotes>
     <RootNamespace>Codoxide</RootNamespace>
   </PropertyGroup>
 
