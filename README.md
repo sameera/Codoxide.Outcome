@@ -144,7 +144,100 @@ namespace UnitTest.Codoxide.Outcome
     }
 }
 ```
+Working with async/await:
+
+```c#
+namespace _.When_processing_async_methods
+{
+    public class Given_explicit_await_statements_are_not_used
+    {
+        [Fact]
+        public async void It_still_waits_for_the_statements_to_end()
+        {
+            await this.DoAsyncParameterizedOutcome(100d)
+                .Then(number => {
+                    return this.DoAsyncParameterizedOutcome(number);
+                }).Then(result => {
+                    result.Should().BeOfType(typeof(double));
+                    return this.DoAsyncOutcome();
+                }).Then(result => {
+                    result.Should().Be(_theResult);
+                });
+        }
+  
+        private async Task<Outcome<double>> DoAsyncParameterizedOutcome(double number)
+        {
+            await Task.Delay(1000);
+            return number;
+        }
+        
+        private async Task<Outcome<string>> DoAsyncOutcome()
+        {
+            await Task.Delay(1);
+            return new Outcome<string>(_theResult);
+        }
+
+        private readonly string _theResult = "THE_RESULT";
+        private readonly int _theValueResult = 100;
+    }
+}
+```
+
+Even fancier with conditional execution:
+
+```c#
+public class Given_the_Outcome_is_async
+{
+    [Fact]
+    public async Task It_only_executes_the_handlers_for_which_the_condition_is_true()
+    {
+        bool[] hitCounter = new bool[4];
+ 
+        await Begin()
+            .Then(value => value == 100, async value => {
+                // Predicate evaluates to true. Should hit.
+                hitCounter[0] = true;
+ 
+                await Task.Delay(1);
+            })
+            .Then(value => value == 101, async () => {
+                // Predicate evalutes to false. Should not hit.
+                hitCounter[1] = true;
+ 
+                await Task.Delay(1);
+            })
+            .Then(true, async () => {
+                // Condition is true. Should hit.
+                hitCounter[2] = true;
+ 
+                await Task.Delay(1);
+            })
+            .Then(false, async () => {
+                // Condition is false. Should not hit.
+                hitCounter[3] = true;
+ 
+                await Task.Delay(1);
+            });
+ 
+        hitCounter.Should().ContainInOrder(new[] {
+            true, false, true, false
+        });
+    }
+ 
+    private async Task<Outcome<int>> Begin()
+    {
+        await Task.Delay(1);
+        return new Outcome<int>(_initialOutcome);
+    }
+ 
+    private const int _initialOutcome = 100;
+}
+```
+
+
+
 ### Release Notes
+
 #### 2.1
 The `GenericOutcomes<T>` static class that allows you to generate ValueOutcomes with little noise. E.g.
 ```c#
