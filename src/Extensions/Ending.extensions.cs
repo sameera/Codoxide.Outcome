@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Codoxide
 {
-    public static partial class OutcomeExtensions
+    public static class OutcomeEndingsExtensions
     {
         public static OutcomeFinalizer<T, ReturnType> Return<T, ReturnType>(this Outcome<T> outcome, Func<T, ReturnType> successHandler)
         {

@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Codoxide
 {
-    public static class OutcomeWhenExtensions
+    public static class OutcomeConditionalThenExtensions
     {
         public static Outcome<T> Then<T>(this Outcome<T> outcome, bool condition, Action action)
         {

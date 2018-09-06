@@ -1,11 +1,11 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Sameera Perera</Authors>
     <Product>Outcome&lt;T&gt;</Product>
-    <Version>3.8.7</Version>
+    <Version>3.9.7</Version>
     <PackageId>Codoxide.Outcome</PackageId>
     <AssemblyName>Codoxide.Outcome</AssemblyName>
     <RepositoryUrl>https://github.com/sameera/Codoxide.Outcome</RepositoryUrl>
@@ -18,10 +18,16 @@
     <PackageReleaseNotes>[3.5] Introduces the Return-Catch-Unwarp pattern to unwrap an outcome to a simple result.
 [3.6] Introduces Outcome.Of&lt;T&gt; for wrapping existing methods in to Outcomes.
 [3.7] Introduces Outcome.When for conditional execution
+[3.9] Allow Catch to return different outcomes.
 [3.7.1] Specify failure code when failing
 [3.7.6] When and Otherwise
-[3.8] When is also called Then now</PackageReleaseNotes>
+[3.8] When is also called Then now
+[3.9] Continue; Allow Catch to return a differently typed outcome</PackageReleaseNotes>
     <RootNamespace>Codoxide</RootNamespace>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="2.9.0" />
+  </ItemGroup>
 
 </Project>
