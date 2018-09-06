@@ -2,6 +2,8 @@
 A chainable class for representing the outcome of an operation that uses "Either Monad-like" behavior for Exception-free design.
 
 NuGet: https://www.nuget.org/packages/Codoxide.Outcome
+(Note thtat the nuget is somewhat behind the source as the source has breaking changes. Working on updating the package in the near future)
+
 
 Sample code:
 
