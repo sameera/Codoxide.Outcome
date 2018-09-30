@@ -59,17 +59,17 @@ namespace Codoxide
             return Outcome<ResultType>.Reject(@this.Failure);
         }
 
-        public static Outcome<ResultType> When<T, OutType, ResultType>(this Outcome<T> @this, out OutType output, ParameterziedOutFunc<T, OutType, ResultType> fn)
-        {
-            if (@this.IsSuccessful)
-            {
-                return fn(@this.Result, out output);
-            }
-            else
-            {
-                output = default(OutType);
-                return Outcome<ResultType>.Reject(@this.Failure);
-            }
-        }
+        //public static Outcome<ResultType> When<T, OutType, ResultType>(this Outcome<T> @this, out OutType output, ParameterziedOutFunc<T, OutType, ResultType> fn)
+        //{
+        //    if (@this.IsSuccessful)
+        //    {
+        //        return fn(@this.Result, out output);
+        //    }
+        //    else
+        //    {
+        //        output = default(OutType);
+        //        return Outcome<ResultType>.Reject(@this.Failure);
+        //    }
+        //}
     }
 }

@@ -65,17 +65,6 @@ namespace Codoxide
             return this;
         }
 
-        //public async Task<OutcomeFinalizer<T, ReturnType>> Catch(Func<Exception, Task<ReturnType>> handler)
-        //{
-        //    if (!_isHandled && !_outcome.IsSuccessful && _outcome.Failure.Exception != null)
-        //    {
-        //        _isHandled = true;
-        //        _returnValue = await handler(_outcome.Failure.Exception);
-        //    }
-
-        //    return this;
-        //}
-
         public async Task<OutcomeFinalizer<T, ReturnType>> Catch(Func<Failure, Task<ReturnType>> handler)
         {
             if (!_isHandled && !_outcome.IsSuccessful)

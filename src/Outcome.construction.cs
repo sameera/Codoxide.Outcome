@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Codoxide
@@ -16,6 +17,11 @@ namespace Codoxide
             {
                 return Outcome<T>.Reject(e.Message, e);
             }
+        }
+
+        internal static Outcome<IEnumerable<object>> Of<T>(IEnumerable<object> enumerable)
+        {
+            throw new NotImplementedException();
         }
 
         public static async Task<Outcome<T>> Of<T>(Task<T> task)
