@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Codoxide
@@ -17,11 +16,6 @@ namespace Codoxide
             {
                 return Outcome<T>.Reject(e.Message, e);
             }
-        }
-
-        internal static Outcome<IEnumerable<object>> Of<T>(IEnumerable<object> enumerable)
-        {
-            throw new NotImplementedException();
         }
 
         public static async Task<Outcome<T>> Of<T>(Task<T> task)
@@ -49,6 +43,20 @@ namespace Codoxide
                 return Outcome<T>.Reject(e.Message, e);
             }
         }
+
+        /// <summary>
+        /// Returns an outcome, that returns true. Useful in situations where you have conditionals that
+        /// need to be chained and don't have any other Outcome-returning initiation function.
+        /// </summary>
+        /// <example>
+        ///     <code>
+        ///     Outcome.Any()
+        ///             .Then(isSomething, () => doSomething())
+        ///             .Then(isOther, () => doOtherthing())
+        ///     </code>
+        /// </example>
+        /// <returns></returns>
+        public static Outcome<bool> Any() => true.AsOutcome();
 
         public static Outcome<T> AsOutcome<T>(this T @this) => new Outcome<T>(@this);
 

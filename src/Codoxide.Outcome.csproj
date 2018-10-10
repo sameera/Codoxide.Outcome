@@ -5,7 +5,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Sameera Perera</Authors>
     <Product>Outcome&lt;T&gt;</Product>
-    <Version>4.1.1</Version>
+    <Version>4.3.0</Version>
     <PackageId>Codoxide.Outcome</PackageId>
     <AssemblyName>Codoxide.Outcome</AssemblyName>
     <RepositoryUrl>https://github.com/sameera/Codoxide.Outcome</RepositoryUrl>
@@ -23,7 +23,13 @@
 - Allow Catch to return a differently typed outcome
 
 4.1.0
-ThenForEach(..) Extension method for processing Outcomes that are composed of multiple results</PackageReleaseNotes>
+ThenForEach(..) Extension method for processing Outcomes that are composed of multiple results
+
+4.2.0
+Fixed a bug in the catch handlers (A catch handler will force an outcome to fail)
+
+4.3.0
+Outcome.Any()</PackageReleaseNotes>
     <RootNamespace>Codoxide</RootNamespace>
   </PropertyGroup>
 
