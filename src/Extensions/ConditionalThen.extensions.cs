@@ -20,33 +20,19 @@ namespace Codoxide
             return outcome;
         }
 
-        //public static Outcome<T> When<T, OutType>(this Outcome<T> outcome, bool condition, out OutType output, OutAction<OutType> action)
-        //{
-        //    if (outcome.IsSuccessful && condition)
-        //    {
-        //        action(out output);
-        //    }
-        //    else
-        //    {
-        //        output = default(OutType);
-        //    }
+        public static async Task<Outcome<T>> Then<T>(this Outcome<T> outcome, bool condition, Func<Task> action)
+        {
+            if (outcome.IsSuccessful && condition) await action();
 
-        //    return outcome;
-        //}
+            return outcome;
+        }
 
-        //public static Outcome<T> When<T, OutType>(this Outcome<T> outcome, bool condition, out OutType output, OutAction<T, OutType> action)
-        //{
-        //    if (outcome.IsSuccessful && condition)
-        //    {
-        //        action(outcome.Result, out output);
-        //    }
-        //    else
-        //    {
-        //        output = default(OutType);
-        //    }
+        public static async Task<Outcome<T>> Then<T>(this Outcome<T> outcome, bool condition, Func<T, Task> action)
+        {
+            if (outcome.IsSuccessful && condition) await action(outcome.Result);
 
-        //    return outcome;
-        //}
+            return outcome;
+        }
 
         public static Outcome<T> Then<T>(this Outcome<T> outcome, bool condition, Func<T> fn)
         {

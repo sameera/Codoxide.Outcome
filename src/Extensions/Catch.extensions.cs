@@ -40,17 +40,17 @@ namespace Codoxide
          * Sync Operations that return Outcomes
          * ***********************************************************************************
          */
-        public static Outcome<T> Catch<T>(this Outcome<T> @this, Func<Outcome<T>> fn)
-        {
-            if (!@this.IsSuccessful) return fn();
-            return @this;
-        }
+        //public static Outcome<T> Catch<T>(this Outcome<T> @this, Func<Outcome<T>> fn)
+        //{
+        //    if (!@this.IsSuccessful) return fn();
+        //    return @this;
+        //}
 
-        public static Outcome<T> Catch<T>(this Outcome<T> @this, Func<Failure, Outcome<T>> fn)
-        {
-            if (!@this.IsSuccessful) return fn(@this.Failure);
-            return @this;
-        }
+        //public static Outcome<T> Catch<T>(this Outcome<T> @this, Func<Failure, Outcome<T>> fn)
+        //{
+        //    if (!@this.IsSuccessful) return fn(@this.Failure);
+        //    return @this;
+        //}
 
         /*
          * ***********************************************************************************
@@ -124,25 +124,25 @@ namespace Codoxide
 
         /*
          * ***********************************************************************************
-         * Async Operations that return Outcomes
+         * Async Operations that return Async Outcomes
          * ***********************************************************************************
          */
 
-        public static async Task<Outcome<T>> Catch<T>(this Task<Outcome<T>> @this, Func<Outcome<T>> fn)
-        {
-            var outcome = await @this;
-            if (!outcome.IsSuccessful) return fn();
+        //public static async Task<Outcome<T>> Catch<T>(this Task<Outcome<T>> @this, Func<Outcome<T>> fn)
+        //{
+        //    var outcome = await @this;
+        //    if (!outcome.IsSuccessful) return fn();
 
-            return outcome;
-        }
+        //    return outcome;
+        //}
 
-        public static async Task<Outcome<T>> Catch<T>(this Task<Outcome<T>> @this, Func<Failure, Outcome<T>> fn)
-        {
-            var outcome = await @this;
-            if (!outcome.IsSuccessful) return fn(outcome.Failure);
+        //public static async Task<Outcome<T>> Catch<T>(this Task<Outcome<T>> @this, Func<Failure, Outcome<T>> fn)
+        //{
+        //    var outcome = await @this;
+        //    if (!outcome.IsSuccessful) return fn(outcome.Failure);
 
-            return outcome;
-        }
+        //    return outcome;
+        //}
 
         public static async Task<Outcome<T>> Catch<T>(this Task<Outcome<T>> @this, Func<Task<Outcome<T>>> fn)
         {

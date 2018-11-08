@@ -30,30 +30,16 @@ namespace Codoxide
                 Func<Failure> fn
             ) => @this.Then(@this.IsSuccessful && predicate(@this.Result), fn);
 
-        //public static Outcome<T> When<T, OutType>(
-        //        this Outcome<T> @this, 
-        //        Predicate<T> predicate, 
-        //        out OutType output, 
-        //        OutAction<OutType> action
-        //    ) => @this.When(@this.IsSuccessful && predicate(@this.Result), out output, action);
+        public static Task<Outcome<T>> Then<T>(
+                this Outcome<T> @this,
+                Predicate<T> predicate,
+                Func<Task> action) => @this.Then(@this.IsSuccessful && predicate(@this.Result), action);
 
-        //public static Outcome<T> When<T, OutType>(
-        //        this Outcome<T> @this, 
-        //        Predicate<T> predicate, 
-        //        out OutType output, 
-        //        OutAction<T, OutType> action
-        //    ) => @this.When(@this.IsSuccessful && predicate(@this.Result), out output, action);
-
-        //public static Outcome<T> When<T, OutType>(
-        //        this Outcome<T> @this, 
-        //        Predicate<T> predicate, 
-        //        out OutType output, OutFunc<OutType, Outcome<T>> fn) => @this.When(@this.IsSuccessful && predicate(@this.Result), out output, fn);
-
-        //public static Outcome<T> When<T, OutType>(
-        //        this Outcome<T> @this, 
-        //        Predicate<T> predicate, 
-        //        out OutType output, 
-        //        ParameterziedOutFunc<T, OutType, Outcome<T>> fn) => @this.When(@this.IsSuccessful && predicate(@this.Result), out output, fn);
+        public static Task<Outcome<T>> Then<T>(
+                this Outcome<T> @this,
+                Predicate<T> predicate,
+                Func<T, Task> action
+            ) => @this.Then(@this.IsSuccessful && predicate(@this.Result), action);
 
         public static async Task<Outcome<T>> Then<T>(this Task<Outcome<T>> @this, Predicate<T> condition, Action action)
         {

@@ -5,7 +5,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Sameera Perera</Authors>
     <Product>Outcome&lt;T&gt;</Product>
-    <Version>4.3.0</Version>
+    <Version>4.3.2</Version>
     <PackageId>Codoxide.Outcome</PackageId>
     <AssemblyName>Codoxide.Outcome</AssemblyName>
     <RepositoryUrl>https://github.com/sameera/Codoxide.Outcome</RepositoryUrl>
@@ -29,7 +29,11 @@ ThenForEach(..) Extension method for processing Outcomes that are composed of mu
 Fixed a bug in the catch handlers (A catch handler will force an outcome to fail)
 
 4.3.0
-Outcome.Any()</PackageReleaseNotes>
+Outcome.Any()
+
+4.3.x
+- Conditionals support async actions
+- Removed Ambiguous Catch handlers</PackageReleaseNotes>
     <RootNamespace>Codoxide</RootNamespace>
   </PropertyGroup>
 
