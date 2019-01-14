@@ -21,10 +21,18 @@ namespace Codoxide
             return outcome;
         }
 
-        public static async Task<Outcome<ResultType>> Then<T, ResultType>(this Task<Outcome<T>> asyncPromise, Func<ResultType> func)
+        public static async Task<Outcome<ResultType>> Then<T, ResultType>(this Task<Outcome<T>> asyncPromise, Func<ResultType> func) where ResultType: class
         {
             var outcome = await asyncPromise;
-            if (outcome.IsSuccessful) return new Outcome<ResultType>(func());
+            if (outcome.IsSuccessful) return new Outcome<ResultType>(func);
+
+            return Outcome<ResultType>.Reject(outcome.Failure);
+        }
+
+        public static async Task<Outcome<ResultType>> Then<T, ResultType>(this Task<Outcome<T>> asyncPromise, Func<Outcome<ResultType>> func)
+        {
+            var outcome = await asyncPromise;
+            if (outcome.IsSuccessful) return func();
 
             return Outcome<ResultType>.Reject(outcome.Failure);
         }
@@ -33,6 +41,14 @@ namespace Codoxide
         {
             var outcome = await asyncPromise;
             if (outcome.IsSuccessful) return new Outcome<ResultType>(func(outcome.Result));
+
+            return Outcome<ResultType>.Reject(outcome.Failure);
+        }
+
+        public static async Task<Outcome<ResultType>> Then<T, ResultType>(this Task<Outcome<T>> asyncPromise, Func<T, Outcome<ResultType>> func)
+        {
+            var outcome = await asyncPromise;
+            if (outcome.IsSuccessful) return func(outcome.Result);
 
             return Outcome<ResultType>.Reject(outcome.Failure);
         }
