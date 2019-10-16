@@ -14,8 +14,8 @@ namespace _.When_handling_fucntions_that_can_throw_exceptions
             try
             {
                 this.Begin()
-                    .Then(() => MethodThatThrowsException())
-                    .Then(() => Assert.False(true, "Exception should have been thrown and not silently ignored"))
+                    .ThenTry(() => MethodThatThrowsException())
+                    .ThenTry(() => Assert.False(true, "Exception should have been thrown and not silently ignored"))
                     .Catch(error => Assert.False(true, "Exception should have been propagated and not handled in Catch."));
             }
             catch (Exception ex)
@@ -31,8 +31,8 @@ namespace _.When_handling_fucntions_that_can_throw_exceptions
             try
             {
                 await this.Begin()
-                    .Then(() => AsyncMethodThatThrowsException())
-                    .Then(() => Assert.False(true, "Exception should have been thrown and not silently ignored"))
+                    .ThenTry(() => AsyncMethodThatThrowsException())
+                    .ThenTry(() => Assert.False(true, "Exception should have been thrown and not silently ignored"))
                     .Catch(error => Assert.False(true, "Exception should have been propagated and not handled in Catch."));
             }
             catch (Exception ex)

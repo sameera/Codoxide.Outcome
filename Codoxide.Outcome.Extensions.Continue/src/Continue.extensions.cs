@@ -7,16 +7,16 @@ namespace Codoxide
     public static class OutcomeContinueExtensions
     {
         public static Outcome<ReturnType> Continue<T, ReturnType>
-            (this ValueTuple<T, Failure> @this, Func<ReturnType> fn) => fn();
+                   (this Outcome<T> @this, Func<ReturnType> fn) => fn();
 
         public static Outcome<ReturnType> Continue<T, ReturnType>
-            (this ValueTuple<T, Failure> @this, Func<T, Failure, ReturnType> fn) => fn(@this.Item1, @this.Item2);
+            (this Outcome<T> @this, Func<T, Failure, ReturnType> fn) => fn(@this.ResultOrDefault(), @this.FailureOrNull());
 
         public static Outcome<ReturnType> Continue<T, ReturnType>
-            (this ValueTuple<T, Failure> @this, Func<Outcome<ReturnType>> fn) => fn();
+            (this Outcome<T> @this, Func<Outcome<ReturnType>> fn) => fn();
 
         public static Outcome<ReturnType> Continue<T, ReturnType>
-            (this ValueTuple<T, Failure> @this, Func<T, Failure, Outcome<ReturnType>> fn) => fn(@this.Item1, @this.Item2);
+            (this Outcome<T> @this, Func<T, Failure, Outcome<ReturnType>> fn) => fn(@this.ResultOrDefault(), @this.FailureOrNull());
 
         /*
          * ***********************************************************************************
@@ -24,25 +24,25 @@ namespace Codoxide
          * ***********************************************************************************
          */
 
-        public static async Task<Outcome<ReturnType>> Continue<T, ReturnType>(this Task<ValueTuple<T, Failure>> @this, Func<ReturnType> fn)
+        public static async Task<Outcome<ReturnType>> Continue<T, ReturnType>(this Task<Outcome<T>> @this, Func<ReturnType> fn)
         {
             await @this.ConfigureAwait(false);
             return fn();
         }
 
-        public static async Task<Outcome<ReturnType>> Continue<T, ReturnType>(this Task<ValueTuple<T, Failure>> @this, Func<T, Failure, ReturnType> fn)
+        public static async Task<Outcome<ReturnType>> Continue<T, ReturnType>(this Task<Outcome<T>> @this, Func<T, Failure, ReturnType> fn)
         {
             var (result, failure) = await @this.ConfigureAwait(false);
             return fn(result, failure);
         }
 
-        public static async Task<Outcome<ReturnType>> Continue<T, ReturnType>(this Task<ValueTuple<T, Failure>> @this, Func<Task<ReturnType>> fn)
+        public static async Task<Outcome<ReturnType>> Continue<T, ReturnType>(this Task<Outcome<T>> @this, Func<Task<ReturnType>> fn)
         {
             var _ = await @this;
             return await fn().ConfigureAwait(false);
         }
 
-        public static async Task<Outcome<ReturnType>> Continue<T, ReturnType>(this Task<ValueTuple<T, Failure>> @this, Func<T, Failure, Task<ReturnType>> fn)
+        public static async Task<Outcome<ReturnType>> Continue<T, ReturnType>(this Task<Outcome<T>> @this, Func<T, Failure, Task<ReturnType>> fn)
         {
             var (result, failure) = await @this;
             return await fn(result, failure);
@@ -54,25 +54,25 @@ namespace Codoxide
          * ***********************************************************************************
          */
 
-        public static async Task<Outcome<ReturnType>> Continue<T, ReturnType>(this Task<ValueTuple<T, Failure>> @this, Func<Outcome<ReturnType>> fn)
+        public static async Task<Outcome<ReturnType>> Continue<T, ReturnType>(this Task<Outcome<T>> @this, Func<Outcome<ReturnType>> fn)
         {
             await @this.ConfigureAwait(false);
             return fn();
         }
 
-        public static async Task<Outcome<ReturnType>> Continue<T, ReturnType>(this Task<ValueTuple<T, Failure>> @this, Func<T, Failure, Outcome<ReturnType>> fn)
+        public static async Task<Outcome<ReturnType>> Continue<T, ReturnType>(this Task<Outcome<T>> @this, Func<T, Failure, Outcome<ReturnType>> fn)
         {
             var (result, failure) = await @this.ConfigureAwait(false);
             return fn(result, failure);
         }
 
-        public static async Task<Outcome<ReturnType>> Continue<T, ReturnType>(this Task<ValueTuple<T, Failure>> @this, Func<Task<Outcome<ReturnType>>> fn)
+        public static async Task<Outcome<ReturnType>> Continue<T, ReturnType>(this Task<Outcome<T>> @this, Func<Task<Outcome<ReturnType>>> fn)
         {
             var _ = await @this;
             return await fn().ConfigureAwait(false);
         }
 
-        public static async Task<Outcome<ReturnType>> Continue<T, ReturnType>(this Task<ValueTuple<T, Failure>> @this, Func<T, Failure, Task<Outcome<ReturnType>>> fn)
+        public static async Task<Outcome<ReturnType>> Continue<T, ReturnType>(this Task<Outcome<T>> @this, Func<T, Failure, Task<Outcome<ReturnType>>> fn)
         {
             var (result, failure) = await @this;
             return await fn(result, failure);
@@ -83,12 +83,12 @@ namespace Codoxide
          * Sync to Async Conversion Operations
          * ***********************************************************************************
          */
-        
-        public static async Task<Outcome<ReturnType>> Continue<T, ReturnType>
-            (this ValueTuple<T, Failure> @this, Func<Task<ReturnType>> fn) => await fn().ConfigureAwait(false);
 
         public static async Task<Outcome<ReturnType>> Continue<T, ReturnType>
-            (this ValueTuple<T, Failure> @this, Func<T, Failure, Task<ReturnType>> fn) => await fn(@this.Item1, @this.Item2);
+            (this Outcome<T> @this, Func<Task<ReturnType>> fn) => await fn().ConfigureAwait(false);
+
+        public static async Task<Outcome<ReturnType>> Continue<T, ReturnType>
+            (this Outcome<T> @this, Func<T, Failure, Task<ReturnType>> fn) => await fn(@this.ResultOrDefault(), @this.FailureOrNull());
 
         /*
          * ***********************************************************************************
@@ -97,9 +97,9 @@ namespace Codoxide
          */
 
         public static async Task<Outcome<ReturnType>> Continue<T, ReturnType>
-            (this ValueTuple<T, Failure> @this, Func<Task<Outcome<ReturnType>>> fn) => await fn().ConfigureAwait(false);
+            (this Outcome<T> @this, Func<Task<Outcome<ReturnType>>> fn) => await fn().ConfigureAwait(false);
 
         public static async Task<Outcome<ReturnType>> Continue<T, ReturnType>
-            (this ValueTuple<T, Failure> @this, Func<T, Failure, Task<Outcome<ReturnType>>> fn) => await fn(@this.Item1, @this.Item2);
+            (this Outcome<T> @this, Func<T, Failure, Task<Outcome<ReturnType>>> fn) => await fn(@this.ResultOrDefault(), @this.FailureOrNull());
     }
 }

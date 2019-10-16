@@ -1,11 +1,12 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Codoxide.Outcome\src\Codoxide.Outcome.csproj" />
+    <ProjectReference Include="..\..\Codoxide.Outcome.Core\src\Codoxide.Outcome.Core.csproj" />
+    <ProjectReference Include="..\..\Codoxide.Outcome.Extensions.Then\src\Codoxide.Outcome.Extensions.Then.csproj" />
   </ItemGroup>
 
 </Project>

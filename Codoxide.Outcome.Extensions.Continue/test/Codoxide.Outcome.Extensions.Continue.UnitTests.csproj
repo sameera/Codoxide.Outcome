@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Codoxide.Outcome\src\Codoxide.Outcome.csproj" />
+    <ProjectReference Include="..\..\Codoxide.Outcome.Extensions.Then\src\Codoxide.Outcome.Extensions.Then.csproj" />
     <ProjectReference Include="..\src\Codoxide.Outcome.Extensions.Continue.csproj" />
   </ItemGroup>
 

@@ -58,9 +58,13 @@ namespace Codoxide
 
         public static async Task<Outcome<T>> Then<T>(this Task<Outcome<T>> @this, bool condition, Func<T, Task<Failure>> fn)
         {
-            if (!condition) return await @this;
+            var outcome = await @this;
 
-            return @this.Then(result => fn(result));
+            if (!condition) return outcome;
+
+            return await outcome
+                .Then(result => fn(result))
+                .Then(failure => (Outcome<T>)failure);
         }
     }
 }
