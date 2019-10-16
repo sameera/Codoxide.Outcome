@@ -17,9 +17,9 @@ namespace _.When_handling_fucntions_that_can_throw_exceptions
                     Assert.False(true, "Exception should have triggered the Catch handler");
                 })
                 .Catch(error => {
-                    error.Exception.Should().NotBeNull();
-                    error.Exception.Should().BeOfType<InvalidOperationException>();
-                    error.Exception.Message.Should().Be("Expected exception");
+                    error.AsException().Should().NotBeNull();
+                    error.AsException().Should().BeOfType<InvalidOperationException>();
+                    error.AsException().Message.Should().Be("Expected exception");
                 });
         }
 
@@ -32,9 +32,9 @@ namespace _.When_handling_fucntions_that_can_throw_exceptions
                     Assert.False(true, "Exception should have triggered the Catch handler");
                 })
                 .Catch(error => {
-                    error.Exception.Should().NotBeNull();
-                    error.Exception.Should().BeOfType<InvalidOperationException>();
-                    error.Exception.Message.Should().Be("Expected exception");
+                    error.AsException().Should().NotBeNull();
+                    error.AsException().Should().BeOfType<InvalidOperationException>();
+                    error.AsException().Message.Should().Be("Expected exception");
                 });
         }
 

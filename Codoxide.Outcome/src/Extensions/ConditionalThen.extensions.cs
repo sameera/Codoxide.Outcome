@@ -15,7 +15,7 @@ namespace Codoxide
 
         public static Outcome<T> Then<T>(this Outcome<T> outcome, bool condition, Action<T> action)
         {
-            if (outcome.IsSuccessful && condition) action(outcome.Result);
+            if (outcome.IsSuccessful && condition) action(outcome.ResultOrThrow());
 
             return outcome;
         }
@@ -29,7 +29,7 @@ namespace Codoxide
 
         public static async Task<Outcome<T>> Then<T>(this Outcome<T> outcome, bool condition, Func<T, Task> action)
         {
-            if (outcome.IsSuccessful && condition) await action(outcome.Result);
+            if (outcome.IsSuccessful && condition) await action(outcome.ResultOrThrow());
 
             return outcome;
         }
@@ -38,28 +38,28 @@ namespace Codoxide
         {
             if (outcome.IsSuccessful && condition) return fn();
 
-            return Outcome<T>.Reject(outcome.Failure);
+            return Outcome<T>.Reject(outcome.FailureOrThrow());
         }
 
         public static Outcome<T> Then<T>(this Outcome<T> outcome, bool condition, Func<Outcome<T>> fn)
         {
             if (outcome.IsSuccessful && condition) return fn();
 
-            return Outcome<T>.Reject(outcome.Failure);
+            return Outcome<T>.Reject(outcome.FailureOrThrow());
         }
 
         public static Outcome<T> Then<T>(this Outcome<T> outcome, bool condition, Func<Failure> fn)
         {
             if (outcome.IsSuccessful && condition) return fn();
 
-            return Outcome<T>.Reject(outcome.Failure);
+            return Outcome<T>.Reject(outcome.FailureOrThrow());
         }
 
         public static Outcome<T> Then<T>(this Outcome<T> outcome, bool condition, Func<ValueTuple<T, Failure>> fn)
         {
             if (outcome.IsSuccessful && condition) return (Outcome<T>)fn();
 
-            return Outcome<T>.Reject(outcome.Failure);
+            return Outcome<T>.Reject(outcome.FailureOrThrow());
         }
 
         //public static Outcome<T> When<T, OutType>(this Outcome<T> outcome, bool condition, out OutType output, OutFunc<OutType, Outcome<T>> fn)
@@ -79,12 +79,12 @@ namespace Codoxide
         //{
         //    if (outcome.IsSuccessful && condition)
         //    {
-        //        return fn(outcome.Result, out output);
+        //        return fn(outcome.ResultOrThrow(), out output);
         //    }
         //    else
         //    {
         //        output = default(OutType);
-        //        return Outcome<T>.Reject(outcome.Failure);
+        //        return Outcome<T>.Reject(outcome.FailureOrThrow());
         //    }
         //}
 
@@ -101,7 +101,7 @@ namespace Codoxide
         {
             var outcome = await asyncPromise;
 
-            if (outcome.IsSuccessful && condition) action(outcome.Result);
+            if (outcome.IsSuccessful && condition) action(outcome.ResultOrThrow());
 
             return outcome;
         }
@@ -119,7 +119,7 @@ namespace Codoxide
         {
             var outcome = await asyncPromise;
 
-            if (outcome.IsSuccessful && condition) await action(outcome.Result);
+            if (outcome.IsSuccessful && condition) await action(outcome.ResultOrThrow());
 
             return outcome;
         }
@@ -137,7 +137,7 @@ namespace Codoxide
         {
             var outcome = await asyncPromise;
 
-            if (outcome.IsSuccessful && condition) return await fn(outcome.Result);
+            if (outcome.IsSuccessful && condition) return await fn(outcome.ResultOrThrow());
 
             return outcome;
         }
@@ -155,7 +155,7 @@ namespace Codoxide
         {
             var outcome = await asyncPromise;
 
-            if (outcome.IsSuccessful && condition) return await fn(outcome.Result);
+            if (outcome.IsSuccessful && condition) return await fn(outcome.ResultOrThrow());
 
             return outcome;
         }

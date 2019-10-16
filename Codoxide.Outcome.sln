@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Codoxide.Outcome", "Codoxid
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Codoxide.Outcome", "Codoxide.Outcome", "{754C100E-881E-4174-A4DB-62D1E27DFEDA}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Codoxide.Outcome.Extensions.Continue", "Codoxide.Outcome.Extensions.Continue", "{3D0B8035-9A35-4F4D-BBD8-E8692269FFCC}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Continue", "Continue", "{3D0B8035-9A35-4F4D-BBD8-E8692269FFCC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F5A8E855-A496-4ADA-8DAC-8641F12F3DFE}"
 	ProjectSection(SolutionItems) = preProject
@@ -29,27 +29,27 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Codoxide.Outcome.Extensions
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Codoxide.Outcome.Extensions.Finalizers.UnitTests", "Codoxide.Outcome.Extensions.Finalizers\test\Codoxide.Outcome.Extensions.Finalizers.UnitTests.csproj", "{31507171-7C8B-45F7-A403-8A5D1B8DDFCA}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Codoxide.Outcome.Extensions.Conditionals", "Codoxide.Outcome.Extensions.Conditionals", "{C8AF43B6-F369-445C-AF13-54EF8CC8A216}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Conditionals", "Conditionals", "{C8AF43B6-F369-445C-AF13-54EF8CC8A216}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Codoxide.Outcome.Extensions.Conditionals", "Codoxide.Outcome.Extensions.Conditionals\src\Codoxide.Outcome.Extensions.Conditionals.csproj", "{506C2647-590E-430C-8DAF-5DCA38A15100}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Codoxide.Outcome.Extensions.Conditionals.UnitTests", "Codoxide.Outcome.Extensions.Conditionals\test\Codoxide.Outcome.Extensions.Conditionals.UnitTests.csproj", "{59305BDC-E447-488E-8799-186B0E6BB25F}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Codoxide.Outcome.Core", "Codoxide.Outcome.Core", "{5271139D-A0FF-4C24-A828-2E26C5EFD6C0}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{5271139D-A0FF-4C24-A828-2E26C5EFD6C0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Codoxide.Outcome.Core", "Codoxide.Outcome.Core\src\Codoxide.Outcome.Core.csproj", "{F02675ED-590E-481E-B386-9798486C9EF9}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Codoxide.Outcome.Core.UnitTests", "Codoxide.Outcome.Core\test\Codoxide.Outcome.Core.UnitTests.csproj", "{EBE0D345-9C88-48E0-9169-AE0F94C0D483}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Codoxide.Outcome.Extensions.Then", "Codoxide.Outcome.Extensions.Then", "{777DFC13-DE04-4E3C-B7CB-79D2A69D68DB}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Then", "Then", "{777DFC13-DE04-4E3C-B7CB-79D2A69D68DB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Codoxide.Outcome.Extensions.Then", "Codoxide.Outcome.Extensions.Then\src\Codoxide.Outcome.Extensions.Then.csproj", "{2FD6DA4E-2997-4512-8514-0636621B909F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Codoxide.Outcome.Extensions.Then.UnitTests", "Codoxide.Outcome.Extensions.Then\test\Codoxide.Outcome.Extensions.Then.UnitTests.csproj", "{90A1C619-FA23-4958-9E27-91298B1473BD}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Codoxide.Outcome.Extensions.Finalizers", "Codoxide.Outcome.Extensions.Finalizers", "{B867929B-2994-4774-9686-6965EECC8CFC}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Finalizers", "Finalizers", "{B867929B-2994-4774-9686-6965EECC8CFC}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Codoxide.Outcome.Extensions.ThenTry", "Codoxide.Outcome.Extensions.ThenTry", "{67DE19BD-6CE1-4B68-B84C-8E026A63853F}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ThenTry", "ThenTry", "{67DE19BD-6CE1-4B68-B84C-8E026A63853F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

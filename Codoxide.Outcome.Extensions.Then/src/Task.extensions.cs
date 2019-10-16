@@ -37,7 +37,7 @@ namespace Codoxide
             });
         }
 
-        public static async Task<Outcome<ResultType>> Then<T, ResultType>(this Task<Outcome<T>> asyncPromise, Func<ResultType> func) where ResultType: class
+        public static async Task<Outcome<ResultType>> Then<T, ResultType>(this Task<Outcome<T>> asyncPromise, Func<ResultType> func) //where ResultType: class
         {
             return await Try(async () => {
                 var outcome = await asyncPromise;

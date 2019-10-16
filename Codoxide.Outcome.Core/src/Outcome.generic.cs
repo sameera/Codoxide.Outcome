@@ -42,7 +42,11 @@ namespace Codoxide
 
         public Failure FailureOrNull() => this.Failure;
 
+        public Failure FailureOrThrow() => this.Failure ?? throw new InvalidOperationException("There is no failure as this is a successful Outcome.");
+
         public T ResultOrDefault() => this.Result;
+
+        public T ResultOrThrow() => this.IsSuccessful ? this.Result : throw new InvalidOperationException("There is no result as this is a failed outcome.");
 
         [Obsolete("Use 'FailureOrNull()' and then AsException()")]
         public Exception ExceptionOrDefault() => Failure?.AsException();

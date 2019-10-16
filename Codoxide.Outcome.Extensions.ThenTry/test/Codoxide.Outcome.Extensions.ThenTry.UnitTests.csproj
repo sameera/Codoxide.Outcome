@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentAssertions" Version="5.9.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0" />
     <PackageReference Include="xunit" Version="2.4.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
@@ -14,7 +15,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Codoxide.Outcome.Core\src\Codoxide.Outcome.Core.csproj" />
-    <ProjectReference Include="..\..\src\Codoxide.Outcome.csproj" />
+    <ProjectReference Include="..\..\Codoxide.Outcome.Extensions.Then\src\Codoxide.Outcome.Extensions.Then.csproj" />
+    <ProjectReference Include="..\src\Codoxide.Outcome.Extensions.ThenTry.csproj" />
   </ItemGroup>
 
 </Project>

@@ -10,42 +10,42 @@ namespace Codoxide
                 this Outcome<T> @this, 
                 Predicate<T> predicate, 
                 Action action
-            ) => @this.Then(@this.IsSuccessful && predicate(@this.Result), action);
+            ) => @this.Then(@this.IsSuccessful && predicate(@this.ResultOrThrow()), action);
 
         public static Outcome<T> Then<T>(
                 this Outcome<T> @this, 
                 Predicate<T> predicate, 
                 Action<T> action
-            ) => @this.Then(@this.IsSuccessful && predicate(@this.Result), action);
+            ) => @this.Then(@this.IsSuccessful && predicate(@this.ResultOrThrow()), action);
 
         public static Outcome<T> Then<T>(
                 this Outcome<T> @this,
                 Predicate<T> predicate,
                 Func<T> fn
-            ) => @this.Then(@this.IsSuccessful && predicate(@this.Result), fn);
+            ) => @this.Then(@this.IsSuccessful && predicate(@this.ResultOrThrow()), fn);
 
         public static Outcome<T> Then<T>(
                 this Outcome<T> @this,
                 Predicate<T> predicate,
                 Func<Failure> fn
-            ) => @this.Then(@this.IsSuccessful && predicate(@this.Result), fn);
+            ) => @this.Then(@this.IsSuccessful && predicate(@this.ResultOrThrow()), fn);
 
         public static Task<Outcome<T>> Then<T>(
                 this Outcome<T> @this,
                 Predicate<T> predicate,
-                Func<Task> action) => @this.Then(@this.IsSuccessful && predicate(@this.Result), action);
+                Func<Task> action) => @this.Then(@this.IsSuccessful && predicate(@this.ResultOrThrow()), action);
 
         public static Task<Outcome<T>> Then<T>(
                 this Outcome<T> @this,
                 Predicate<T> predicate,
                 Func<T, Task> action
-            ) => @this.Then(@this.IsSuccessful && predicate(@this.Result), action);
+            ) => @this.Then(@this.IsSuccessful && predicate(@this.ResultOrThrow()), action);
 
         public static async Task<Outcome<T>> Then<T>(this Task<Outcome<T>> @this, Predicate<T> condition, Action action)
         {
             var outcome = await @this;
 
-            if (outcome.IsSuccessful && condition(outcome.Result)) action();
+            if (outcome.IsSuccessful && condition(outcome.ResultOrThrow())) action();
 
             return outcome;
         }
@@ -54,7 +54,7 @@ namespace Codoxide
         {
             var outcome = await @this;
 
-            if (outcome.IsSuccessful && condition(outcome.Result)) action(outcome.Result);
+            if (outcome.IsSuccessful && condition(outcome.ResultOrThrow())) action(outcome.ResultOrThrow());
 
             return outcome;
         }
@@ -63,7 +63,7 @@ namespace Codoxide
         {
             var outcome = await @this;
 
-            if (outcome.IsSuccessful && condition(outcome.Result)) await action();
+            if (outcome.IsSuccessful && condition(outcome.ResultOrThrow())) await action();
 
             return outcome;
         }
@@ -72,7 +72,7 @@ namespace Codoxide
         {
             var outcome = await @this;
 
-            if (outcome.IsSuccessful && condition(outcome.Result)) await action(outcome.Result);
+            if (outcome.IsSuccessful && condition(outcome.ResultOrThrow())) await action(outcome.ResultOrThrow());
 
             return outcome;
         }
@@ -81,7 +81,7 @@ namespace Codoxide
         {
             var outcome = await @this;
 
-            if (outcome.IsSuccessful && condition(outcome.Result)) return fn();
+            if (outcome.IsSuccessful && condition(outcome.ResultOrThrow())) return fn();
 
             return outcome;
         }
@@ -90,7 +90,7 @@ namespace Codoxide
         {
             var outcome = await @this;
 
-            if (outcome.IsSuccessful && condition(outcome.Result)) return fn(outcome.Result);
+            if (outcome.IsSuccessful && condition(outcome.ResultOrThrow())) return fn(outcome.ResultOrThrow());
 
             return outcome;
         }
@@ -99,7 +99,7 @@ namespace Codoxide
         {
             var outcome = await @this;
 
-            if (outcome.IsSuccessful && condition(outcome.Result)) return fn();
+            if (outcome.IsSuccessful && condition(outcome.ResultOrThrow())) return fn();
 
             return outcome;
         }
@@ -108,7 +108,7 @@ namespace Codoxide
         {
             var outcome = await @this;
 
-            if (outcome.IsSuccessful && condition(outcome.Result)) return fn(outcome.Result);
+            if (outcome.IsSuccessful && condition(outcome.ResultOrThrow())) return fn(outcome.ResultOrThrow());
 
             return outcome;
         }
@@ -117,7 +117,7 @@ namespace Codoxide
         {
             var outcome = await @this;
 
-            if (outcome.IsSuccessful && condition(outcome.Result)) return await fn();
+            if (outcome.IsSuccessful && condition(outcome.ResultOrThrow())) return await fn();
 
             return outcome;
         }
@@ -126,7 +126,7 @@ namespace Codoxide
         {
             var outcome = await @this;
 
-            if (outcome.IsSuccessful && condition(outcome.Result)) return await fn(outcome.Result);
+            if (outcome.IsSuccessful && condition(outcome.ResultOrThrow())) return await fn(outcome.ResultOrThrow());
 
             return outcome;
         }
@@ -135,7 +135,7 @@ namespace Codoxide
         {
             var outcome = await @this;
 
-            if (outcome.IsSuccessful && condition(outcome.Result)) return await fn();
+            if (outcome.IsSuccessful && condition(outcome.ResultOrThrow())) return await fn();
 
             return outcome;
         }
@@ -144,7 +144,7 @@ namespace Codoxide
         {
             var outcome = await @this;
 
-            if (outcome.IsSuccessful && condition(outcome.Result)) return await fn(outcome.Result);
+            if (outcome.IsSuccessful && condition(outcome.ResultOrThrow())) return await fn(outcome.ResultOrThrow());
 
             return outcome;
         }
