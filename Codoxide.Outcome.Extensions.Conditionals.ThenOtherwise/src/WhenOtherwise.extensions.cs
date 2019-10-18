@@ -31,11 +31,11 @@ namespace Codoxide
         {
             if (@this.IsSuccessful && condition)
             {
-                when(@this.Result);
+                when(@this.ResultOrDefault());
             }
             else if (@this.IsSuccessful)
             {
-                otherwise(@this.Result);
+                otherwise(@this.ResultOrDefault());
             }
             return @this;
         }
@@ -54,7 +54,7 @@ namespace Codoxide
             {
                 return otherwise();
             }
-            return Outcome<R>.Reject(@this.Failure);
+            return Outcome<R>.Reject(@this.FailureOrThrow());
         }
 
         public static Outcome<R> Then<T, R>(
@@ -65,13 +65,13 @@ namespace Codoxide
         {
             if (@this.IsSuccessful && condition)
             {
-                return when(@this.Result);
+                return when(@this.ResultOrDefault());
             }
             else if (@this.IsSuccessful)
             {
-                return otherwise(@this.Result);
+                return otherwise(@this.ResultOrDefault());
             }
-            return Outcome<R>.Reject(@this.Failure);
+            return Outcome<R>.Reject(@this.FailureOrThrow());
         }
 
         public static Outcome<R> Then<T, R>(
@@ -82,19 +82,19 @@ namespace Codoxide
         {
             if (@this.IsSuccessful && condition)
             {
-                return when(@this.Result);
+                return when(@this.ResultOrDefault());
             }
             else if (@this.IsSuccessful)
             {
-                return otherwise(@this.Result);
+                return otherwise(@this.ResultOrDefault());
             }
-            return Outcome<R>.Reject(@this.Failure);
+            return Outcome<R>.Reject(@this.FailureOrThrow());
         }
 
         public static async Task<Outcome<R>> Then<T, R>(
-            this Task<Outcome<T>> @this, 
-            bool condition, 
-            Func<Task<Outcome<R>>> when, 
+            this Task<Outcome<T>> @this,
+            bool condition,
+            Func<Task<Outcome<R>>> when,
             Func<Task<Outcome<R>>> otherwise)
         {
             var outcome = await @this;
@@ -107,13 +107,13 @@ namespace Codoxide
             {
                 return await otherwise();
             }
-            return Outcome<R>.Reject(outcome.Failure);
+            return Outcome<R>.Reject(outcome.FailureOrThrow());
         }
 
         public static async Task<Outcome<R>> Then<T, R>(
-            this Task<Outcome<T>> @this, 
-            bool condition, 
-            Func<Outcome<R>> when, 
+            this Task<Outcome<T>> @this,
+            bool condition,
+            Func<Outcome<R>> when,
             Func<Outcome<R>> otherwise)
         {
             var outcome = await @this;
@@ -126,64 +126,64 @@ namespace Codoxide
             {
                 return otherwise();
             }
-            return Outcome<R>.Reject(outcome.Failure);
+            return Outcome<R>.Reject(outcome.FailureOrThrow());
         }
 
         public static async Task<Outcome<R>> Then<T, R>(
-            this Task<Outcome<T>> @this, 
-            bool condition, 
-            Func<T, Outcome<R>> when, 
+            this Task<Outcome<T>> @this,
+            bool condition,
+            Func<T, Outcome<R>> when,
             Func<T, Outcome<R>> otherwise)
         {
             var outcome = await @this;
 
             if (outcome.IsSuccessful && condition)
             {
-                return when(outcome.Result);
+                return when(outcome.ResultOrDefault());
             }
             else if (outcome.IsSuccessful)
             {
-                return otherwise(outcome.Result);
+                return otherwise(outcome.ResultOrDefault());
             }
-            return Outcome<R>.Reject(outcome.Failure);
+            return Outcome<R>.Reject(outcome.FailureOrThrow());
         }
 
         public static async Task<Outcome<R>> Then<T, R>(
             this Task<Outcome<T>> @this,
             bool condition,
             Func<T, R> when,
-            Func<T, R> otherwise) where R: class
+            Func<T, R> otherwise) where R : class
         {
             var outcome = await @this;
 
             if (outcome.IsSuccessful && condition)
             {
-                return when(outcome.Result);
+                return when(outcome.ResultOrDefault());
             }
             else if (outcome.IsSuccessful)
             {
-                return otherwise(outcome.Result);
+                return otherwise(outcome.ResultOrDefault());
             }
-            return Outcome<R>.Reject(outcome.Failure);
+            return Outcome<R>.Reject(outcome.FailureOrThrow());
         }
 
         public static async Task<Outcome<R>> Then<T, R>(
-            this Task<Outcome<T>> @this, 
-            bool condition, 
-            Func<T, Task<Outcome<R>>> when, 
+            this Task<Outcome<T>> @this,
+            bool condition,
+            Func<T, Task<Outcome<R>>> when,
             Func<T, Task<Outcome<R>>> otherwise)
         {
             var outcome = await @this;
 
             if (outcome.IsSuccessful && condition)
             {
-                return await when(outcome.Result);
+                return await when(outcome.ResultOrDefault());
             }
             else if (outcome.IsSuccessful)
             {
-                return await otherwise(outcome.Result);
+                return await otherwise(outcome.ResultOrDefault());
             }
-            return Outcome<R>.Reject(outcome.Failure);
+            return Outcome<R>.Reject(outcome.FailureOrThrow());
         }
 
         public static async Task<Outcome<R>> Then<T, R>(
@@ -196,13 +196,13 @@ namespace Codoxide
 
             if (outcome.IsSuccessful && condition)
             {
-                return await when(outcome.Result);
+                return await when(outcome.ResultOrDefault());
             }
             else if (outcome.IsSuccessful)
             {
-                return otherwise(outcome.Result);
+                return otherwise(outcome.ResultOrDefault());
             }
-            return Outcome<R>.Reject(outcome.Failure);
+            return Outcome<R>.Reject(outcome.FailureOrThrow());
         }
     }
 }

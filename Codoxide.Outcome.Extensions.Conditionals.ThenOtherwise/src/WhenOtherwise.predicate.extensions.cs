@@ -12,7 +12,7 @@ namespace Codoxide
             Action when,
             Action otherwise)
         {
-            if (@this.IsSuccessful && condition(@this.Result))
+            if (@this.IsSuccessful && condition(@this.ResultOrDefault()))
             {
                 when();
             }
@@ -29,13 +29,13 @@ namespace Codoxide
             Action<T> when,
             Action<T> otherwise)
         {
-            if (@this.IsSuccessful && condition(@this.Result))
+            if (@this.IsSuccessful && condition(@this.ResultOrDefault()))
             {
-                when(@this.Result);
+                when(@this.ResultOrDefault());
             }
             else if (@this.IsSuccessful)
             {
-                otherwise(@this.Result);
+                otherwise(@this.ResultOrDefault());
             }
             return @this;
         }
@@ -46,7 +46,7 @@ namespace Codoxide
             Func<Outcome<R>> when,
             Func<Outcome<R>> otherwise)
         {
-            if (@this.IsSuccessful && condition(@this.Result))
+            if (@this.IsSuccessful && condition(@this.ResultOrDefault()))
             {
                 return when();
             }
@@ -54,7 +54,7 @@ namespace Codoxide
             {
                 return otherwise();
             }
-            return Outcome<R>.Reject(@this.Failure);
+            return Outcome<R>.Reject(@this.FailureOrThrow());
         }
 
         public static Outcome<R> Then<T, R>(
@@ -63,15 +63,15 @@ namespace Codoxide
             Func<T, Outcome<R>> when,
             Func<T, Outcome<R>> otherwise)
         {
-            if (@this.IsSuccessful && condition(@this.Result))
+            if (@this.IsSuccessful && condition(@this.ResultOrDefault()))
             {
-                return when(@this.Result);
+                return when(@this.ResultOrDefault());
             }
             else if (@this.IsSuccessful)
             {
-                return otherwise(@this.Result);
+                return otherwise(@this.ResultOrDefault());
             }
-            return Outcome<R>.Reject(@this.Failure);
+            return Outcome<R>.Reject(@this.FailureOrThrow());
         }
 
         public static Outcome<R> Then<T, R>(
@@ -80,15 +80,15 @@ namespace Codoxide
             Func<T, Outcome<R>> when,
             Func<T, Failure> otherwise)
         {
-            if (@this.IsSuccessful && condition(@this.Result))
+            if (@this.IsSuccessful && condition(@this.ResultOrDefault()))
             {
-                return when(@this.Result);
+                return when(@this.ResultOrDefault());
             }
             else if (@this.IsSuccessful)
             {
-                return otherwise(@this.Result);
+                return otherwise(@this.ResultOrDefault());
             }
-            return Outcome<R>.Reject(@this.Failure);
+            return Outcome<R>.Reject(@this.FailureOrThrow());
         }
 
         public static async Task<Outcome<R>> Then<T, R>(
@@ -99,7 +99,7 @@ namespace Codoxide
         {
             var outcome = await @this;
 
-            if (outcome.IsSuccessful && condition(outcome.Result))
+            if (outcome.IsSuccessful && condition(outcome.ResultOrDefault()))
             {
                 return await when();
             }
@@ -107,7 +107,7 @@ namespace Codoxide
             {
                 return await otherwise();
             }
-            return Outcome<R>.Reject(outcome.Failure);
+            return Outcome<R>.Reject(outcome.FailureOrThrow());
         }
 
         public static async Task<Outcome<R>> Then<T, R>(
@@ -118,7 +118,7 @@ namespace Codoxide
         {
             var outcome = await @this;
 
-            if (outcome.IsSuccessful && condition(outcome.Result))
+            if (outcome.IsSuccessful && condition(outcome.ResultOrDefault()))
             {
                 return when();
             }
@@ -126,7 +126,7 @@ namespace Codoxide
             {
                 return otherwise();
             }
-            return Outcome<R>.Reject(outcome.Failure);
+            return Outcome<R>.Reject(outcome.FailureOrThrow());
         }
 
         public static async Task<Outcome<R>> Then<T, R>(
@@ -137,15 +137,15 @@ namespace Codoxide
         {
             var outcome = await @this;
 
-            if (outcome.IsSuccessful && condition(outcome.Result))
+            if (outcome.IsSuccessful && condition(outcome.ResultOrDefault()))
             {
-                return when(outcome.Result);
+                return when(outcome.ResultOrDefault());
             }
             else if (outcome.IsSuccessful)
             {
-                return otherwise(outcome.Result);
+                return otherwise(outcome.ResultOrDefault());
             }
-            return Outcome<R>.Reject(outcome.Failure);
+            return Outcome<R>.Reject(outcome.FailureOrThrow());
         }
 
         public static async Task<Outcome<R>> Then<T, R>(
@@ -156,15 +156,15 @@ namespace Codoxide
         {
             var outcome = await @this;
 
-            if (outcome.IsSuccessful && condition(outcome.Result))
+            if (outcome.IsSuccessful && condition(outcome.ResultOrDefault()))
             {
-                return when(outcome.Result);
+                return when(outcome.ResultOrDefault());
             }
             else if (outcome.IsSuccessful)
             {
-                return otherwise(outcome.Result);
+                return otherwise(outcome.ResultOrDefault());
             }
-            return Outcome<R>.Reject(outcome.Failure);
+            return Outcome<R>.Reject(outcome.FailureOrThrow());
         }
 
         public static async Task<Outcome<R>> Then<T, R>(
@@ -175,15 +175,15 @@ namespace Codoxide
         {
             var outcome = await @this;
 
-            if (outcome.IsSuccessful && condition(outcome.Result))
+            if (outcome.IsSuccessful && condition(outcome.ResultOrDefault()))
             {
-                return await when(outcome.Result);
+                return await when(outcome.ResultOrDefault());
             }
             else if (outcome.IsSuccessful)
             {
-                return await otherwise(outcome.Result);
+                return await otherwise(outcome.ResultOrDefault());
             }
-            return Outcome<R>.Reject(outcome.Failure);
+            return Outcome<R>.Reject(outcome.FailureOrThrow());
         }
 
         public static async Task<Outcome<R>> Then<T, R>(
@@ -194,15 +194,15 @@ namespace Codoxide
         {
             var outcome = await @this;
 
-            if (outcome.IsSuccessful && condition(outcome.Result))
+            if (outcome.IsSuccessful && condition(outcome.ResultOrDefault()))
             {
-                return await when(outcome.Result);
+                return await when(outcome.ResultOrDefault());
             }
             else if (outcome.IsSuccessful)
             {
-                return otherwise(outcome.Result);
+                return otherwise(outcome.ResultOrDefault());
             }
-            return Outcome<R>.Reject(outcome.Failure);
+            return Outcome<R>.Reject(outcome.FailureOrThrow());
         }
     }
 }

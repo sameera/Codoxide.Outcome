@@ -15,7 +15,7 @@ namespace Codoxide
 
         public static Outcome<T> Catch<T>(this Outcome<T> @this, Action<Failure> action)
         {
-            if (!@this.IsSuccessful) action(@this.FailureOrNull());
+            if (!@this.IsSuccessful) action(@this.FailureOrThrow());
 
             return @this;
         }
@@ -29,7 +29,7 @@ namespace Codoxide
 
         public static Outcome<T> Catch<T>(this Outcome<T> @this, Func<Failure, T> fn)
         {
-            if (!@this.IsSuccessful) return fn(@this.FailureOrNull());
+            if (!@this.IsSuccessful) return fn(@this.FailureOrThrow());
 
             return @this;
         }
@@ -155,7 +155,7 @@ namespace Codoxide
         public static async Task<Outcome<T>> Catch<T>(this Task<Outcome<T>> @this, Func<Failure, Task<Outcome<T>>> fn)
         {
             var outcome = await @this;
-            if (!outcome.IsSuccessful) return await fn(outcome.FailureOrNull());
+            if (!outcome.IsSuccessful) return await fn(outcome.FailureOrThrow());
 
             return outcome;
         }
@@ -175,7 +175,7 @@ namespace Codoxide
 
         public static Outcome<T> Catch<T>(this Outcome<T> @this, Func<Failure, Failure> action)
         {
-            if (!@this.IsSuccessful) action(@this.FailureOrNull());
+            if (!@this.IsSuccessful) action(@this.FailureOrThrow());
 
             return @this;
         }
@@ -191,7 +191,7 @@ namespace Codoxide
         public static async Task<Outcome<T>> Catch<T>(this Task<Outcome<T>> @this, Func<Failure, Failure> action)
         {
             var outcome = await @this;
-            if (!outcome.IsSuccessful) action(outcome.FailureOrNull());
+            if (!outcome.IsSuccessful) action(outcome.FailureOrThrow());
 
             return outcome;
         }
