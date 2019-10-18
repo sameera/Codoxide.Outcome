@@ -51,6 +51,18 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Finalizers", "Finalizers", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ThenTry", "ThenTry", "{67DE19BD-6CE1-4B68-B84C-8E026A63853F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ThenOtherwise", "ThenOtherwise", "{72674E69-6E90-4115-86CC-07AF814DCDA7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Codoxide.Outcome.Extensions.Conditionals.ThenOtherwise", "Codoxide.Outcome.Extensions.Conditionals.ThenOtherwise\src\Codoxide.Outcome.Extensions.Conditionals.ThenOtherwise.csproj", "{39F3B2E5-0AA3-40BB-9E89-5B25CFEEDD0B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Codoxide.Outcome.Extensions.Conditionals.ThenOtherwise.UnitTests", "Codoxide.Outcome.Extensions.Conditionals.ThenOtherwise\test\Codoxide.Outcome.Extensions.Conditionals.ThenOtherwise.UnitTests.csproj", "{B7722016-E8EE-40F5-AEB2-A42212682A0C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Collections", "Collections", "{A19675DA-77BE-4C83-9B8C-A1738EB48212}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Codoxide.Outcome.Extensions.Collections", "Codoxide.Outcome.Extensions.Collections\src\Codoxide.Outcome.Extensions.Collections.csproj", "{B05A7B5A-C532-4BDD-BCC0-094B455C403F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Codoxide.Outcome.Extensions.Collections.UnitTests", "Codoxide.Outcome.Extensions.Collections\test\Codoxide.Outcome.Extensions.Collections.UnitTests.csproj", "{E081E98A-C7FF-45CF-82B3-7B5B569D73BB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -113,6 +125,22 @@ Global
 		{90A1C619-FA23-4958-9E27-91298B1473BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{90A1C619-FA23-4958-9E27-91298B1473BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{90A1C619-FA23-4958-9E27-91298B1473BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39F3B2E5-0AA3-40BB-9E89-5B25CFEEDD0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39F3B2E5-0AA3-40BB-9E89-5B25CFEEDD0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39F3B2E5-0AA3-40BB-9E89-5B25CFEEDD0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39F3B2E5-0AA3-40BB-9E89-5B25CFEEDD0B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7722016-E8EE-40F5-AEB2-A42212682A0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7722016-E8EE-40F5-AEB2-A42212682A0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7722016-E8EE-40F5-AEB2-A42212682A0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7722016-E8EE-40F5-AEB2-A42212682A0C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B05A7B5A-C532-4BDD-BCC0-094B455C403F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B05A7B5A-C532-4BDD-BCC0-094B455C403F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B05A7B5A-C532-4BDD-BCC0-094B455C403F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B05A7B5A-C532-4BDD-BCC0-094B455C403F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E081E98A-C7FF-45CF-82B3-7B5B569D73BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E081E98A-C7FF-45CF-82B3-7B5B569D73BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E081E98A-C7FF-45CF-82B3-7B5B569D73BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E081E98A-C7FF-45CF-82B3-7B5B569D73BB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -132,6 +160,10 @@ Global
 		{EBE0D345-9C88-48E0-9169-AE0F94C0D483} = {5271139D-A0FF-4C24-A828-2E26C5EFD6C0}
 		{2FD6DA4E-2997-4512-8514-0636621B909F} = {777DFC13-DE04-4E3C-B7CB-79D2A69D68DB}
 		{90A1C619-FA23-4958-9E27-91298B1473BD} = {777DFC13-DE04-4E3C-B7CB-79D2A69D68DB}
+		{39F3B2E5-0AA3-40BB-9E89-5B25CFEEDD0B} = {72674E69-6E90-4115-86CC-07AF814DCDA7}
+		{B7722016-E8EE-40F5-AEB2-A42212682A0C} = {72674E69-6E90-4115-86CC-07AF814DCDA7}
+		{B05A7B5A-C532-4BDD-BCC0-094B455C403F} = {A19675DA-77BE-4C83-9B8C-A1738EB48212}
+		{E081E98A-C7FF-45CF-82B3-7B5B569D73BB} = {A19675DA-77BE-4C83-9B8C-A1738EB48212}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7E64B6BB-A671-4E71-B557-EC5C9E91CBAA}
