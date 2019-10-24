@@ -63,6 +63,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Codoxide.Outcome.Extensions
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Codoxide.Outcome.Extensions.Collections.UnitTests", "Codoxide.Outcome.Extensions.Collections\tests\Codoxide.Outcome.Extensions.Collections.UnitTests.csproj", "{E081E98A-C7FF-45CF-82B3-7B5B569D73BB}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{000E88C1-C597-43D9-8A33-725CFA4A3048}"
+	ProjectSection(SolutionItems) = preProject
+		Codoxide.Outcome.Core\README.md = Codoxide.Outcome.Core\README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -164,6 +169,7 @@ Global
 		{B7722016-E8EE-40F5-AEB2-A42212682A0C} = {72674E69-6E90-4115-86CC-07AF814DCDA7}
 		{B05A7B5A-C532-4BDD-BCC0-094B455C403F} = {A19675DA-77BE-4C83-9B8C-A1738EB48212}
 		{E081E98A-C7FF-45CF-82B3-7B5B569D73BB} = {A19675DA-77BE-4C83-9B8C-A1738EB48212}
+		{000E88C1-C597-43D9-8A33-725CFA4A3048} = {F5A8E855-A496-4ADA-8DAC-8641F12F3DFE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7E64B6BB-A671-4E71-B557-EC5C9E91CBAA}
