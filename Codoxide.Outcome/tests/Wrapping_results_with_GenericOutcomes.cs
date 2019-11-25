@@ -5,7 +5,6 @@ using Xunit;
 namespace UnitTest.Codoxide.Outcome
 {
     using FluentAssertions;
-    using static GenericOutcomes<int>;
 
     public class Wrapping_results_with_GenericOutcomes
     {
@@ -15,11 +14,11 @@ namespace UnitTest.Codoxide.Outcome
         {
             if (!fail)
             {
-                return Success(_fixed_initial_value);
+                return (_fixed_initial_value, null);
             }
             else
             {
-                return Error("The random failure");
+                return (0, FixedOutcomes.Fail("The random failure"));
             }
         }
 

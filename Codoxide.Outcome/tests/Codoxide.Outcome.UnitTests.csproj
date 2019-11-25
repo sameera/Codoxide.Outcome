@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Codoxide.Outcome.csproj" />
+    <ProjectReference Include="..\src\Codoxide.Outcome.csproj" />
   </ItemGroup>
 
 </Project>
