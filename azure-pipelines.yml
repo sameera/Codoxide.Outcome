@@ -1,8 +1,9 @@
 steps:
-- task: VersionReaderTask@1
+- task: tmarkovski.projectversionasvariable.versionintovariable.projectversionasvariable@1
+  displayName: 'Get Project Version as variables from **/*.csproj'
   inputs:
-    searchPattern: '$(Build.DefinitionName)/**/*.csproj'
-    
+    path: '$(Build.DefinitionName)/**/*.csproj'
+
 - task: DotNetCoreCLI@2
   displayName: Restore
   inputs:
@@ -31,4 +32,12 @@ steps:
     packagesToPush: '$(Build.SourcesDirectory)/$(Build.DefinitionName)/**/*.nupkg;!$(Build.SourcesDirectory)/$(Build.DefinitionName)/**/*.symbols.nupkg'
     nuGetFeedType: external
     publishFeedCredentials: 'NuGet.org PAT'
+
+- powershell: |
+    Write-Host "Tagging Build: $env:Version"
+
+    git tag $env:Version
+    git push origin $env:Version
+  env:
+    Version: $(Version.MajorMinorBuild)
 
