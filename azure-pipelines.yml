@@ -1,9 +1,4 @@
 steps:
-- task: tmarkovski.projectversionasvariable.versionintovariable.projectversionasvariable@1
-  displayName: 'Get Project Version as variables from **/*.csproj'
-  inputs:
-    path: '$(Build.DefinitionName)/src/$(Build.DefinitionName).csproj'
-
 - task: DotNetCoreCLI@2
   displayName: Restore
   inputs:
@@ -34,10 +29,11 @@ steps:
     publishFeedCredentials: 'NuGet.org PAT'
 
 - powershell: |
-    Write-Host "Tagging Build: $env:Version"
+    $xml = [Xml] (Get-Content .\MyApp.csproj)
+    $version = [Version] $xml.Project.PropertyGroup.Version
+    
+    Write-Host "Tagging Build: $version"
 
-    git tag $env:Version
-    git push origin $env:Version
-  env:
-    Version: $(Version.MajorMinorBuild)
+    git tag $version
+    git push origin $version
 
