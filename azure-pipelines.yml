@@ -1,0 +1,33 @@
+pool:
+  name: Azure Pipelines
+
+steps:
+- task: DotNetCoreCLI@2
+  displayName: Restore
+  inputs:
+    command: restore
+    projects: '$(Build.DefinitionName)/**/*.csproj'
+
+- task: DotNetCoreCLI@2
+  displayName: Build
+  inputs:
+    projects: '$(Build.DefinitionName)/**/*.csproj'
+    arguments: '--configuration $(BuildConfiguration)'
+
+- task: DotNetCoreCLI@2
+  displayName: Test
+  inputs:
+    command: test
+    projects: '$(Build.DefinitionName)/*[Tt]ests/*.csproj'
+    arguments: '--configuration $(BuildConfiguration)'
+
+- task: NuGetCommand@2
+  displayName: 'NuGet push'
+  inputs:
+    command: push
+    feedsToUse: config
+    externalFeedCredentials: 'NuGet.org PAT'
+    packagesToPush: '$(Build.SourcesDirectory)/$(Build.DefinitionName)/**/*.nupkg;!$(Build.SourcesDirectory)/$(Build.DefinitionName)/**/*.symbols.nupkg'
+    nuGetFeedType: external
+    publishFeedCredentials: 'NuGet.org PAT'
+

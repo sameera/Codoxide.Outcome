@@ -1,0 +1,1 @@
+﻿[![Build status](https://dev.azure.com/codoxide/Codoxide.Outcome/_apis/build/status/Codoxide.Outcome.Core-CI)](https://dev.azure.com/codoxide/Codoxide.Outcome/_build/latest?definitionId=2)
