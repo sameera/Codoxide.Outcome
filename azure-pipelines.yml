@@ -1,6 +1,3 @@
-pool:
-  name: Azure Pipelines
-
 steps:
 - task: DotNetCoreCLI@2
   displayName: Restore
@@ -12,14 +9,14 @@ steps:
   displayName: Build
   inputs:
     projects: '$(Build.DefinitionName)/**/*.csproj'
-    arguments: '--configuration $(BuildConfiguration)'
+    arguments: '--configuration Release'
 
 - task: DotNetCoreCLI@2
   displayName: Test
   inputs:
     command: test
     projects: '$(Build.DefinitionName)/*[Tt]ests/*.csproj'
-    arguments: '--configuration $(BuildConfiguration)'
+    arguments: '--configuration Release'
 
 - task: NuGetCommand@2
   displayName: 'NuGet push'
@@ -30,4 +27,5 @@ steps:
     packagesToPush: '$(Build.SourcesDirectory)/$(Build.DefinitionName)/**/*.nupkg;!$(Build.SourcesDirectory)/$(Build.DefinitionName)/**/*.symbols.nupkg'
     nuGetFeedType: external
     publishFeedCredentials: 'NuGet.org PAT'
+
 
