@@ -9,14 +9,14 @@ steps:
   displayName: Build
   inputs:
     projects: '$(Build.DefinitionName)/**/*.csproj'
-    arguments: '--configuration $(BuildConfiguration)'
+    arguments: '--configuration Release'
 
 - task: DotNetCoreCLI@2
   displayName: Test
   inputs:
     command: test
     projects: '$(Build.DefinitionName)/*[Tt]ests/*.csproj'
-    arguments: '--configuration $(BuildConfiguration)'
+    arguments: '--configuration Release'
 
 - task: NuGetCommand@2
   displayName: 'NuGet push'
@@ -28,12 +28,4 @@ steps:
     nuGetFeedType: external
     publishFeedCredentials: 'NuGet.org PAT'
 
-- powershell: |
-    $xml = [Xml] (Get-Content .\MyApp.csproj)
-    $version = [Version] $xml.Project.PropertyGroup.Version
-    
-    Write-Host "Tagging Build: $version"
-
-    git tag $version
-    git push origin $version
 
