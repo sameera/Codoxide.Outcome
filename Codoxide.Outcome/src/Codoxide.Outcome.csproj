@@ -44,7 +44,7 @@ Outcome.Any()
 - ThenTry has been removed. All `Then` variants will behave as their ThenTry counterparts
 - All non essential extension methods have been moved to their own nuget packagges.</PackageReleaseNotes>
     <RootNamespace>Codoxide</RootNamespace>
-    <PackageLicenseExpression>Apache2.0</PackageLicenseExpression>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
   </PropertyGroup>
 
   <ItemGroup>
