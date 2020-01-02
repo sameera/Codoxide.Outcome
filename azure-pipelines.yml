@@ -2,7 +2,7 @@ steps:
 - task: tmarkovski.projectversionasvariable.versionintovariable.projectversionasvariable@1
   displayName: 'Get Project Version as variables from **/*.csproj'
   inputs:
-    path: '$(Build.DefinitionName)/**/*.csproj'
+    path: '$(Build.DefinitionName)/src/$(Build.DefinitionName).csproj'
 
 - task: DotNetCoreCLI@2
   displayName: Restore
