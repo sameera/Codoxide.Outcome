@@ -41,21 +41,15 @@ namespace _.When_conditional_handlers_are_provided
 
             Begin()
                 .Then(
-                    value => value == 100, 
+                    value => value == 100,
                     value => {
                         // Predicate evaluates to true. Should hit.
                         hitCounter[0] = 0;
-                    }, 
-                    value => {
-                        hitCounter[0] = 1;
                     })
                 .Then(value => value == 101, 
                     value => {
                         // Predicate evalutes to false. Should not hit.
                         hitCounter[1] = 0;
-                    },
-                    value => {
-                        hitCounter[1] = 1;
                     });
 
             hitCounter.Should().ContainInOrder(new[] { 0, 1 });
