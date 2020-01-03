@@ -6,7 +6,7 @@ using Xunit;
 
 namespace _.When_finishing_off_an_outcome
 {
-    public class Given_the_outcome_is_async: TestSpec
+    public class Given_the_outcome_is_async
     {
         [Fact]
         public async Task It_returns_in_the_output_format_of_the_Returns_handler()

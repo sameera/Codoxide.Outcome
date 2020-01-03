@@ -27,6 +27,7 @@ steps:
     packagesToPush: '$(Build.SourcesDirectory)/$(Build.DefinitionName)/**/*.nupkg;!$(Build.SourcesDirectory)/$(Build.DefinitionName)/**/*.symbols.nupkg'
     nuGetFeedType: external
     publishFeedCredentials: 'NuGet.org PAT'
+  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
 
 - powershell: |
     Write-Host "Tagging Build: $env:BuildNumber"
