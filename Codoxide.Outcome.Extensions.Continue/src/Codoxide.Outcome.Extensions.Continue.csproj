@@ -2,6 +2,18 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/sameera/Codoxide.Outcome</PackageProjectUrl>
+    <Description>
+      Codoxide.Outcome&lt;T&gt; is an Either monad (or Result monad) for .NET Core.
+      It allows for elegant happy path and error path handling through method chaining made available through a number of Extension libraries.
+    </Description>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Copyright>Sameera Perera</Copyright>
+    <RepositoryUrl>https://github.com/sameera/Codoxide.Outcome</RepositoryUrl>
+    <RepositoryType>Git</RepositoryType>
+    <PackageTags>either monad, c#, chaining, result, functional, try</PackageTags>
+    <Version>5.0.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
