@@ -24,15 +24,15 @@ steps:
     command: push
     feedsToUse: config
     externalFeedCredentials: 'NuGet.org PAT'
-    packagesToPush: '$(Build.SourcesDirectory)/$(Build.DefinitionName)/**/*.nupkg;!$(Build.SourcesDirectory)/$(Build.DefinitionName)/**/*.symbols.nupkg'
+    packagesToPush: '$(Build.DefinitionName)/**/*.nupkg'
     nuGetFeedType: external
     publishFeedCredentials: 'NuGet.org PAT'
   condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
 
-- powershell: |
-    Write-Host "Tagging Build: $env:BuildNumber"
+- bash: |
+    TAG="$(Build.DefinitionName)-$(Build.BuildNumber)"
+    echo "Tagging Build: $TAG"
 
-    git tag $env:BuildNumber
-    git push origin $env:BuildNumber
-  env:
-    BuildNumber: $(Build.DefinitionName)-$(Build.BuildNumber)
+    git tag $TAG
+    git push origin $TAG
+  displayName: 'Bash Script'
