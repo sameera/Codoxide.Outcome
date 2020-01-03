@@ -45,6 +45,7 @@ Outcome.Any()
 - All non essential extension methods have been moved to their own nuget packagges.</PackageReleaseNotes>
     <RootNamespace>Codoxide</RootNamespace>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <Company>Codoxide</Company>
   </PropertyGroup>
 
   <ItemGroup>
