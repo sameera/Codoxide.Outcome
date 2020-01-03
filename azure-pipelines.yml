@@ -28,4 +28,10 @@ steps:
     nuGetFeedType: external
     publishFeedCredentials: 'NuGet.org PAT'
 
+- powershell: |
+    Write-Host "Tagging Build: $env:BuildNumber"
 
+    git tag $env:BuildNumber
+    git push origin $env:BuildNumber
+  env:
+    BuildNumber: $(Build.DefinitionName)$(Build.BuildNumber)
