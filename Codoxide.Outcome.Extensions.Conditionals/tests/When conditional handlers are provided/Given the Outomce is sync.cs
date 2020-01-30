@@ -37,7 +37,7 @@ namespace _.When_conditional_handlers_are_provided
         [Fact]
         public void It_executes_the_handler_or_the_alternate_based_on_condition()
         {
-            int[] hitCounter = new int[4];
+            int[] hitCounter = new int[2] {1, 1};
 
             Begin()
                 .Then(
