@@ -12,30 +12,32 @@ namespace Codoxide
     {
         public static int IntendedFailureCode => -1;
 
-        public static async Task<Outcome<T>> Of<T>(Func<Task<T>> func)
+        public static Task<Outcome<T>> Of<T>(Func<Task<T>> func)
         {
-            try
-            {
-                var result = await func();
-                return new Outcome<T>(result);
-            }
-            catch (Exception e)
-            {
-                return Outcome<T>.Reject(e.Message, e);
-            }
+            return Of(func());
+                
         }
 
-        public static async Task<Outcome<T>> Of<T>(Task<T> task)
+        public static Task<Outcome<T>> Of<T>(Task<T> task)
         {
-            try
-            {
-                var result = await task;
-                return new Outcome<T>(result);
-            }
-            catch (Exception e)
-            {
-                return Outcome<T>.Reject(e.Message, e);
-            }
+            return task.ContinueWith(t => {
+                    if (t.IsCompleted)
+                    {
+                        return new Outcome<T>(t.Result);
+                    }
+                    else if (t.IsFaulted && t.Exception != null)
+                    {
+                        return Outcome<T>.Reject(t.Exception.Message, t.Exception);
+                    }
+                    else if (t.IsCanceled)
+                    {
+                        return Outcome<T>.Reject("Task was cancelled", new TaskCanceledException(t));
+                    }
+                    else
+                    {
+                        return Outcome<T>.Reject("Task failed unexpectedly.");
+                    }
+                });
         }
 
         public static Outcome<T> Of<T>(Func<T> func)
