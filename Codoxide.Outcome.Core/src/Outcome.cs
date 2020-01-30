@@ -15,7 +15,6 @@ namespace Codoxide
         public static Task<Outcome<T>> Of<T>(Func<Task<T>> func)
         {
             return Of(func());
-                
         }
 
         public static Task<Outcome<T>> Of<T>(Task<T> task)
