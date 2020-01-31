@@ -13,7 +13,6 @@
     <PackageTags>either monad, c#, chaining, result, functional, try</PackageTags>
     <Description>"Either" Monad-like Implementation for dealing with operation results in C#</Description>
     <Copyright>Sameera Perera</Copyright>
-    <PackageLicenseUrl>https://github.com/sameera/Codoxide.Outcome</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/sameera/Codoxide.Outcome</PackageProjectUrl>
     <PackageReleaseNotes>[4.0] (Has breaking changes)
 - ThenIf is now just Then (with predicates) and allows for both true and false handlers.
