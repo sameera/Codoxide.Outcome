@@ -45,7 +45,6 @@ Outcome.Any()
     <RootNamespace>Codoxide</RootNamespace>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <Company>Codoxide</Company>
-    <PackageVersion>5.0.1</PackageVersion>
   </PropertyGroup>
 
   <ItemGroup>
