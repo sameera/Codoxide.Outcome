@@ -48,7 +48,7 @@ namespace Codoxide
 
         public T ResultOrDefault(T defaultValue) => this.IsSuccessful ? this.Result : defaultValue;
 
-        public T ResultOrThrow() => this.IsSuccessful ? this.Result : throw new InvalidOperationException("There is no result as this is a failed outcome.");
+        public T ResultOrThrow() => this.IsSuccessful ? this.Result : throw this.Failure.AsException();
 
         [Obsolete("Use 'FailureOrNull()' and then AsException()")]
         public Exception ExceptionOrDefault() => Failure?.AsException();

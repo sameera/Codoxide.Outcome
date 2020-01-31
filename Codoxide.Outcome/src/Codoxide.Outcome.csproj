@@ -5,7 +5,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Sameera Perera</Authors>
     <Product>Outcome&lt;T&gt;</Product>
-    <Version>5.0.0</Version>
+    <Version>5.0.2</Version>
     <PackageId>Codoxide.Outcome</PackageId>
     <AssemblyName>Codoxide.Outcome</AssemblyName>
     <RepositoryUrl>https://github.com/sameera/Codoxide.Outcome</RepositoryUrl>
@@ -13,7 +13,7 @@
     <PackageTags>either monad, c#, chaining, result, functional, try</PackageTags>
     <Description>"Either" Monad-like Implementation for dealing with operation results in C#</Description>
     <Copyright>Sameera Perera</Copyright>
-    <PackageLicenseUrl></PackageLicenseUrl>
+    <PackageLicenseUrl>https://github.com/sameera/Codoxide.Outcome</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/sameera/Codoxide.Outcome</PackageProjectUrl>
     <PackageReleaseNotes>[4.0] (Has breaking changes)
 - ThenIf is now just Then (with predicates) and allows for both true and false handlers.
