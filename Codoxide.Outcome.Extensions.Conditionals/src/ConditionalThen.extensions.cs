@@ -21,6 +21,9 @@ namespace Codoxide
         public static Outcome<T> Then<T>(this Outcome<T> @this, bool condition, Func<T> fn) =>
             condition ? @this.Then(fn) : @this;
 
+        public static Outcome<T> Then<T>(this Outcome<T> @this, bool condition, Func<T, T> fn) =>
+            condition ? @this.Then(fn) : @this;
+
         public static Outcome<T> Then<T>(this Outcome<T> @this, bool condition, Func<Outcome<T>> fn) =>
             condition ? @this.Then(fn) : @this;
 

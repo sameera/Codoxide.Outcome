@@ -55,6 +55,21 @@ namespace _.When_conditional_handlers_are_provided
             hitCounter.Should().ContainInOrder(new[] { 0, 1 });
         }
 
+        [Fact]
+        public void It_correctly_identifies_funcs_from_actions()
+        {
+            int i = 0;
+            void Increment() => i++;
+
+            Begin()
+                .Then(true, a => Increment())
+                .Then(true, a => i + 1)
+                .Then(value => {
+                    value.Should().Be(2);
+                    i.Should().Be(1);
+                });
+        }
+
         private Outcome<int> Begin()
         {
             return new Outcome<int>(_initialOutcome);
