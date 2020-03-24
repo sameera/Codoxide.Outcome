@@ -4,7 +4,13 @@ steps:
   inputs:
     command: restore
     projects: '$(Build.DefinitionName)/**/*.csproj'
-
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'Codoxide@SonarCloud'
+    organization: 'codoxide'
+    scannerMode: 'MSBuild'
+    projectKey: 'outcome'
+    projectName: 'Outcome'
 - task: DotNetCoreCLI@2
   displayName: Build
   inputs:
@@ -17,7 +23,7 @@ steps:
     command: test
     projects: '$(Build.DefinitionName)/*[Tt]ests/*.csproj'
     arguments: '--configuration Release'
-
+- task: SonarCloudAnalyze@1
 - task: NuGetCommand@2
   displayName: 'NuGet push'
   inputs:
