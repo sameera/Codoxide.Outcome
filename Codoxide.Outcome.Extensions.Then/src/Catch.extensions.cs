@@ -34,24 +34,6 @@ namespace Codoxide
             return @this;
         }
 
-
-        /*
-         * ***********************************************************************************
-         * Sync Operations that return Outcomes
-         * ***********************************************************************************
-         */
-        //public static Outcome<T> Catch<T>(this Outcome<T> @this, Func<Outcome<T>> fn)
-        //{
-        //    if (!@this.IsSuccessful) return fn();
-        //    return @this;
-        //}
-
-        //public static Outcome<T> Catch<T>(this Outcome<T> @this, Func<Failure, Outcome<T>> fn)
-        //{
-        //    if (!@this.IsSuccessful) return fn(@this.FailureOrNull());
-        //    return @this;
-        //}
-
         /*
          * ***********************************************************************************
          * Async Operations
@@ -144,6 +126,14 @@ namespace Codoxide
         //    return outcome;
         //}
 
+        public static async Task<Outcome<T>> Catch<T>(this Task<Outcome<T>> @this, Func<Outcome<T>> fn)
+        {
+            var outcome = await @this;
+            if (!outcome.IsSuccessful) return fn();
+
+            return outcome;
+        }
+
         public static async Task<Outcome<T>> Catch<T>(this Task<Outcome<T>> @this, Func<Task<Outcome<T>>> fn)
         {
             var outcome = await @this;
@@ -158,6 +148,12 @@ namespace Codoxide
             if (!outcome.IsSuccessful) return await fn(outcome.FailureOrThrow());
 
             return outcome;
+        }
+
+        public static async Task<Outcome<T>> Catch<T>(this Task<Outcome<T>> @this, Func<Failure, Outcome<T>> fn)
+        {
+            var outcome = await @this;
+            return !outcome.IsSuccessful ? fn(outcome.FailureOrThrow()) : outcome;
         }
 
         /*
