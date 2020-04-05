@@ -24,6 +24,9 @@ steps:
     projects: '$(Build.DefinitionName)/*[Tt]ests/*.csproj'
     arguments: '--configuration Release'
 - task: SonarCloudAnalyze@1
+- task: SonarCloudPublish@1
+  inputs:
+    pollingTimeoutSec: '300'
 - task: NuGetCommand@2
   displayName: 'NuGet push'
   inputs:

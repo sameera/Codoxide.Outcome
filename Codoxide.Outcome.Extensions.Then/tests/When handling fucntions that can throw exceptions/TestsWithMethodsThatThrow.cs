@@ -27,6 +27,11 @@ namespace _.When_handling_fucntions_that_can_throw_exceptions
             await Task.Delay(1);
             throw new T();
         }
+        
+        protected  async Task<Outcome<string>> GetFailedOutcomeAsync() {
+            await Task.Delay(0);
+            return Outcome<string>.Reject("Test Async Failure");
+        }
 
         protected Outcome<string> Begin()
         {
