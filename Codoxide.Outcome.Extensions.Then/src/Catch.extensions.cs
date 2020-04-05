@@ -34,6 +34,24 @@ namespace Codoxide
             return @this;
         }
 
+
+        /*
+         * ***********************************************************************************
+         * Sync Operations that return Outcomes
+         * ***********************************************************************************
+         */
+        //public static Outcome<T> Catch<T>(this Outcome<T> @this, Func<Outcome<T>> fn)
+        //{
+        //    if (!@this.IsSuccessful) return fn();
+        //    return @this;
+        //}
+
+        //public static Outcome<T> Catch<T>(this Outcome<T> @this, Func<Failure, Outcome<T>> fn)
+        //{
+        //    if (!@this.IsSuccessful) return fn(@this.FailureOrNull());
+        //    return @this;
+        //}
+
         /*
          * ***********************************************************************************
          * Async Operations

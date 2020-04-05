@@ -42,8 +42,7 @@ Outcome.Any()
 5.0.0 [Has breaking changes]
 - Outcome types have been moved to Codoxide.Outcome.Core
 - ThenTry has been removed. All `Then` variants will behave as their ThenTry counterparts
-- All non essential extension methods have been moved to their own nuget packagges.
-    </PackageReleaseNotes>
+- All non essential extension methods have been moved to their own nuget packagges.</PackageReleaseNotes>
     <RootNamespace>Codoxide</RootNamespace>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <Company>Codoxide</Company>
