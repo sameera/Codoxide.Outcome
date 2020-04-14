@@ -34,6 +34,13 @@ namespace Codoxide
             return @this;
         }
 
+        public static Outcome<T> Catch<T>(this Outcome<T> @this, Func<Failure, Outcome<T>> fn)
+        {
+            if (!@this.IsSuccessful) return fn(@this.FailureOrThrow());
+
+            return @this;
+        }
+
 
         /*
          * ***********************************************************************************
