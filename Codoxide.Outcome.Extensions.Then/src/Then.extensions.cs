@@ -69,7 +69,7 @@ namespace Codoxide
             return Try<ResultType>(() => fn(@this.ResultOrDefault()));
         }
 
-        private static Outcome<T> Try<T>(Func<Outcome<T>> func)
+        internal static Outcome<T> Try<T>(Func<Outcome<T>> func)
         {
             try
             {

@@ -6,7 +6,7 @@
     <ProjectGuid>7ca48d06-2f3d-4f1d-a644-be789ce16b77</ProjectGuid>
     <Authors>Sameera Perera</Authors>
     <Product>Outcome&lt;T&gt;</Product>
-    <Version>5.0.4</Version>
+    <Version>5.0.5</Version>
     <PackageId>Codoxide.Outcome</PackageId>
     <AssemblyName>Codoxide.Outcome</AssemblyName>
     <RepositoryUrl>https://github.com/sameera/Codoxide.Outcome</RepositoryUrl>
