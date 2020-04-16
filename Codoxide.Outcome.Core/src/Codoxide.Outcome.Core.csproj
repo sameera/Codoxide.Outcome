@@ -3,7 +3,6 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-    <ProjectGuid>7c0feee7-51b4-4689-8808-ce9b02f55ff2</ProjectGuid>
     <PackageProjectUrl>https://github.com/sameera/Codoxide.Outcome</PackageProjectUrl>
     <Description>Codoxide.Outcome&lt;T&gt; is an Either monad (or Result monad) for .NET Core.It allows for elegant happy path and error path handling through method chaining made available through a number of Extension libraries.</Description>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -14,6 +13,8 @@
     <Version>5.0.2</Version>
     <Authors>Sameera Perera</Authors>
     <Company>Codoxide</Company>
+    <PackageReleaseNotes>5.1.0
+- Minimize explicit casting back and forth as well minimizing wrapping Outcomes inside Outcomes.</PackageReleaseNotes>
   </PropertyGroup>
 
 </Project>

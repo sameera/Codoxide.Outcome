@@ -12,14 +12,9 @@ namespace Codoxide
     {
         public static int IntendedFailureCode => -1;
 
-        public static Task<Outcome<T>> Of<T>(Func<Task<T>> func)
-        {
-            return Of(func());
-        }
+        public static Task<Outcome<T>> Of<T>(Func<Task<T>> func) => Of(func());
 
-        public static Task<Outcome<T>> Of<T>(Task<T> task)
-        {
-            return task.ContinueWith(t => {
+        public static Task<Outcome<T>> Of<T>(Task<T> task) => task.ContinueWith(t => {
                     if (t.IsCompleted)
                     {
                         return new Outcome<T>(t.Result);
@@ -37,7 +32,6 @@ namespace Codoxide
                         return Outcome<T>.Reject("Task failed unexpectedly.");
                     }
                 });
-        }
 
         public static Outcome<T> Of<T>(Func<T> func)
         {

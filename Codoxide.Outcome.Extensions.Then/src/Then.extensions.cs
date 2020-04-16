@@ -41,6 +41,13 @@ namespace Codoxide
             return Try(fn);
         }
 
+        public static Outcome<ResultType> Then<T, ResultType>(this Outcome<T> @this, Func<T, ResultType> fn)
+        {
+            if (!@this.IsSuccessful) return Outcome<ResultType>.Reject(@this.FailureOrNull());
+
+            return Outcome.Of(() => fn(@this.ResultOrDefault()));
+        }
+
         public static Outcome<ResultType> Then<T, ResultType>(this Outcome<T> @this, Func<T, Outcome<ResultType>> fn)
         {
             if (!@this.IsSuccessful) return Outcome<ResultType>.Reject(@this.FailureOrNull());
@@ -53,13 +60,6 @@ namespace Codoxide
             if (!@this.IsSuccessful) return Outcome<ResultType>.Reject(@this.FailureOrNull());
 
             return Try<ResultType>(() => fn());
-        }
-
-        public static Outcome<ResultType> Then<T, ResultType>(this Outcome<T> @this, Func<T, ResultType> fn)
-        {
-            if (!@this.IsSuccessful) Outcome<ResultType>.Reject(@this.FailureOrNull());
-
-            return Outcome.Of(() => fn(@this.ResultOrDefault()));
         }
 
         public static Outcome<ResultType> Then<T, ResultType>(this Outcome<T> @this, Func<T, ValueTuple<ResultType, Failure>> fn)

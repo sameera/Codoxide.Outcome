@@ -10,9 +10,16 @@
     <RepositoryUrl>https://github.com/sameera/Codoxide.Outcome</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
     <PackageTags>either monad, c#, chaining, result, functional, try</PackageTags>
-    <Version>5.0.5</Version>
+    <Version>5.1.0</Version>
     <Authors>Sameera Perera</Authors>
     <Company>Codoxide</Company>
+    <PackageReleaseNotes>
+        5.0.6 
+        - Catch blocks are guarded against exceptions. If an exception is thrown inside a Catch, that exception is converted to Failure and propogated up.
+        
+        5.1.0
+        - Support for Codoxide.Outcome.Core 5.1.0
+    </PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

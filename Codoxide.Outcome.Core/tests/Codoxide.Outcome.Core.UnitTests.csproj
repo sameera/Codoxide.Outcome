@@ -4,12 +4,18 @@
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <ProjectGuid>97bf547b-151c-4885-852a-b3d353a9ab39</ProjectGuid>
     <IsPackable>false</IsPackable>
+    <RootNamespace>_</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentAssertions" Version="5.10.3" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0" />
     <PackageReference Include="xunit" Version="2.4.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\src\Codoxide.Outcome.Core.csproj" />
   </ItemGroup>
 
 </Project>

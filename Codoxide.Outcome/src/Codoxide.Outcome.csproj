@@ -6,7 +6,7 @@
     <ProjectGuid>7ca48d06-2f3d-4f1d-a644-be789ce16b77</ProjectGuid>
     <Authors>Sameera Perera</Authors>
     <Product>Outcome&lt;T&gt;</Product>
-    <Version>5.0.5</Version>
+    <Version>5.1.0</Version>
     <PackageId>Codoxide.Outcome</PackageId>
     <AssemblyName>Codoxide.Outcome</AssemblyName>
     <RepositoryUrl>https://github.com/sameera/Codoxide.Outcome</RepositoryUrl>
@@ -42,7 +42,14 @@ Outcome.Any()
 5.0.0 [Has breaking changes]
 - Outcome types have been moved to Codoxide.Outcome.Core
 - ThenTry has been removed. All `Then` variants will behave as their ThenTry counterparts
-- All non essential extension methods have been moved to their own nuget packagges.</PackageReleaseNotes>
+- All non essential extension methods have been moved to their own nuget packagges.
+        
+5.0.6
+- Built with Codoxide.Outcome.Extensions.Then 5.0.6 - Exception-safe catch blocks
+
+5.1.0
+- Built with Codoxide.Outcome.Core 5.1.0 - Reduce wrapping and implicit casting/recasting.
+    </PackageReleaseNotes>
     <RootNamespace>Codoxide</RootNamespace>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <Company>Codoxide</Company>

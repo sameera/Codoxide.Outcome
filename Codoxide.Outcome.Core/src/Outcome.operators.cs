@@ -1,7 +1,5 @@
 ﻿using Codoxide.Outcomes;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Codoxide
 {
@@ -10,7 +8,7 @@ namespace Codoxide
     partial struct Outcome<T>
     {
         public static implicit operator Outcome<T>(T result) => new Outcome<T>(result);
-
+        
         public static explicit operator T(Outcome<T> outcome) => outcome.ResultOrDefault();
 
         public static implicit operator Outcome<T>(Failure failure) => new Outcome<T>(failure);

@@ -1,13 +1,14 @@
 ﻿using Codoxide.Outcomes;
 using System;
+using System.ComponentModel;
 
 namespace Codoxide
 {
     using static FixedOutcomes;
 
-    public partial struct Outcome<T>
+    public partial struct Outcome<T> : IOutcome<T>, IOutcome
     {
-        public bool IsSuccessful { get { return Failure == null; } }
+        public bool IsSuccessful => Failure == null;
 
         internal readonly Failure Failure;
 
@@ -19,8 +20,32 @@ namespace Codoxide
 
         internal Outcome(T result, Failure failure)
         {
-            Result = result;
-            Failure = failure;
+            if (result is IOutcome outcome)
+            {
+                this.Failure = outcome.FailureOrNull();
+
+                if (!outcome.IsSuccessful || outcome.ResultOrDefault() == null)
+                {
+                    this.Result = default(T);
+                }
+                else
+                {
+                    var innerResult = outcome.ResultOrDefault();
+                    if (innerResult is T assignableResult)
+                    {
+                        this.Result = assignableResult;
+                    }
+                    else
+                    {
+                        throw new InvalidCastException($"Cannot cast from {innerResult.GetType().Name} to {typeof(T).Name}");
+                    }
+                }
+            }
+            else
+            {
+                Result = result;
+                Failure = failure;
+            }
         }
 
         public Outcome(Func<T> fn)
@@ -46,9 +71,13 @@ namespace Codoxide
 
         public T ResultOrDefault() => this.Result;
 
+        object IOutcome.ResultOrDefault() => this.Result;
+
         public T ResultOrDefault(T defaultValue) => this.IsSuccessful ? this.Result : defaultValue;
 
         public T ResultOrThrow() => this.IsSuccessful ? this.Result : throw this.Failure.AsException();
+
+        object IOutcome.ResultOrThrow() => this.ResultOrThrow();
 
         [Obsolete("Use 'FailureOrNull()' and then AsException()")]
         public Exception ExceptionOrDefault() => Failure?.AsException();
