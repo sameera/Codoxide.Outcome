@@ -1,5 +1,4 @@
-﻿using System;
-using Xunit;
+﻿using Xunit;
 using Codoxide;
 using Codoxide.Outcomes;
 using FluentAssertions;

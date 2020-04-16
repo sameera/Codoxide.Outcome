@@ -3,7 +3,6 @@
 namespace Codoxide
 {
     using System.Threading.Tasks;
-    using static FixedOutcomes;
 
     public static class OutcomeThenTryTaskExtensions
     {

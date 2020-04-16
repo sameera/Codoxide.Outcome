@@ -1,7 +1,5 @@
-using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 using Codoxide;
-using Codoxide.Outcomes;
 using FluentAssertions;
 using Xunit;
 

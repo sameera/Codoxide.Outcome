@@ -1,7 +1,5 @@
 ﻿using Codoxide;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace _.When_handling_fucntions_that_can_throw_exceptions

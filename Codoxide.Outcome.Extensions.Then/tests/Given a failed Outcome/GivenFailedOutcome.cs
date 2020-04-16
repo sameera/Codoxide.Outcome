@@ -1,5 +1,4 @@
-﻿using System;
-using Codoxide;
+﻿using Codoxide;
 
 namespace _.Given_a_failed_Outcome
 {

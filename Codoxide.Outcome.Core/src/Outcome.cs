@@ -1,13 +1,9 @@
 ﻿using Codoxide.Outcomes;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Codoxide
 {
-    using static FixedOutcomes;
-
     public static class Outcome
     {
         public static int IntendedFailureCode => -1;
