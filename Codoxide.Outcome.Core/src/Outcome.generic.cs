@@ -90,6 +90,8 @@ namespace Codoxide
         public static Outcome<T> Reject(string reason) => new Outcome<T>(new Failure(reason));
 
         public static Outcome<T> Reject(string reason, Exception exception) => new Outcome<T>(new Failure(reason, exception));
+        
+        public static Outcome<T> Reject(Exception exception) => new Outcome<T>(new Failure(exception.Message, exception));
 
         public static Outcome<T> Reject(Failure failure) => new Outcome<T>(default, failure);
 
