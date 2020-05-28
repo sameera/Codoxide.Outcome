@@ -19,6 +19,6 @@ namespace Codoxide
 
         public static implicit operator Outcome<T>((T result, Exception exception) tuple) => new Outcome<T>(tuple.result, Fail(tuple.exception));
 
-        public static implicit operator ValueTuple<T, Failure>(Outcome<T> outcome) => (outcome.Result, outcome.Failure);
+        public static implicit operator ValueTuple<T, Failure>(Outcome<T> outcome) => (outcome._result, outcome._failure);
     }
 }

@@ -15,7 +15,7 @@ namespace Codoxide.Outcomes
 
         public int FailureCode { get; }
 
-        public Failure(string reason, int failureCode = GeneralFailure)
+        public Failure(in string reason, int failureCode = GeneralFailure)
         {
             this.Reason = reason;
             this.FailureCode = failureCode;
@@ -23,7 +23,7 @@ namespace Codoxide.Outcomes
             _exception = new OutcomeException(this.Reason) { FailureCode = this.FailureCode };
         }
 
-        public Failure(string reason, Exception exception, int failureCode = GeneralFailure) : this(reason, failureCode)
+        public Failure(in string reason, Exception exception, int failureCode = GeneralFailure) : this(reason, failureCode)
         {
             _exception = exception;
         }
