@@ -41,7 +41,7 @@ namespace Codoxide
         {
             return await Try(async () => {
                 var outcome = await asyncPromise;
-                if (outcome.IsSuccessful) return new Outcome<ResultType>(func);
+                if (outcome.IsSuccessful) return Outcome.Of(func);
 
                 return Outcome<ResultType>.Reject(outcome.FailureOrNull());
             });
