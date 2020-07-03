@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Codoxide;
 using Codoxide.Outcomes;
 using FluentAssertions;
@@ -16,7 +17,7 @@ namespace _.Given_a_failed_Outcome
         {
             _console = console;
         }
-        
+
         [Theory]
         [MemberData(nameof(UsageScenarios))]
         public void It_is_not_executed(string function, Outcome<object> rejected)
