@@ -11,7 +11,7 @@ namespace _.When_handling_fucntions_that_can_throw_exceptions
         public async Task It_can_return_a_failure()
         {
             var t = await Outcome.Any()
-                .Then(AsyncMethodThatThrowsException)
+                .Map(AsyncMethodThatThrowsException)
                 
                 // sig: Task<Outcome<T>> Catch<T>(this Task<Outcome<T>> @this, Func<Failure, Outcome<T>> handler)
                 .Catch(failure => Outcome<string>.Reject("Test Failure", failure.AsException()));
@@ -27,7 +27,7 @@ namespace _.When_handling_fucntions_that_can_throw_exceptions
         public async Task It_can_return_a_failure_without_original_failure()
         {
             var t = await Outcome.Any()
-                .Then(AsyncMethodThatThrowsException)
+                .Map(AsyncMethodThatThrowsException)
                 
                 // sig: Task<Outcome<T>> Catch<T>(this Task<Outcome<T>> @this, Func<Outcome<T>> handler)
                 .Catch(() => {
@@ -45,7 +45,7 @@ namespace _.When_handling_fucntions_that_can_throw_exceptions
         public async Task It_can_return_an_async_failure()
         {
             var t = await Outcome.Any()
-                .Then(AsyncMethodThatThrowsException)
+                .Map(AsyncMethodThatThrowsException)
                 
                 // sig: Outcome<T> Catch<T>(this Task<Outcome<T>> @this, Func<Failure, Task<Outcome<T>> handler)
                 .Catch(failure => GetFailedOutcomeAsync());
@@ -61,7 +61,7 @@ namespace _.When_handling_fucntions_that_can_throw_exceptions
         public async Task It_can_return_an_async_failure_without_original_failure()
         {
             var t = await Outcome.Any()
-                .Then(AsyncMethodThatThrowsException)
+                .Map(AsyncMethodThatThrowsException)
                 
                 // sig: Outcome<T> Catch<T>(this Task<Outcome<T>> @this, Func<Failure, Task<Outcome<T>> handler)
                 .Catch(GetFailedOutcomeAsync);

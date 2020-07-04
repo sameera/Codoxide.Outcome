@@ -1,5 +1,6 @@
-﻿using Codoxide.Outcomes;
+using Codoxide.Outcomes;
 using System;
+using System.Threading.Tasks;
 
 namespace Codoxide
 {

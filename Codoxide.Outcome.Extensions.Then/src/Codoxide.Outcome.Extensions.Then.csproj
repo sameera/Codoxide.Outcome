@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -19,11 +19,15 @@
         
         5.1.0
         - Support for Codoxide.Outcome.Core 5.1.0
+        
+        5.1.1
+        - Marking Action based Then operations obsolete (preferring the Tap methods).
     </PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\Codoxide.Outcome.Core\src\Codoxide.Outcome.Core.csproj" />
+    <ProjectReference Include="..\..\Codoxide.Outcome.Extensions.Catch\src\Codoxide.Outcome.Extensions.Catch.csproj" />
   </ItemGroup>
 
 </Project>

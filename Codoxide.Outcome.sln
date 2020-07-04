@@ -70,6 +70,18 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{000E88C1-C
 		Codoxide.Outcome.Core\README.md = Codoxide.Outcome.Core\README.md
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extensions.Catch", "Extensions.Catch", "{CE91FBC3-51B6-4F22-B799-9A1E37FEAD98}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Codoxide.Outcome.Extensions.Catch", "Codoxide.Outcome.Extensions.Catch\src\Codoxide.Outcome.Extensions.Catch.csproj", "{7311FA65-7420-40FF-B437-ADDAA5B02764}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Codoxide.Outcome.Extensions.Catch.UnitTests", "Codoxide.Outcome.Extensions.Catch\test\Codoxide.Outcome.Extensions.Catch.UnitTests.csproj", "{BA5C50CE-9DFC-4B1C-9AFA-8EBE9E743A34}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extensions.Map", "Extensions.Map", "{C5D0BC56-1BA4-4E5A-9396-7B90D209BA10}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Codoxide.Outcome.Extensions.Map", "Codoxide.Outcome.Extensions.Map\src\Codoxide.Outcome.Extensions.Map.csproj", "{24854E69-CC26-4671-BDD2-BD3F5D059999}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Codoxide.Outcome.Extensions.Map.UnitTests", "Codoxide.Outcome.Extensions.Map\test\Codoxide.Outcome.Extensions.Map.UnitTests.csproj", "{8964F4C5-9DCC-41BB-9842-480578C4F7F4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -148,6 +160,22 @@ Global
 		{E081E98A-C7FF-45CF-82B3-7B5B569D73BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E081E98A-C7FF-45CF-82B3-7B5B569D73BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E081E98A-C7FF-45CF-82B3-7B5B569D73BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7311FA65-7420-40FF-B437-ADDAA5B02764}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7311FA65-7420-40FF-B437-ADDAA5B02764}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7311FA65-7420-40FF-B437-ADDAA5B02764}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7311FA65-7420-40FF-B437-ADDAA5B02764}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA5C50CE-9DFC-4B1C-9AFA-8EBE9E743A34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA5C50CE-9DFC-4B1C-9AFA-8EBE9E743A34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA5C50CE-9DFC-4B1C-9AFA-8EBE9E743A34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA5C50CE-9DFC-4B1C-9AFA-8EBE9E743A34}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24854E69-CC26-4671-BDD2-BD3F5D059999}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24854E69-CC26-4671-BDD2-BD3F5D059999}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24854E69-CC26-4671-BDD2-BD3F5D059999}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24854E69-CC26-4671-BDD2-BD3F5D059999}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8964F4C5-9DCC-41BB-9842-480578C4F7F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8964F4C5-9DCC-41BB-9842-480578C4F7F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8964F4C5-9DCC-41BB-9842-480578C4F7F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8964F4C5-9DCC-41BB-9842-480578C4F7F4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -172,6 +200,10 @@ Global
 		{B05A7B5A-C532-4BDD-BCC0-094B455C403F} = {A19675DA-77BE-4C83-9B8C-A1738EB48212}
 		{E081E98A-C7FF-45CF-82B3-7B5B569D73BB} = {A19675DA-77BE-4C83-9B8C-A1738EB48212}
 		{000E88C1-C597-43D9-8A33-725CFA4A3048} = {F5A8E855-A496-4ADA-8DAC-8641F12F3DFE}
+		{7311FA65-7420-40FF-B437-ADDAA5B02764} = {CE91FBC3-51B6-4F22-B799-9A1E37FEAD98}
+		{BA5C50CE-9DFC-4B1C-9AFA-8EBE9E743A34} = {CE91FBC3-51B6-4F22-B799-9A1E37FEAD98}
+		{24854E69-CC26-4671-BDD2-BD3F5D059999} = {C5D0BC56-1BA4-4E5A-9396-7B90D209BA10}
+		{8964F4C5-9DCC-41BB-9842-480578C4F7F4} = {C5D0BC56-1BA4-4E5A-9396-7B90D209BA10}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7E64B6BB-A671-4E71-B557-EC5C9E91CBAA}

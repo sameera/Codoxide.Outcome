@@ -1,4 +1,4 @@
-﻿using Codoxide.Outcomes;
+using Codoxide.Outcomes;
 using System;
 
 namespace Codoxide
@@ -7,6 +7,7 @@ namespace Codoxide
 
     public static class OutcomeThenExtensions
     {
+        [Obsolete("Use the Tap method from Codoxide.Outcome.Extensions.Tap instead.")]
         public static Outcome<T> Then<T>(this Outcome<T> @this, Action action)
         {
             if (!@this.IsSuccessful) return @this;
@@ -17,6 +18,7 @@ namespace Codoxide
             });
         }
 
+        [Obsolete("Use the Tap method from Codoxide.Outcome.Extensions.Tap instead.")]
         public static Outcome<T> Then<T>(this Outcome<T> @this, Action<T> action)
         {
             if (!@this.IsSuccessful) return @this;
