@@ -6,7 +6,8 @@ namespace Codoxide
 {
     public static class OutcomeWhenOtherwisePredicateExtensions
     {
-        public static Outcome<T> Then<T>(
+        [Obsolete]
+		public static Outcome<T> Then<T>(
             this Outcome<T> @this,
             Predicate<T> condition,
             Action when,
@@ -23,7 +24,8 @@ namespace Codoxide
             return @this;
         }
 
-        public static Outcome<T> Then<T>(
+        [Obsolete]
+		public static Outcome<T> Then<T>(
             this Outcome<T> @this,
             Predicate<T> condition,
             Action<T> when,
@@ -40,7 +42,8 @@ namespace Codoxide
             return @this;
         }
 
-        public static Outcome<R> Then<T, R>(
+        [Obsolete]
+		public static Outcome<R> Then<T, R>(
             this Outcome<T> @this,
             Predicate<T> condition,
             Func<Outcome<R>> when,
@@ -57,7 +60,8 @@ namespace Codoxide
             return Outcome<R>.Reject(@this.FailureOrThrow());
         }
 
-        public static Outcome<R> Then<T, R>(
+        [Obsolete]
+		public static Outcome<R> Then<T, R>(
             this Outcome<T> @this,
             Predicate<T> condition,
             Func<T, Outcome<R>> when,
@@ -74,7 +78,8 @@ namespace Codoxide
             return Outcome<R>.Reject(@this.FailureOrThrow());
         }
 
-        public static Outcome<R> Then<T, R>(
+        [Obsolete]
+		public static Outcome<R> Then<T, R>(
             this Outcome<T> @this,
             Predicate<T> condition,
             Func<T, Outcome<R>> when,
@@ -91,7 +96,8 @@ namespace Codoxide
             return Outcome<R>.Reject(@this.FailureOrThrow());
         }
 
-        public static async Task<Outcome<R>> Then<T, R>(
+        [Obsolete]
+		public static async Task<Outcome<R>> Then<T, R>(
             this Task<Outcome<T>> @this, 
             Predicate<T> condition, 
             Func<Task<Outcome<R>>> when, 
@@ -110,7 +116,8 @@ namespace Codoxide
             return Outcome<R>.Reject(outcome.FailureOrThrow());
         }
 
-        public static async Task<Outcome<R>> Then<T, R>(
+        [Obsolete]
+		public static async Task<Outcome<R>> Then<T, R>(
             this Task<Outcome<T>> @this, 
             Predicate<T> condition, 
             Func<Outcome<R>> when, 
@@ -129,7 +136,8 @@ namespace Codoxide
             return Outcome<R>.Reject(outcome.FailureOrThrow());
         }
 
-        public static async Task<Outcome<R>> Then<T, R>(
+        [Obsolete]
+		public static async Task<Outcome<R>> Then<T, R>(
             this Task<Outcome<T>> @this, 
             Predicate<T> condition, 
             Func<T, Outcome<R>> when, 
@@ -148,7 +156,8 @@ namespace Codoxide
             return Outcome<R>.Reject(outcome.FailureOrThrow());
         }
 
-        public static async Task<Outcome<R>> Then<T, R>(
+        [Obsolete]
+		public static async Task<Outcome<R>> Then<T, R>(
             this Task<Outcome<T>> @this,
             Predicate<T> condition,
             Func<T, R> when,
@@ -167,7 +176,8 @@ namespace Codoxide
             return Outcome<R>.Reject(outcome.FailureOrThrow());
         }
 
-        public static async Task<Outcome<R>> Then<T, R>(
+        [Obsolete]
+		public static async Task<Outcome<R>> Then<T, R>(
             this Task<Outcome<T>> @this, 
             Predicate<T> condition, 
             Func<T, Task<Outcome<R>>> when, 
@@ -186,7 +196,8 @@ namespace Codoxide
             return Outcome<R>.Reject(outcome.FailureOrThrow());
         }
 
-        public static async Task<Outcome<R>> Then<T, R>(
+        [Obsolete]
+		public static async Task<Outcome<R>> Then<T, R>(
             this Task<Outcome<T>> @this,
             Predicate<T> condition,
             Func<T, Task<Outcome<R>>> when,

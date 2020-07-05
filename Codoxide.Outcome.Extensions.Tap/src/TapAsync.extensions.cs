@@ -63,7 +63,7 @@ namespace Codoxide
                 return outcome;
             });
         }
-
+        
         private static async Task<Outcome<T>> Try<T>(Func<Task<Outcome<T>>> func)
         {
             try
