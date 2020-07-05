@@ -7,16 +7,9 @@ using static Codoxide.FixedOutcomes;
 
 namespace Codoxide
 {
-    public static class OutcomeCatchExtensions
+    public static class OutcomeTapFailureExtensions
     {
-        /*******************************************************
-         * 
-         * Obsolete Action based Catch blocks
-         * 
-         * ****************************************************/
-
-        [Obsolete]
-        public static Outcome<T> Catch<T>(this Outcome<T> @this, Action action)
+        public static Outcome<T> TapFailure<T>(this Outcome<T> @this, Action action)
         {
             if (@this.IsSuccessful) return @this;
 
@@ -26,8 +19,7 @@ namespace Codoxide
             });
         }
 
-        [Obsolete]
-        public static Outcome<T> Catch<T>(this Outcome<T> @this, Action<Failure> action)
+        public static Outcome<T> TapFailure<T>(this Outcome<T> @this, Action<Failure> action)
         {
             if (@this.IsSuccessful) return @this;
 
@@ -37,8 +29,7 @@ namespace Codoxide
             });
         }
 
-        [Obsolete]
-        public static async Task<Outcome<T>> Catch<T>(this Task<Outcome<T>> @this, Action action)
+        public static async Task<Outcome<T>> TapFailure<T>(this Task<Outcome<T>> @this, Action action)
         {
             var outcome = await @this;
             if (outcome.IsSuccessful) return outcome;
@@ -49,8 +40,7 @@ namespace Codoxide
             });
         }
 
-        [Obsolete]
-        public static async Task<Outcome<T>> Catch<T>(this Task<Outcome<T>> @this, Action<Failure> action)
+        public static async Task<Outcome<T>> TapFailure<T>(this Task<Outcome<T>> @this, Action<Failure> action)
         {
             var outcome = await @this;
             if (outcome.IsSuccessful) return outcome;
@@ -61,9 +51,7 @@ namespace Codoxide
             });
         }
 
-
-        [Obsolete]
-        public static async Task<Outcome<T>> Catch<T>(this Task<Outcome<T>> @this, Func<Task> action)
+        public static async Task<Outcome<T>> TapFailure<T>(this Task<Outcome<T>> @this, Func<Task> action)
         {
             var outcome = await @this;
             if (outcome.IsSuccessful) return outcome;
@@ -79,8 +67,7 @@ namespace Codoxide
             }
         }
 
-        [Obsolete]
-        public static async Task<Outcome<T>> Catch<T>(this Task<Outcome<T>> @this, Func<T> fn)
+        public static async Task<Outcome<T>> TapFailure<T>(this Task<Outcome<T>> @this, Func<T> fn)
         {
             var outcome = await @this;
             if (outcome.IsSuccessful) return outcome;
@@ -88,8 +75,7 @@ namespace Codoxide
             return Outcome.Of(fn);
         }
 
-        [Obsolete]
-        public static async Task<Outcome<T>> Catch<T>(this Task<Outcome<T>> @this, Func<Failure, Task> action)
+        public static async Task<Outcome<T>> TapFailure<T>(this Task<Outcome<T>> @this, Func<Failure, Task> action)
         {
             var outcome = await @this;
             if (outcome.IsSuccessful) return outcome;

@@ -6,7 +6,7 @@ using Xunit;
 
 namespace _.When_handling_fucntions_that_can_throw_exceptions
 {
-    public class Given_Then_is_used: TestsWithMethodsThatThrow
+    public class Given_Map_is_used: TestsWithMethodsThatThrow
     {
         [Fact]
         public void Catch_method_is_executed_and_the_exception_is_not_propogated()
@@ -14,8 +14,8 @@ namespace _.When_handling_fucntions_that_can_throw_exceptions
             try
             {
                 this.Begin()
-                    .Then(() => MethodThatThrowsException())
-                    .Then(() => Assert.False(true, "Catch should have been invoked and flow should have exited."))
+                    .Map(() => MethodThatThrowsException())
+                    .Map(() => Assert.False(true, "Catch should have been invoked and flow should have exited."))
                     .Catch(error => {
                         error.Should().NotBeNull();
                         error.AsException().Should().BeOfType<InvalidOperationException>();
@@ -33,8 +33,8 @@ namespace _.When_handling_fucntions_that_can_throw_exceptions
             try
             {
                 await this.Begin()
-                    .Then(() => AsyncMethodThatThrowsException())
-                    .Then(() => Assert.False(true, "Catch should have been invoked and flow should have exited."))
+                    .Map(() => AsyncMethodThatThrowsException())
+                    .Map(() => Assert.False(true, "Catch should have been invoked and flow should have exited."))
                     .Catch(error => {
                         error.Should().NotBeNull();
                         error.AsException().Should().BeOfType<InvalidOperationException>();
