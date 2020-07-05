@@ -5,7 +5,7 @@ namespace Codoxide
 {
     using static FixedOutcomes;
 
-    public static class OutcomeTaskExtensions
+    public static class OutcomeTaskMapExtensions
     {
 
         public static async Task<Outcome<ResultType>> Map<T, ResultType>(this Task<Outcome<T>> asyncPromise, Func<ResultType> func) //where ResultType: class

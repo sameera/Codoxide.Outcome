@@ -96,6 +96,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extensions", "Extensions", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Packs", "Packs", "{3B3F2FE9-45F6-498D-9BD1-E64C78F67535}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codoxide.Outcome.vNext", "Codoxide.Outcome.vNext\src\Codoxide.Outcome.vNext.csproj", "{971024A9-B944-4E5B-83B4-3C5D35939774}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -198,6 +200,10 @@ Global
 		{214AFE2E-5DE8-477C-AEDD-8EA2524D3E63}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{214AFE2E-5DE8-477C-AEDD-8EA2524D3E63}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{214AFE2E-5DE8-477C-AEDD-8EA2524D3E63}.Release|Any CPU.Build.0 = Release|Any CPU
+		{971024A9-B944-4E5B-83B4-3C5D35939774}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{971024A9-B944-4E5B-83B4-3C5D35939774}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{971024A9-B944-4E5B-83B4-3C5D35939774}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{971024A9-B944-4E5B-83B4-3C5D35939774}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -239,6 +245,7 @@ Global
 		{755233C7-FCDA-4F3C-AE5B-E1ACCD6DB965} = {EADC2BED-99C0-43A0-8D32-495EB880793B}
 		{777DFC13-DE04-4E3C-B7CB-79D2A69D68DB} = {EADC2BED-99C0-43A0-8D32-495EB880793B}
 		{754C100E-881E-4174-A4DB-62D1E27DFEDA} = {3B3F2FE9-45F6-498D-9BD1-E64C78F67535}
+		{971024A9-B944-4E5B-83B4-3C5D35939774} = {3B3F2FE9-45F6-498D-9BD1-E64C78F67535}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7E64B6BB-A671-4E71-B557-EC5C9E91CBAA}
