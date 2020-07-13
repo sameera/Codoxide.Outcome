@@ -1,6 +1,6 @@
 ﻿namespace Codoxide
 {
-    public readonly struct Void
+    public readonly struct Nop
     {
     }
 }

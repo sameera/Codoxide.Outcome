@@ -60,9 +60,9 @@ namespace Codoxide
         ///     </code>
         /// </example>
         /// <returns></returns>
-        public static Outcome<Void> Any() => new Outcome<Void>();
+        public static Outcome<Nop> Any() => new Outcome<Nop>();
 
-        public static Outcome<Void> Any(Action action)
+        public static Outcome<Nop> Any(Action action)
         {
             try
             {
@@ -75,14 +75,14 @@ namespace Codoxide
             }
         }
 
-        public static Outcome<Void> Never() => new Outcome<Void>(new Outcomes.Failure("Intended Failure", IntendedFailureCode));
+        public static Outcome<Nop> Never() => new Outcome<Nop>(new Outcomes.Failure("Intended Failure", IntendedFailureCode));
 
-        public static Outcome<Void> Reject(string reason) => new Outcome<Void>(new Failure(reason));
+        public static Outcome<Nop> Reject(string reason) => new Outcome<Nop>(new Failure(reason));
 
-        public static Outcome<Void> Reject(string reason, Exception exception) => new Outcome<Void>(new Failure(reason, exception));
+        public static Outcome<Nop> Reject(string reason, Exception exception) => new Outcome<Nop>(new Failure(reason, exception));
         
-        public static Outcome<Void> Reject(Exception exception) => Reject(exception.Message, exception);
+        public static Outcome<Nop> Reject(Exception exception) => Reject(exception.Message, exception);
 
-        internal static Outcome<Void> Reject(Failure failure) => new Outcome<Void>(failure);
+        internal static Outcome<Nop> Reject(Failure failure) => new Outcome<Nop>(failure);
     }
 }
