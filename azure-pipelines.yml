@@ -1,9 +1,12 @@
+
 steps:
+
 - task: DotNetCoreCLI@2
   displayName: Restore
   inputs:
     command: restore
     projects: '$(Build.DefinitionName)/**/*.csproj'
+
 - task: SonarCloudPrepare@1
   inputs:
     SonarCloud: 'Codoxide@SonarCloud'
@@ -11,6 +14,7 @@ steps:
     scannerMode: 'MSBuild'
     projectKey: 'outcome'
     projectName: 'Outcome'
+
 - task: DotNetCoreCLI@2
   displayName: Build
   inputs:
@@ -23,12 +27,28 @@ steps:
     command: test
     projects: '$(Build.DefinitionName)/*[Tt]ests/*.csproj'
     arguments: '--configuration Release'
+
 - task: SonarCloudAnalyze@1
   enabled: false
 - task: SonarCloudPublish@1
   enabled: false
   inputs:
     pollingTimeoutSec: '300'
+
+
+- task: PowerShell@2
+  displayName: 'Get Version'
+  inputs:
+    targetType: 'inline'
+    script: |
+      $proj = "$(Build.DefinitionName)"
+      $xml = [Xml] (Get-Content $proj/src/$proj.csproj)
+      $version = [Version] $xml.Project.PropertyGroup.Version
+      Write-Host "##vso[task.setvariable variable=Version]$version"
+      $qualifier = $proj.Substring($proj.LastIndexOf(".") + 1)
+      Write-Host "##vso[task.setvariable variable=Qualifier]$qualifier"
+  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+    
 - task: NuGetCommand@2
   displayName: 'NuGet push'
   inputs:
@@ -39,3 +59,12 @@ steps:
     nuGetFeedType: external
     publishFeedCredentials: 'NuGet.org PAT'
   condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+
+- script: |
+    git config --global user.email "www.sameera@gmail.com"
+    git config --global user.name "Sameera"
+    git tag -a $(Qualifier)/v$(Version) -m "$$(Build.DefinitionName) Release v$(Version)"
+    git push origin $(Qualifier)/v$(Version)
+  displayName: "Tag Repo"
+  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+
