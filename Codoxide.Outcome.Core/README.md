@@ -1,2 +1,1 @@
-
-[![Build status](https://codoxide.visualstudio.com/Codoxide.Outcome/_apis/build/status/Codoxide.Outcome.Core-CI)](https://codoxide.visualstudio.com/Codoxide.Outcome/_build/latest?definitionId=2)
+[![Build Status](https://dev.azure.com/codoxide/Codoxide.Outcome/_apis/build/status/Codoxide.Outcome.Core?branchName=master)](https://dev.azure.com/codoxide/Codoxide.Outcome/_build/latest?definitionId=12&branchName=master)

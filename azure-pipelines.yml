@@ -54,6 +54,7 @@ steps:
       $hasTag = $tagCommit.Length
       Write-Host "##vso[task.setvariable variable=IsTagged]$hasTag"
       Write-Host "Is Tagged: $hasTag"
+      exit 0
   condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
     
 - task: NuGetCommand@2

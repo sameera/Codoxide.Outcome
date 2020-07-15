@@ -1,0 +1,1 @@
+[![Build Status](https://dev.azure.com/codoxide/Codoxide.Outcome/_apis/build/status/Codoxide.Outcome.Extensions.Catch?branchName=master)](https://dev.azure.com/codoxide/Codoxide.Outcome/_build/latest?definitionId=18&branchName=master)
