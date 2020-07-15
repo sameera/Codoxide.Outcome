@@ -73,7 +73,7 @@ steps:
     git config --global user.email "$(AuthorEmail)"
     git config --global user.name "$(AuthorName)"
     git tag -a $(GitTag) -m "$(TargetProject) Release v$(Version)"
-    git remote set-url origin https://$(GitHubTaggingPAT)@github.com/$(AuthorName)/$(Build.Repository.Name)
+    git remote set-url origin https://$(GitHubTaggingPAT)@github.com/$(Build.Repository.Name)
     git push origin $(GitTag)
   displayName: "Tag Repo"
   condition: and(succeeded(), eq(variables['IsTagged'], '0'))
