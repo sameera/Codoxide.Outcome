@@ -44,9 +44,13 @@ steps:
       $proj = "$(Build.DefinitionName)"
       $xml = [Xml] (Get-Content $proj/src/$proj.csproj)
       $version = [Version] $xml.Project.PropertyGroup.Version
-      Write-Host "##vso[task.setvariable variable=Version]$version"
       $qualifier = $proj.Substring($proj.LastIndexOf(".") + 1)
-      Write-Host "##vso[task.setvariable variable=Qualifier]$qualifier"
+      $tag = "$qualifier/$version"
+      Write-Host "Target Tag: $tag"
+      Write-Host "##vso[task.setvariable variable=GitTag]$tag"
+      $tagCommit = git rev-parse -q --verify "refs/tags/$tag"
+      $hasTag = $tagCommit.Length
+      Write-Host "##vso[task.setvariable variable=IsTagged]$hasTag"
   condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
     
 - task: NuGetCommand@2
@@ -58,13 +62,13 @@ steps:
     packagesToPush: '$(Build.SourcesDirectory)/$(Build.DefinitionName)/**/*.nupkg'
     nuGetFeedType: external
     publishFeedCredentials: 'NuGet.org PAT'
-  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+  condition: and(succeeded(), eq(variables['IsTagged'], '0'))
 
 - script: |
-    git config --global user.email "www.sameera@gmail.com"
-    git config --global user.name "Sameera"
-    git tag -a $(Qualifier)/v$(Version) -m "$$(Build.DefinitionName) Release v$(Version)"
+    git config --global user.email "$(AuthorEmail)"
+    git config --global user.name "$(AuthorName)"
+    git tag -a $(Qualifier)/v$(Version) -m "$(Build.DefinitionName) Release v$(Version)"
     git push origin $(Qualifier)/v$(Version)
   displayName: "Tag Repo"
-  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+  condition: and(succeeded(), eq(variables['IsTagged'], '0'))
 
