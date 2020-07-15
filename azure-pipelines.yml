@@ -50,9 +50,10 @@ steps:
       $tag = "$qualifier/$version"
       Write-Host "Target Tag: $tag"
       Write-Host "##vso[task.setvariable variable=GitTag]$tag"
-      $tagCommit = git rev-parse -q --verify "refs/tags/$tag"
+      $tagCommit = (git rev-parse -q --verify "refs/tags/$tag")
       $hasTag = $tagCommit.Length
       Write-Host "##vso[task.setvariable variable=IsTagged]$hasTag"
+      Write-Host "Is Tagged: $hasTag"
   condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
     
 - task: NuGetCommand@2
