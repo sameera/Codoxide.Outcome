@@ -49,11 +49,12 @@ steps:
       $qualifier = $proj.Substring($proj.LastIndexOf(".") + 1)
       $tag = "$qualifier/$version"
       Write-Host "Target Tag: $tag"
-      Write-Host "##vso[task.setvariable variable=GitTag]$tag"
       $tagCommit = (git rev-parse -q --verify "refs/tags/$tag")
       $hasTag = $tagCommit.Length
-      Write-Host "##vso[task.setvariable variable=IsTagged]$hasTag"
       Write-Host "Is Tagged: $hasTag"
+      Write-Host "##vso[task.setvariable variable=Version]$version"
+      Write-Host "##vso[task.setvariable variable=GitTag]$tag"
+      Write-Host "##vso[task.setvariable variable=IsTagged]$hasTag"
       exit 0
   condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
     
@@ -71,8 +72,9 @@ steps:
 - script: |
     git config --global user.email "$(AuthorEmail)"
     git config --global user.name "$(AuthorName)"
-    git tag -a $(Qualifier)/v$(Version) -m "$(Build.DefinitionName) Release v$(Version)"
-    git push origin $(Qualifier)/v$(Version)
+    git tag -a $(GitTag) -m "$(TargetProject) Release v$(Version)"
+    git remote set-url origin https://$(GitHubTaggingPAT)@github.com/$(AuthorName)/Codoxide.Outcome
+    git push origin $(GitTag)
   displayName: "Tag Repo"
   condition: and(succeeded(), eq(variables['IsTagged'], '0'))
 
