@@ -1,4 +1,4 @@
-﻿using Codoxide.Outcomes;
+using Codoxide.Outcomes;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -47,6 +47,9 @@ namespace Codoxide
                 return Outcome<T>.Reject(e.Message, e);
             }
         }
+
+        public static Outcome<T> Of<T>(T result) => new Outcome<T>(result);
+
 
         /// <summary>
         /// Returns an outcome, that returns true. Useful in situations where you have conditionals that

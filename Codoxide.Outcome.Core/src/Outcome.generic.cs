@@ -1,4 +1,4 @@
-﻿using Codoxide.Outcomes;
+using Codoxide.Outcomes;
 using System;
 
 // ReSharper disable once CheckNamespace
@@ -49,24 +49,6 @@ namespace Codoxide
             }
         }
 
-        [Obsolete("Use Outcome.Of<T>(Func<T>) instead.")]
-        public Outcome(Func<T> fn)
-        {
-            try
-            {
-                _result = fn();
-                _failure = null;
-            }
-            catch (Exception ex)
-            {
-                _result = default;
-                _failure = Fail(ex);
-            }
-        }
-
-        [Obsolete("Use 'FailureOrNull()'")]
-        public Failure FailureOrDefault() => this.FailureOrNull();
-
         public Failure FailureOrNull() => this._failure;
 
         public Failure FailureOrThrow() => this._failure ?? throw new InvalidOperationException("There is no failure as this is a successful Outcome.");
@@ -80,9 +62,6 @@ namespace Codoxide
         public T ResultOrThrow() => this.IsSuccessful ? this._result : throw this._failure.AsException();
 
         object IOutcome.ResultOrThrow() => this.ResultOrThrow();
-
-        [Obsolete("Use 'FailureOrNull()' and then AsException()")]
-        public Exception ExceptionOrDefault() => _failure?.AsException();
 
         public void Deconstruct(out T result, out Failure failure)
         {

@@ -8,26 +8,28 @@ using static Codoxide.FixedOutcomes;
 
 namespace Codoxide
 {
+    using Filter = Func<Failure, bool>;
+
     public static partial class OutcomeCatchExtensions
     {
-        public static Outcome<T> Catch<T>(this Outcome<T> @this, Func<T> fn)
+        public static Outcome<T> Catch<T>(this Outcome<T> @this, Filter filter, Func<T> fn)
         {
-            if (IsIgnorable(@this)) return @this;
+            if (!IsCatchable(@this, filter)) return @this;
 
             return Outcome.Of(() => fn());
         }
 
-        public static Outcome<T> Catch<T>(this Outcome<T> @this, Func<Failure, T> fn)
+        public static Outcome<T> Catch<T>(this Outcome<T> @this, Filter filter, Func<Failure, T> fn)
         {
-            if (IsIgnorable(@this)) return @this;
+            if (!IsCatchable(@this, filter)) return @this;
 
 
             return Outcome.Of(() => fn(@this.FailureOrThrow()));
         }
 
-        public static Outcome<T> Catch<T>(this Outcome<T> @this, Func<Outcome<T>> fn)
+        public static Outcome<T> Catch<T>(this Outcome<T> @this, Filter filter, Func<Outcome<T>> fn)
         {
-            if (IsIgnorable(@this)) return @this;
+            if (!IsCatchable(@this, filter)) return @this;
 
             try
             {
@@ -39,9 +41,9 @@ namespace Codoxide
             }
         }
 
-        public static Outcome<T> Catch<T>(this Outcome<T> @this, Func<Failure, Outcome<T>> fn)
+        public static Outcome<T> Catch<T>(this Outcome<T> @this, Filter filter, Func<Failure, Outcome<T>> fn)
         {
-            if (IsIgnorable(@this)) return @this;
+            if (!IsCatchable(@this, filter)) return @this;
 
             try
             {
@@ -59,18 +61,18 @@ namespace Codoxide
          * ***********************************************************************************
          */
 
-        public static async Task<Outcome<T>> Catch<T>(this Task<Outcome<T>> @this, Func<Failure, T> fn)
+        public static async Task<Outcome<T>> Catch<T>(this Task<Outcome<T>> @this, Filter filter, Func<Failure, T> fn)
         {
             var outcome = await @this;
-            if (IsIgnorable(outcome)) return outcome;
+            if (!IsCatchable(outcome, filter)) return outcome;
 
             return Outcome.Of(() => fn(outcome.FailureOrNull()));
         }
         
-        public static async Task<Outcome<T>> Catch<T>(this Task<Outcome<T>> @this, Func<Outcome<T>> fn)
+        public static async Task<Outcome<T>> Catch<T>(this Task<Outcome<T>> @this, Filter filter, Func<Outcome<T>> fn)
         {
             var outcome = await @this;
-            if (IsIgnorable(outcome)) return outcome;
+            if (!IsCatchable(outcome, filter)) return outcome;
 
             try
             {
@@ -82,10 +84,10 @@ namespace Codoxide
             }
         }
 
-        public static async Task<Outcome<T>> Catch<T>(this Task<Outcome<T>> @this, Func<Failure, Outcome<T>> fn)
+        public static async Task<Outcome<T>> Catch<T>(this Task<Outcome<T>> @this, Filter filter, Func<Failure, Outcome<T>> fn)
         {
             var outcome = await @this;
-            if (IsIgnorable(outcome)) return outcome;
+            if (!IsCatchable(outcome, filter)) return outcome;
 
             try
             {
@@ -97,10 +99,10 @@ namespace Codoxide
             }
         }
 
-        public static async Task<Outcome<T>> Catch<T>(this Task<Outcome<T>> @this, Func<Task<T>> fn)
+        public static async Task<Outcome<T>> Catch<T>(this Task<Outcome<T>> @this, Filter filter, Func<Task<T>> fn)
         {
             var outcome = await @this;
-            if (IsIgnorable(outcome)) return outcome;
+            if (!IsCatchable(outcome, filter)) return outcome;
 
             try
             {
@@ -112,10 +114,10 @@ namespace Codoxide
             }
         }
 
-        public static async Task<Outcome<T>> Catch<T>(this Task<Outcome<T>> @this, Func<Failure, Task<T>> fn)
+        public static async Task<Outcome<T>> Catch<T>(this Task<Outcome<T>> @this, Filter filter, Func<Failure, Task<T>> fn)
         {
             var outcome = await @this;
-            if (IsIgnorable(outcome)) return outcome;
+            if (!IsCatchable(outcome, filter)) return outcome;
 
             try
             {
@@ -127,10 +129,10 @@ namespace Codoxide
             }
         }
 
-        public static async Task<Outcome<T>> Catch<T>(this Task<Outcome<T>> @this, Func<Task<Outcome<T>>> fn)
+        public static async Task<Outcome<T>> Catch<T>(this Task<Outcome<T>> @this, Filter filter, Func<Task<Outcome<T>>> fn)
         {
             var outcome = await @this;
-            if (IsIgnorable(outcome)) return outcome;
+            if (!IsCatchable(outcome, filter)) return outcome;
 
             try
             {
@@ -142,10 +144,10 @@ namespace Codoxide
             }
         }
 
-        public static async Task<Outcome<T>> Catch<T>(this Task<Outcome<T>> @this, Func<Failure, Task<Outcome<T>>> fn)
+        public static async Task<Outcome<T>> Catch<T>(this Task<Outcome<T>> @this, Filter filter, Func<Failure, Task<Outcome<T>>> fn)
         {
             var outcome = await @this;
-            if (IsIgnorable(outcome)) return outcome;
+            if (!IsCatchable(outcome, filter)) return outcome;
 
             try
             {
@@ -163,9 +165,9 @@ namespace Codoxide
          * ***********************************************************************************
          */
 
-        public static Outcome<T> Catch<T>(this Outcome<T> @this, Func<Failure> fn)
+        public static Outcome<T> Catch<T>(this Outcome<T> @this, Filter filter, Func<Failure> fn)
         {
-            if (IsIgnorable(@this)) return @this;
+            if (!IsCatchable(@this, filter)) return @this;
 
             try
             {
@@ -177,9 +179,9 @@ namespace Codoxide
             }
         }
 
-        public static Outcome<T> Catch<T>(this Outcome<T> @this, Func<Failure, Failure> fn)
+        public static Outcome<T> Catch<T>(this Outcome<T> @this, Filter filter, Func<Failure, Failure> fn)
         {
-            if (IsIgnorable(@this)) return @this;
+            if (!IsCatchable(@this, filter)) return @this;
             
             try
             {
@@ -191,10 +193,10 @@ namespace Codoxide
             }
         }
 
-        public static async Task<Outcome<T>> Catch<T>(this Task<Outcome<T>> @this, Func<Failure> fn)
+        public static async Task<Outcome<T>> Catch<T>(this Task<Outcome<T>> @this, Filter filter, Func<Failure> fn)
         {
             var outcome = await @this;
-            if (IsIgnorable(outcome)) return outcome;
+            if (!IsCatchable(outcome, filter)) return outcome;
             
             try
             {
@@ -206,10 +208,10 @@ namespace Codoxide
             }
         }
 
-        public static async Task<Outcome<T>> Catch<T>(this Task<Outcome<T>> @this, Func<Failure, Failure> fn)
+        public static async Task<Outcome<T>> Catch<T>(this Task<Outcome<T>> @this, Filter filter, Func<Failure, Failure> fn)
         {
             var outcome = await @this;
-            if (IsIgnorable(outcome)) return outcome;
+            if (!IsCatchable(outcome, filter)) return outcome;
             
             try
             {
@@ -228,10 +230,10 @@ namespace Codoxide
          * 
          * **************************************************************************************/
 
-        public static async Task<Outcome<T>> Catch<T>(this Task<Outcome<T>> @this, Func<Failure, Outcome<T>, Outcome<T>> action)
+        public static async Task<Outcome<T>> Catch<T>(this Task<Outcome<T>> @this, Filter filter, Func<Failure, Outcome<T>, Outcome<T>> action)
         {
             var outcome = await @this;
-            if (IsIgnorable(outcome)) return outcome;
+            if (!IsCatchable(outcome, filter)) return outcome;
 
             try
             {
@@ -244,11 +246,11 @@ namespace Codoxide
         }
 
         public static async Task<Outcome<T>> Catch<T>(
-                this Task<Outcome<T>> @this,
+                this Task<Outcome<T>> @this, Filter filter,
                 Func<Failure, Outcome<T>, Task<Outcome<T>>> action)
         {
             var outcome = await @this;
-            if (IsIgnorable(outcome)) return outcome;
+            if (!IsCatchable(outcome, filter)) return outcome;
 
             try
             {
@@ -260,9 +262,9 @@ namespace Codoxide
             }
         }
 
-        public static Outcome<T> Catch<T>(this Outcome<T> @this, Func<Failure, Outcome<T>, Outcome<T>> fn)
+        public static Outcome<T> Catch<T>(this Outcome<T> @this, Filter filter, Func<Failure, Outcome<T>, Outcome<T>> fn)
         {
-            if (IsIgnorable(@this)) return @this;
+            if (!IsCatchable(@this, filter)) return @this;
 
             try
             {
@@ -274,13 +276,12 @@ namespace Codoxide
             }
         }
 
-        private static bool IsIgnorable<T>(Outcome<T> @this) =>
-            @this.IsSuccessful || @this.FailureOrNull() is IKnownFailure;
-
-        private static Outcome<T> ToKnownFailed<T>(Outcome<T> failed)
+        private static bool IsCatchable<T>(Outcome<T> @this, Filter filter)
         {
-            Debug.Assert(!failed.IsSuccessful);
-            return Outcome<T>.Reject(new KnownFailure(failed.FailureOrNull()));
+            var (_, failure) = @this;
+
+            return failure != null && filter(failure);
         }
+
     }
 }
