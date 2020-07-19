@@ -18,7 +18,7 @@
     - Minimize explicit casting back and forth as well minimizing wrapping Outcomes inside Outcomes.
 
     6.0.0
-    - IKnownFailure type.
+    - KnownFailure type.
     - IOutcome is now internal, preventing any unwarranted casting.
     </PackageReleaseNotes>
   </PropertyGroup>

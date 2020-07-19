@@ -275,7 +275,7 @@ namespace Codoxide
         }
 
         private static bool IsIgnorable<T>(Outcome<T> @this) =>
-            @this.IsSuccessful || @this.FailureOrNull() is IKnownFailure;
+            @this.IsSuccessful || @this.FailureOrNull() is KnownFailure;
 
         private static Outcome<T> ToKnownFailed<T>(Outcome<T> failed)
         {
