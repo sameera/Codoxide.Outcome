@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
       <TargetFramework>netstandard2.0</TargetFramework>
       <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-      <ProjectGuid>7ca48d06-2f3d-4f1d-a644-be789ce16b77</ProjectGuid>
+      <ProjectGuid>{971024A9-B944-4E5B-83B4-3C5D35939774}</ProjectGuid>
       <Authors>Sameera Perera</Authors>
       <Product>Outcome&lt;T&gt;</Product>
       <Version>6.0.0</Version>
@@ -70,6 +70,8 @@
     <Compile Include="..\..\Codoxide.Outcome.Core\src\FixedOutcomes.cs">
       <Link>FixedOutcomes.cs</Link>
     </Compile>
+    <Compile Include="..\..\Codoxide.Outcome.Core\src\IFailure.cs" Link="IFailure.cs" />
+    <Compile Include="..\..\Codoxide.Outcome.Core\src\IKnownFailure.cs" Link="IKnownFailure.cs" />
     <Compile Include="..\..\Codoxide.Outcome.Core\src\IOutcome.cs">
       <Link>IOutcome.cs</Link>
     </Compile>
@@ -90,9 +92,6 @@
     </Compile>
     <Compile Include="..\..\Codoxide.Outcome.Extensions.Catch\src\Catch.extensions.cs">
       <Link>Catch.extensions.cs</Link>
-    </Compile>
-    <Compile Include="..\..\Codoxide.Outcome.Extensions.Map\src\Async.extensions.cs">
-      <Link>Async.extensions.cs</Link>
     </Compile>
     <Compile Include="..\..\Codoxide.Outcome.Extensions.Map\src\Fail.extensions.cs">
       <Link>Fail.extensions.cs</Link>

@@ -1,4 +1,4 @@
-﻿using Codoxide;
+using Codoxide;
 using FluentAssertions;
 using System;
 using Xunit;
@@ -35,7 +35,7 @@ namespace UnitTest.Codoxide.Outcome
                             Assert.False(true, "This should also not be hit because the function has failed");
                         })
                         .Catch(failure => {
-                            Assert.IsType<InvalidOperationException>(failure.Exception);
+                            Assert.IsType<InvalidOperationException>(failure.AsException());
                         })
                         .ResultOrDefault();
 

@@ -1,19 +1,21 @@
-﻿using Codoxide;
+using Codoxide;
 using FluentAssertions;
+using FluentAssertions.Execution;
 using System;
 using System.Threading.Tasks;
 using Xunit;
+using Xunit.Sdk;
 
-namespace _.When_handling_fucntions_that_can_throw_exceptions
+namespace _.Given_methods_that_throw_exceptions
 {
-    public class Given_Map_is_used: TestsWithMethodsThatThrow
+    public class When_catching_after_a_Map: GivenMethodsThatThrow
     {
         [Fact]
         public void Catch_method_is_executed_and_the_exception_is_not_propagated()
         {
             try
             {
-                this.Begin()
+                var (_, failure) = Begin()
                     .Map(MethodThatThrowsException)
                     .Tap(() => Assert.False(true, "Catch should have been invoked and flow should have exited."))
                     .Catch((error, failed) => {
@@ -21,6 +23,8 @@ namespace _.When_handling_fucntions_that_can_throw_exceptions
                         error.AsException().Should().BeOfType<InvalidOperationException>();
                         return failed;
                     });
+
+                failure.Should().NotBeOfType<FalseException>("An Assertion failed.");
             }
             catch (Exception)
             {
@@ -33,7 +37,7 @@ namespace _.When_handling_fucntions_that_can_throw_exceptions
         {
             try
             {
-                await this.Begin()
+                var (_, failure) = await Begin()
                     .Map(AsyncMethodThatThrowsException)
                     .Tap(() => Assert.False(true, "Catch should have been invoked and flow should have exited."))
                     .Catch((error, failed) => {
@@ -41,6 +45,8 @@ namespace _.When_handling_fucntions_that_can_throw_exceptions
                         error.AsException().Should().BeOfType<InvalidOperationException>();
                         return failed;
                     });
+
+                failure.Should().NotBeOfType<FalseException>("An Assertion failed.");
             }
             catch (Exception)
             {

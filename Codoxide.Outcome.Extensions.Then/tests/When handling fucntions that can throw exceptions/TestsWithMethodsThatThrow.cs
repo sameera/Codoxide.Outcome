@@ -2,7 +2,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace _.When_handling_fucntions_that_can_throw_exceptions
+namespace _.Given_methods_that_throw_exceptions
 {
     public class TestsWithMethodsThatThrow
     {

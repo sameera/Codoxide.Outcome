@@ -1,17 +1,17 @@
-﻿using Codoxide;
+using Codoxide;
 using System;
 using System.Threading.Tasks;
 
-namespace _.When_handling_fucntions_that_can_throw_exceptions
+namespace _.Given_methods_that_throw_exceptions
 {
-    public class TestsWithMethodsThatThrow
+    public class GivenMethodsThatThrow
     {
-        protected string MethodThatThrowsException()
+        protected static string MethodThatThrowsException()
         {
             throw new InvalidOperationException("Expected exception");
         }
 
-        protected async Task<string> AsyncMethodThatThrowsException()
+        protected static async Task<string> AsyncMethodThatThrowsException()
         {
             await Task.Delay(1);
             throw new InvalidOperationException("Expected exception");
@@ -20,18 +20,18 @@ namespace _.When_handling_fucntions_that_can_throw_exceptions
         {
             throw new T();
         }
-        protected async Task<string> AsyncMethodThatThrows<T>() where T: Exception, new()
+        protected static async Task<string> AsyncMethodThatThrows<T>() where T: Exception, new()
         {
             await Task.Delay(1);
             throw new T();
         }
         
-        protected  async Task<Outcome<string>> GetFailedOutcomeAsync() {
+        protected static async Task<Outcome<string>> GetFailedOutcomeAsync() {
             await Task.Delay(0);
             return Outcome<string>.Reject("Test Async Failure");
         }
 
-        protected Outcome<string> Begin()
+        protected static Outcome<string> Begin()
         {
             return new Outcome<string>("First outcome");
         }

@@ -1,4 +1,4 @@
-﻿using Codoxide.Outcomes;
+using Codoxide.Outcomes;
 using System;
 using System.Threading.Tasks;
 
@@ -36,7 +36,7 @@ namespace Codoxide
 
         public OutcomeFinalizer<T, ReturnType> Catch<ExceptionType>(Func<ExceptionType, ReturnType> handler) where ExceptionType : Exception
         {
-            if (!_isHandled && !_outcome.IsSuccessful && _outcome.ExceptionOrDefault() is ExceptionType exception)
+            if (!_isHandled && !_outcome.IsSuccessful && _outcome.FailureOrThrow().AsException() is ExceptionType exception)
             {
                 _isHandled = true;
                 _returnValue = handler(exception);
@@ -49,7 +49,7 @@ namespace Codoxide
             if (!_isHandled && !_outcome.IsSuccessful)
             {
                 _isHandled = true;
-                _returnValue = handler(_outcome.FailureOrDefault());
+                _returnValue = handler(_outcome.FailureOrThrow());
             }
 
             return this;
@@ -57,7 +57,7 @@ namespace Codoxide
 
         public async Task<OutcomeFinalizer<T, ReturnType>> Catch<ExceptionType>(Func<ExceptionType, Task<ReturnType>> handler) where ExceptionType : Exception
         {
-            if (!_isHandled && !_outcome.IsSuccessful && _outcome.ExceptionOrDefault() is ExceptionType exception)
+            if (!_isHandled && !_outcome.IsSuccessful && _outcome.FailureOrThrow().AsException() is ExceptionType exception)
             {
                 _isHandled = true;
                 _returnValue = await handler(exception);
@@ -70,7 +70,7 @@ namespace Codoxide
             if (!_isHandled && !_outcome.IsSuccessful)
             {
                 _isHandled = true;
-                _returnValue = await handler(_outcome.FailureOrDefault());
+                _returnValue = await handler(_outcome.FailureOrThrow());
             }
 
             return this;

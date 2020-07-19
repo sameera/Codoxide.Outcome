@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 
 using static Codoxide.OutcomeThenExtensions;
 using static Codoxide.FixedOutcomes;
+using System.Diagnostics;
 
 namespace Codoxide
 {
@@ -11,55 +12,55 @@ namespace Codoxide
     {
         public static Outcome<T> TapFailure<T>(this Outcome<T> @this, Action action)
         {
-            if (@this.IsSuccessful) return @this;
+            if (IsIgnorable(@this)) return @this;
 
             return Try(() => {
                 action();
-                return @this;
+                return ToKnownFailed(@this);
             });
         }
 
         public static Outcome<T> TapFailure<T>(this Outcome<T> @this, Action<Failure> action)
         {
-            if (@this.IsSuccessful) return @this;
+            if (IsIgnorable(@this)) return @this;
 
             return Try(() => {
                 action(@this.FailureOrThrow());
-                return @this;
+                return ToKnownFailed(@this);
             });
         }
 
         public static async Task<Outcome<T>> TapFailure<T>(this Task<Outcome<T>> @this, Action action)
         {
             var outcome = await @this;
-            if (outcome.IsSuccessful) return outcome;
+            if (IsIgnorable(outcome)) return outcome;
 
             return Try(() => {
                 action();
-                return outcome;
+                return ToKnownFailed(outcome);
             });
         }
 
         public static async Task<Outcome<T>> TapFailure<T>(this Task<Outcome<T>> @this, Action<Failure> action)
         {
             var outcome = await @this;
-            if (outcome.IsSuccessful) return outcome;
+            if (IsIgnorable(outcome)) return outcome;
 
             return Try(() => {
                 action(outcome.FailureOrNull());
-                return outcome;
+                return ToKnownFailed(outcome);
             });
         }
 
         public static async Task<Outcome<T>> TapFailure<T>(this Task<Outcome<T>> @this, Func<Task> action)
         {
             var outcome = await @this;
-            if (outcome.IsSuccessful) return outcome;
+            if (IsIgnorable(outcome)) return outcome;
 
             try
             {
-                await action();
-                return outcome;
+                await action(); 
+                return ToKnownFailed(outcome);
             }
             catch (Exception ex)
             {
@@ -67,28 +68,33 @@ namespace Codoxide
             }
         }
 
-        public static async Task<Outcome<T>> TapFailure<T>(this Task<Outcome<T>> @this, Func<T> fn)
-        {
-            var outcome = await @this;
-            if (outcome.IsSuccessful) return outcome;
-
-            return Outcome.Of(fn);
-        }
 
         public static async Task<Outcome<T>> TapFailure<T>(this Task<Outcome<T>> @this, Func<Failure, Task> action)
         {
             var outcome = await @this;
-            if (outcome.IsSuccessful) return outcome;
+            if (IsIgnorable(outcome)) return outcome;
 
             try
             {
                 await action(outcome.FailureOrNull());
-                return outcome;
+                return ToKnownFailed(outcome);
             }
             catch (Exception ex)
             {
                 return Fail(ex);
             }
+        }
+
+        private static bool IsIgnorable<T>(Outcome<T> @this)
+        {
+            var (_, failure) = @this;
+            return failure == null || failure is IKnownFailure;
+        }
+
+        private static Outcome<T> ToKnownFailed<T>(Outcome<T> outcome)
+        {
+            Debug.Assert(!IsIgnorable(outcome));
+            return Outcome<T>.Reject(new KnownFailure(outcome.FailureOrThrow()));
         }
     }
 }

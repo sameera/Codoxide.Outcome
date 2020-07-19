@@ -10,9 +10,16 @@
     <RepositoryUrl>https://github.com/sameera/Codoxide.Outcome</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
     <PackageTags>either monad, c#, chaining, result, functional, try</PackageTags>
-    <Version>1.0.0</Version>
+    <Version>1.1.0</Version>
     <Authors>Sameera Perera</Authors>
     <Company>Codoxide</Company>
+    <PackageReleaseNotes>
+    1.0.0
+    Basic Tap and TapError functionality.
+    
+    1.1.0
+    Prevent KnownFailures from triggering catch/TapFailure blocks (repeatedly).
+    </PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

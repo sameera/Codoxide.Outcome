@@ -6,6 +6,7 @@ namespace Codoxide
 {
     public static class FixedOutcomes
     {
+
         public static Failure Fail(string reason) => new Failure(reason);
 
         public static Failure Fail(string reason, int failureCode) => new Failure(reason, failureCode);

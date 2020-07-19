@@ -1,17 +1,14 @@
-﻿using System;
+using System;
 
 namespace Codoxide.Outcomes
 {
-    public class Failure
+    public class Failure : IFailure
     {
         public const int GeneralFailure = 500;
 
         private readonly Exception _exception;
 
         public string Reason { get; }
-        
-        [Obsolete("Use 'AsException()' instead.")]
-        public Exception Exception => this.AsException();
 
         public int FailureCode { get; }
 
@@ -28,15 +25,14 @@ namespace Codoxide.Outcomes
             _exception = exception;
         }
 
-        [Obsolete("Use 'AsException()' instead.")]
-        public Exception ToException() => this.AsException();
+        protected Failure(Failure another) : this(another.Reason, another._exception, another.FailureCode) { }
 
         public Exception AsException() => _exception;
 
         public override string ToString()
         {
-            return _exception == null 
-                ? this.Reason 
+            return _exception == null
+                ? this.Reason
                 : string.Concat(this.Reason, "\r\n", _exception);
         }
     }
