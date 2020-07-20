@@ -64,32 +64,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\..\Codoxide.Outcome.Core\src\Failure.cs">
-      <Link>Failure.cs</Link>
-    </Compile>
-    <Compile Include="..\..\Codoxide.Outcome.Core\src\FixedOutcomes.cs">
-      <Link>FixedOutcomes.cs</Link>
-    </Compile>
-    <Compile Include="..\..\Codoxide.Outcome.Core\src\IFailure.cs" Link="IFailure.cs" />
-    <Compile Include="..\..\Codoxide.Outcome.Core\src\IKnownFailure.cs" Link="IKnownFailure.cs" />
-    <Compile Include="..\..\Codoxide.Outcome.Core\src\IOutcome.cs">
-      <Link>IOutcome.cs</Link>
-    </Compile>
-    <Compile Include="..\..\Codoxide.Outcome.Core\src\Nop.cs">
-      <Link>Nop.cs</Link>
-    </Compile>
-    <Compile Include="..\..\Codoxide.Outcome.Core\src\Outcome.cs">
-      <Link>Outcome.cs</Link>
-    </Compile>
-    <Compile Include="..\..\Codoxide.Outcome.Core\src\Outcome.generic.cs">
-      <Link>Outcome.generic.cs</Link>
-    </Compile>
-    <Compile Include="..\..\Codoxide.Outcome.Core\src\Outcome.operators.cs">
-      <Link>Outcome.operators.cs</Link>
-    </Compile>
-    <Compile Include="..\..\Codoxide.Outcome.Core\src\OutcomeException.cs">
-      <Link>OutcomeException.cs</Link>
-    </Compile>
     <Compile Include="..\..\Codoxide.Outcome.Extensions.Catch\src\Catch.extensions.cs">
       <Link>Catch.extensions.cs</Link>
     </Compile>
@@ -115,5 +89,13 @@
       <Link>TapFailure.extensions.cs</Link>
     </Compile>
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Codoxide.Outcome.Core\src\Codoxide.Outcome.Core.csproj" />
+  </ItemGroup>
+
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="" />
+  </Target>
 
 </Project>

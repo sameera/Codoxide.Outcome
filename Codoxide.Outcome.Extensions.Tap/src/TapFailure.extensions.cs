@@ -88,7 +88,7 @@ namespace Codoxide
         private static bool IsIgnorable<T>(Outcome<T> @this)
         {
             var (_, failure) = @this;
-            return failure == null || failure is IKnownFailure;
+            return failure == null || failure is KnownFailure;
         }
 
         private static Outcome<T> ToKnownFailed<T>(Outcome<T> outcome)

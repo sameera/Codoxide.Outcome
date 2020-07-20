@@ -2,7 +2,7 @@ using System;
 
 namespace Codoxide.Outcomes
 {
-    public class Failure : IFailure
+    public class Failure
     {
         public const int GeneralFailure = 500;
 
