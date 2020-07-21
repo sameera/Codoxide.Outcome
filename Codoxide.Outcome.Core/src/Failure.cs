@@ -35,5 +35,7 @@ namespace Codoxide.Outcomes
                 ? this.Reason
                 : string.Concat(this.Reason, "\r\n", _exception);
         }
+
+        public static implicit operator Exception(Failure failure) => failure.AsException();
     }
 }

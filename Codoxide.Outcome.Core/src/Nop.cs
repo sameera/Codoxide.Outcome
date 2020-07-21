@@ -1,6 +1,7 @@
-﻿namespace Codoxide
+namespace Codoxide
 {
-    public readonly struct Nop
+    public class Nop
     {
+        public static readonly Nop Void = new Nop();
     }
 }

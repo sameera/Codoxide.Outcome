@@ -10,7 +10,7 @@
     <RepositoryUrl>https://github.com/sameera/Codoxide.Outcome</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
     <PackageTags>either monad, c#, chaining, result, functional, try</PackageTags>
-    <Version>5.1.0</Version>
+    <Version>6.0.0</Version>
     <Authors>Sameera Perera</Authors>
     <Company>Codoxide</Company>
     <PackageReleaseNotes>
@@ -22,6 +22,9 @@
         
         5.1.1
         - Marking Action based Then operations obsolete (preferring the Tap methods).
+        
+        6.0.0
+        - Removes the Catch blocks so that this library can be used along side of Codoxide.Outcome.Extensions.Catch.
     </PackageReleaseNotes>
   </PropertyGroup>
 

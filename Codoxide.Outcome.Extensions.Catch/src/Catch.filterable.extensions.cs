@@ -276,7 +276,7 @@ namespace Codoxide
             }
         }
 
-        private static bool IsCatchable<T>(Outcome<T> @this, Filter filter)
+        internal static bool IsCatchable<T>(Outcome<T> @this, Filter filter)
         {
             var (_, failure) = @this;
 
