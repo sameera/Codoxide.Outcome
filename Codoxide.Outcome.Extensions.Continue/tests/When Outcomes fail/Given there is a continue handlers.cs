@@ -1,4 +1,4 @@
-﻿using Codoxide;
+using Codoxide;
 using FluentAssertions;
 using System.Threading.Tasks;
 using Xunit;
@@ -12,9 +12,10 @@ namespace _.When_Outcomes_fail
         {
             this.GetFailingOutcome()
                 .Continue((result, failure) => 100)
-                .Then(value => {
+                .Tap(value => {
                     value.Should().Be(100);
-                });
+                })
+                .ResultOrThrow();
         }
 
         [Fact]
@@ -22,7 +23,8 @@ namespace _.When_Outcomes_fail
         {
             await this.GetFailingOutcomeAsync()
                 .Continue((result, failure) => 1000)
-                .Then(value => value.Should().Be(1000));
+                .Tap(value => value.Should().Be(1000))
+                .ResultOrThrow();
         }
 
         [Fact]
@@ -30,7 +32,8 @@ namespace _.When_Outcomes_fail
         {
             await this.GetFailingOutcomeAsync()
                 .Continue((result, failure) => Task.FromResult(1000))
-                .Then(value => value.Should().Be(1000));
+                .Tap(value => value.Should().Be(1000))
+                .ResultOrThrow();
         }
 
         public Outcome<string> GetFailingOutcome() => Outcome<string>.Reject("Failure!");

@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Codoxide.Outcome.Extensions.Catch\src\Codoxide.Outcome.Extensions.Catch.csproj" />
     <ProjectReference Include="..\src\Codoxide.Outcome.csproj" />
   </ItemGroup>
 

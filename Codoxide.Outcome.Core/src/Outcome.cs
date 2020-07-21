@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Codoxide
 {
-    public static class Outcome
+    public static partial class Outcome
     {
         public static int IntendedFailureCode => -1;
 
@@ -42,17 +42,19 @@ namespace Codoxide
                 var result = func();
                 return new Outcome<T>(result);
             }
+#pragma warning disable CA1031 // Do not catch general exception types
             catch (Exception e)
             {
                 return Outcome<T>.Reject(e.Message, e);
             }
+#pragma warning restore CA1031 // Do not catch general exception types
         }
 
         public static Outcome<T> Of<T>(T result) => new Outcome<T>(result);
 
 
         /// <summary>
-        /// Returns an outcome, that returns true. Useful in situations where you have conditionals that
+        /// Returns an outcome, that returns "nothing". Useful in situations where you have conditionals that
         /// need to be chained and don't have any other Outcome-returning initiation function.
         /// </summary>
         /// <example>
@@ -63,7 +65,7 @@ namespace Codoxide
         ///     </code>
         /// </example>
         /// <returns></returns>
-        public static Outcome<Nop> Any() => new Outcome<Nop>();
+        public static Outcome<Nop> Any() => new Outcome<Nop>(Nop.Void);
 
         public static Outcome<Nop> Any(Action action)
         {
@@ -72,20 +74,13 @@ namespace Codoxide
                 action();
                 return Any();
             }
+#pragma warning disable CA1031 // Do not catch general exception types
             catch (Exception e)
             {
                 return Reject(e);
             }
+#pragma warning restore CA1031 // Do not catch general exception types
         }
 
-        public static Outcome<Nop> Never() => new Outcome<Nop>(new Outcomes.Failure("Intended Failure", IntendedFailureCode));
-
-        public static Outcome<Nop> Reject(string reason) => new Outcome<Nop>(new Failure(reason));
-
-        public static Outcome<Nop> Reject(string reason, Exception exception) => new Outcome<Nop>(new Failure(reason, exception));
-        
-        public static Outcome<Nop> Reject(Exception exception) => Reject(exception.Message, exception);
-
-        internal static Outcome<Nop> Reject(Failure failure) => new Outcome<Nop>(failure);
     }
 }

@@ -5,7 +5,7 @@ namespace Codoxide
 {
     using static FixedOutcomes;
 
-    public static class OutcomeThenExtensions
+    public static class OutcomeTapExtensions
     {
         public static Outcome<T> Tap<T>(this Outcome<T> @this, Action action)
         {

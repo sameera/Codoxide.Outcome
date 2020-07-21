@@ -2,13 +2,14 @@ using Codoxide.Outcomes;
 using System;
 using System.Threading.Tasks;
 
-using static Codoxide.OutcomeThenExtensions;
 using static Codoxide.FixedOutcomes;
+using static Codoxide.OutcomeCatchExtensions;
+
 using System.Diagnostics;
 
 namespace Codoxide
 {
-    public static class OutcomeTapFailureExtensions
+    public static partial class OutcomeTapFailureExtensions
     {
         public static Outcome<T> TapFailure<T>(this Outcome<T> @this, Action action)
         {
@@ -85,16 +86,17 @@ namespace Codoxide
             }
         }
 
-        private static bool IsIgnorable<T>(Outcome<T> @this)
-        {
-            var (_, failure) = @this;
-            return failure == null || failure is KnownFailure;
-        }
 
-        private static Outcome<T> ToKnownFailed<T>(Outcome<T> outcome)
+        internal static Outcome<T> Try<T>(Func<Outcome<T>> func)
         {
-            Debug.Assert(!IsIgnorable(outcome));
-            return Outcome<T>.Reject(new KnownFailure(outcome.FailureOrThrow()));
+            try
+            {
+                return func();
+            }
+            catch (Exception ex)
+            {
+                return Fail(ex);
+            }
         }
     }
 }

@@ -19,7 +19,7 @@ namespace UnitTest.Codoxide.Outcome
                                 value.Should().Be(101);
                                 return ++value;
                             })
-                            .Catch(failure => {
+                            .TapFailure(failure => {
                                 Assert.False(true, "This should never be hit because the outcome is successful");
                             })
                             .ResultOrDefault();
@@ -34,7 +34,7 @@ namespace UnitTest.Codoxide.Outcome
                         .Then(value => {
                             Assert.False(true, "This should also not be hit because the function has failed");
                         })
-                        .Catch(failure => {
+                        .TapFailure(failure => {
                             Assert.IsType<InvalidOperationException>(failure.AsException());
                         })
                         .ResultOrDefault();

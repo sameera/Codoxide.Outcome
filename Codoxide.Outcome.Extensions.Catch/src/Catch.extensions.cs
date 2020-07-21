@@ -274,10 +274,10 @@ namespace Codoxide
             }
         }
 
-        private static bool IsIgnorable<T>(Outcome<T> @this) =>
+        internal static bool IsIgnorable<T>(Outcome<T> @this) =>
             @this.IsSuccessful || @this.FailureOrNull() is KnownFailure;
 
-        private static Outcome<T> ToKnownFailed<T>(Outcome<T> failed)
+        internal static Outcome<T> ToKnownFailed<T>(Outcome<T> failed)
         {
             Debug.Assert(!failed.IsSuccessful);
             return Outcome<T>.Reject(new KnownFailure(failed.FailureOrNull()));

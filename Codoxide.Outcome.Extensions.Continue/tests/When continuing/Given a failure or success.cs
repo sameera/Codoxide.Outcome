@@ -1,4 +1,4 @@
-﻿using Codoxide;
+using Codoxide;
 using FluentAssertions;
 using System.Threading.Tasks;
 using Xunit;
@@ -12,7 +12,8 @@ namespace _.When_continuing
         {
             this.GetFailingOutcome()
                 .Continue(() => 300)
-                .Then(i => i.Should().Be(300));
+                .Tap(i => i.Should().Be(300))
+                .ResultOrThrow();
         }
 
         [Fact]
@@ -22,19 +23,18 @@ namespace _.When_continuing
                 .Continue((_, failure) => {
                     failure.Reason.Should().Be("Failure!");
                     return 0;
-                });
+                })
+                .ResultOrThrow();
         }
 
         [Fact]
         public async Task It_can_continue_from_async_failure()
         {
             await this.GetFailingOutcomeAsync()
-                .Catch(failure => {
-                    failure.Should().NotBeNull();
-                })
+                .TapFailure(failure => failure.Should().NotBeNull())
                 .Continue(() => 300)
-                .Then(i => i.Should().Be(300))
-                .ConfigureAwait(false);
+                .Tap(i => i.Should().Be(300))
+                .ResultOrThrow();
         }
 
         [Fact]
@@ -42,22 +42,22 @@ namespace _.When_continuing
         {
             await this.GetFailingOutcomeAsync()
                 .Continue((_, failure) => Task.FromResult(300))
-                .Then(i => i.Should().Be(300))
-                .Then(() => this.GetFailingOutcomeAsync())
+                .Tap(i => i.Should().Be(300))
+                .Map(() => this.GetFailingOutcomeAsync())
                 .Continue(() => 400)
-                .Then(i => i.Should().Be(400))
-                .ConfigureAwait(false);
+                .Tap(i => i.Should().Be(400))
+                .ResultOrThrow();
         }
 
         [Fact]
         public async Task It_can_continue_from_Action_type_blocks()
         {
             await this.GetSuccessOutcomeAsync()
-                .Then(() => DoNothing())
-                .Catch(() => DoNothing())
+                .Tap(() => DoNothing())
+                .TapFailure(() => DoNothing())
                 .Continue(() => 100)
-                .Then(i => i.Should().Be(100))
-                .ConfigureAwait(false);
+                .Map(i => i.Should().Be(100))
+                .ResultOrThrow();
         }
 
         [Fact]
@@ -66,13 +66,12 @@ namespace _.When_continuing
             var continuationTask = Task.FromResult(900);
 
             await this.GetSuccessOutcomeAsync()
-
-                .Then(() => DoNothing())
-                .Catch(() => DoNothing())
+                .Tap(() => DoNothing())
+                .TapFailure(() => DoNothing())
                 .Continue(() => continuationTask)
 
-                .Then(i => i.Should().Be(900))
-                .ConfigureAwait(false);
+                .Map(i => i.Should().Be(900))
+                .ResultOrThrow();
         }
 
         [Fact]
@@ -80,7 +79,8 @@ namespace _.When_continuing
         {
             await this.GetSuccessOutcome()
                 .Continue(() => GetSuccessOutcomeAsync())
-                .Then(s => s.Should().Be("Success!"));
+                .Tap(s => s.Should().Be("Success!"))
+                .ResultOrThrow();
         }
 
         public Outcome<string> GetFailingOutcome() => Outcome<string>.Reject("Failure!");

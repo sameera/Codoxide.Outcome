@@ -1,4 +1,4 @@
-﻿using Codoxide;
+using Codoxide;
 using FluentAssertions;
 using System;
 using System.Threading.Tasks;
@@ -16,7 +16,7 @@ namespace _.When_finishing_off_an_outcome
                 return (initialValue + 1).ToString();
             };
 
-            var finalOutcome = await Begin().Then(i => asyncIncrement(i));
+            var finalOutcome = await Begin().Map(i => asyncIncrement(i));
 
             var result = finalOutcome.Return(s => Double.Parse(s)).Unwrap();
 
@@ -29,7 +29,7 @@ namespace _.When_finishing_off_an_outcome
         public async Task It_executes_the_catch_handler_of_the_exception_thrown()
         {            
             var finalOutcome = await Begin()
-                .ThenTry(i => {
+                .Tap(i => {
                     throw new InvalidOperationException();
                 });
 

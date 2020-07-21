@@ -69,16 +69,5 @@ namespace Codoxide
             result = this.ResultOrDefault();
         }
 
-        public static Outcome<T> Reject(in string reason, int failureCode = Failure.GeneralFailure) => 
-            new Outcome<T>(new Failure(reason, failureCode));
-
-        public static Outcome<T> Reject(in string reason, Exception exception, int failureCode = Failure.GeneralFailure) => 
-            new Outcome<T>(new Failure(reason, exception, failureCode));
-
-        public static Outcome<T> Reject(Exception exception, int failureCode = Failure.GeneralFailure) => 
-            new Outcome<T>(new Failure(exception.Message, exception, failureCode));
-
-        public static Outcome<T> Reject(Failure failure) => new Outcome<T>(default, failure);
-
     }
 }
