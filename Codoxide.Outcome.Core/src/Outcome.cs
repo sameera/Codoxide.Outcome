@@ -42,10 +42,12 @@ namespace Codoxide
                 var result = func();
                 return new Outcome<T>(result);
             }
+#pragma warning disable CA1031 // Do not catch general exception types
             catch (Exception e)
             {
                 return Outcome<T>.Reject(e.Message, e);
             }
+#pragma warning restore CA1031 // Do not catch general exception types
         }
 
         public static Outcome<T> Of<T>(T result) => new Outcome<T>(result);
@@ -72,10 +74,12 @@ namespace Codoxide
                 action();
                 return Any();
             }
+#pragma warning disable CA1031 // Do not catch general exception types
             catch (Exception e)
             {
                 return Reject(e);
             }
+#pragma warning restore CA1031 // Do not catch general exception types
         }
 
     }

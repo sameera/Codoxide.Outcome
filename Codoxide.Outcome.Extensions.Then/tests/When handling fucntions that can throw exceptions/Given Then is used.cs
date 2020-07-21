@@ -1,4 +1,4 @@
-﻿using Codoxide;
+using Codoxide;
 using FluentAssertions;
 using System;
 using System.Threading.Tasks;
@@ -19,7 +19,9 @@ namespace _.Given_methods_that_throw_exceptions
                     .Catch(error => {
                         error.Should().NotBeNull();
                         error.AsException().Should().BeOfType<InvalidOperationException>();
-                    });
+                        return "Handled";
+                    })
+                    .ResultOrThrow();
             }
             catch (Exception)
             {
@@ -38,7 +40,9 @@ namespace _.Given_methods_that_throw_exceptions
                     .Catch(error => {
                         error.Should().NotBeNull();
                         error.AsException().Should().BeOfType<InvalidOperationException>();
-                    });
+                        return "Handled";
+                    })
+                    .ResultOrThrow();
             }
             catch (Exception)
             {

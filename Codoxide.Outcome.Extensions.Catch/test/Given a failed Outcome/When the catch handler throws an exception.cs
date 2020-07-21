@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Xunit;
 using Codoxide;
 using FluentAssertions;
@@ -42,7 +42,7 @@ namespace _.Given_a_failed_Outcome
 
             // Action overload
             yield return wrap(
-                rejecetd().Catch(() => {
+                rejecetd().TapFailure(() => {
                     ActionThatThrowsException("Action");
                     Console.WriteLine("Action!");
                 })
@@ -50,7 +50,7 @@ namespace _.Given_a_failed_Outcome
 
             // Action<Failure>
             yield return wrap(
-                rejecetd().Catch(failure => {
+                rejecetd().TapFailure(failure => {
                     ActionThatThrowsException("Action<T>");
                     Console.WriteLine("Action<T>: " + failure.Reason);
                 })
@@ -112,7 +112,7 @@ namespace _.Given_a_failed_Outcome
             
             // Action
             yield return wrap(
-                    rejecetd().Catch(() => {
+                    rejecetd().TapFailure(() => {
                         ActionThatThrowsException("Action");
                         Console.WriteLine("Action");
                     })
@@ -120,7 +120,7 @@ namespace _.Given_a_failed_Outcome
             
             // Action<Failure>
             yield return wrap(
-                rejecetd().Catch(failure => {
+                rejecetd().TapFailure(failure => {
                     ActionThatThrowsException("Action<Failure>");
                     Console.WriteLine("Action<T>");
                 })
@@ -144,7 +144,7 @@ namespace _.Given_a_failed_Outcome
 
             // Func<Task>
             yield return wrap(
-                    rejecetd().Catch(() => {
+                    rejecetd().TapFailure(() => {
                         ActionThatThrowsException("Func<Task>");
                         return Task.CompletedTask;
                     })
@@ -152,7 +152,7 @@ namespace _.Given_a_failed_Outcome
 
             // Func<Failure, Task>
             yield return wrap(
-                rejecetd().Catch(failure => {
+                rejecetd().TapFailure(failure => {
                     ActionThatThrowsException("Func<Failure, Task>");
                     return Task.CompletedTask;
                 })

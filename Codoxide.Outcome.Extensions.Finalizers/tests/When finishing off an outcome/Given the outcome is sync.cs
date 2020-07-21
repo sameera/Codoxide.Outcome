@@ -1,4 +1,4 @@
-﻿using Codoxide;
+using Codoxide;
 using FluentAssertions;
 using System;
 using Xunit;
@@ -20,11 +20,11 @@ namespace _.When_finishing_off_an_outcome
         public void It_invokes_exception_handler_when_a_specific_exception_is_thrown()
         {
             var result = Begin()
-                .ThenTry(i => {
+                .Tap(i => {
                     throw new InvalidProgramException("expected-exception");
                 })
                 .Return(i => "Success-" + i.ToString())
-                .Catch<InvalidProgramException>(e => e.Message + " occured.")
+                .Catch(e => e.Reason + " occured.")
                 .Unwrap();
         }
 

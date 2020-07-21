@@ -20,8 +20,4 @@
     <ProjectReference Include="..\..\Codoxide.Outcome.Core\src\Codoxide.Outcome.Core.csproj" />
     <ProjectReference Include="..\src\Codoxide.Outcome.Extensions.Then.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Given a failed Outcome\" />
-  </ItemGroup>
 </Project>

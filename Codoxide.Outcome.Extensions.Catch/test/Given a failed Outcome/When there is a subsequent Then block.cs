@@ -33,42 +33,42 @@ namespace _.Given_a_failed_Outcome
 
             yield return wrap(
                 "Action",
-                TheFailedOutcome.Then(() => Console.WriteLine("Action"))
+                TheFailedOutcome.Tap(() => Console.WriteLine("Action"))
             );
 
             yield return wrap(
                 "Action<T>",
-                TheFailedOutcome.Then(s => Console.WriteLine(s))
+                TheFailedOutcome.Tap(s => Console.WriteLine(s))
             );
 
             yield return wrap(
                 "Func<R>",
-                TheFailedOutcome.Then(() => 10)
+                TheFailedOutcome.Map(() => 10)
             );
 
             yield return wrap(
                 "Func<T, R>",
-                TheFailedOutcome.Then(s => 10)
+                TheFailedOutcome.Map(s => 10)
             );
 
             yield return wrap(
                 "Func<Outcome<R>>",
-                TheFailedOutcome.Then(() => new Outcome<int>(10))
+                TheFailedOutcome.Map(() => new Outcome<int>(10))
             );
 
             yield return wrap(
                 "Func<T, Outcome<R>>",
-                TheFailedOutcome.Then(s => new Outcome<int>(10))
+                TheFailedOutcome.Map(s => new Outcome<int>(10))
             );
 
             yield return wrap(
                 "Func<ValueType<R, Failure>>",
-                TheFailedOutcome.Then(() => Tuple.Create<int, Failure>(10, null))
+                TheFailedOutcome.Map(() => Tuple.Create<int, Failure>(10, null))
             );
 
             yield return wrap(
                 "Func<T, ValueType<R, Failure>>",
-                TheFailedOutcome.Then(s => Tuple.Create(0, new Failure("Dummy failure")))
+                TheFailedOutcome.Map(s => Tuple.Create(0, new Failure("Dummy failure")))
             );
         }
     }
