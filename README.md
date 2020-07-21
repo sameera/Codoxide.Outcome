@@ -1,11 +1,24 @@
 # Codoxide.Outcome
 `Codoxide.Outcome<T>` is a chainable class for representing the outcome of an operation that uses "Either Monad-like" behavior for Exception-free design.
 
-The `Codoxide.Outcome` is a collection of libraries that help you write functional-programming style code without going all-out on the functional philosophy.
+The `Codoxide.Outcome` is a collection of libraries that help you write functional-programming style code without going all-out on the functional philosophy. 
 
 NuGet: https://www.nuget.org/packages/Codoxide.Outcome
 
-## 
+## Why?
+
+Firstly, I'm not a strong functional-programming advocate; nor am I even an expert. Being a devoted OOP follower for nearly 20 years, I'd imagine my transition, to functional would be a very very slow process; if ever it even happens. I believe that would hold true for most C# developers. And I know it's true for my team. I wrote `Outcome<T>` to enforce the disciplines, listed below, in my team. Some of them, you'd find, are actually borrowed from functional programming.
+
+1. Exception-free design / ROP
+2. Minimize side-effects
+3. Write code that communicates its intent, devoid of the ceremonies around 
+4. Do all of the above, seamlessly, even when async code is involved.
+
+### Exception-free Design
+
+"Don't use exceptions for flow control!"
+
+This is a simple rule we all know. However, its easy to back yourself in to a corner where you have no option to throw an exception to break out of the current flow. Methods that throw exceptions are what can be called "dishonest interfaces": 
 
 
 Sample code:
