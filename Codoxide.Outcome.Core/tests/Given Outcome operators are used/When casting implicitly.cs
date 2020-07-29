@@ -23,7 +23,7 @@ namespace _.Given_Outcome_operators_are_used
         public void It_can_cast_to_a_Exception_tuple()
         {
             const string exceptionMessage = "Something wrong";
-            (int i, Exception e) = Outcome<int>.Reject("Something wrong");
+            (int i, Exception e) = this.FailWith(exceptionMessage);
 
             e.Should().NotBeNull();
             e.Message.Should().Be(exceptionMessage);
@@ -34,5 +34,8 @@ namespace _.Given_Outcome_operators_are_used
             f.Should().BeNull();
             y.Should().Be(10);
         }
+
+        private (int, Exception) FailWith(string text) => Outcome<int>.Reject(text);
+
     }
- }
+}
