@@ -7,18 +7,16 @@ NuGet: https://www.nuget.org/packages/Codoxide.Outcome
 
 ## Why?
 
-Firstly, I'm not a strong functional-programming advocate; nor am I even an expert. Being a devoted OOP follower for nearly 20 years, I'd imagine my transition, to functional would be a very very slow process; if ever it even happens. I believe that would hold true for most C# developers. And I know it's true for my team. I wrote `Outcome<T>` to enforce the disciplines, listed below, in my team. Some of them, you'd find, are actually borrowed from functional programming.
+Firstly, I'm not a strong functional-programming advocate; nor am I even an expert. Being a devoted OOP follower for nearly 20 years, I'd imagine my transition, to functional would be a very very slow process; if ever it even happens. I believe that would hold true for most C# developers. And I know it's true for my team. I wrote `Outcome<T>` to enforce few disciplines borrowed from functional programming.
 
-1. Exception-free design / ROP
-2. Minimize side-effects
-3. Write code that communicates its intent, devoid of the ceremonies around 
-4. Do all of the above, seamlessly, even when async code is involved.
+There are of course, other similar C# libraries (e.g. [LanguageExt](https://languageext.readthedocs.io/en/latest/README.html#getting-started)) that allows you to write functional-style code. `Outcome<T>` is different in that:
 
-### Exception-free Design
+1. Low allocations (`Outcome<T>` is a value type) which makes it inexpensive to construct.
+2. Deconstructs in to a value tuple of `(T, Failure)` or `(T, Exception)` ***
+3. Effortlessly wraps async code
+4. Extensively modular, allowing you to pick just the features you need.
 
-"Don't use exceptions for flow control!"
-
-This is a simple rule we all know. However, its easy to back yourself in to a corner where you have no option to throw an exception to break out of the current flow. Methods that throw exceptions are what can be called "dishonest interfaces": 
+*** If you are writing a Class Library and you do not want to force `Outcome<T>` on your users, you can simply return `(T, Exception)` tuples instead.
 
 
 Sample code:

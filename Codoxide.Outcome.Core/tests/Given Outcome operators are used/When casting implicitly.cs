@@ -1,12 +1,15 @@
 using Codoxide;
 using Xunit;
 using FluentAssertions;
- 
- namespace _.Given_Outcome_operators_are_used
+using System;
+using System.Threading.Tasks;
+
+namespace _.Given_Outcome_operators_are_used
  {
      public class When_casting_implicitly
      {
-         [Fact]
+
+        [Fact]
          public void It_accepts_Outcomes_with_compatible_results()
          {
              var original = new Outcome<int>(10);
@@ -15,5 +18,21 @@ using FluentAssertions;
              casted.IsSuccessful.Should().BeTrue();
              casted.ResultOrThrow().Should().Be(10);
          }
-     }
+        
+        [Fact]
+        public void It_can_cast_to_a_Exception_tuple()
+        {
+            const string exceptionMessage = "Something wrong";
+            (int i, Exception e) = Outcome<int>.Reject("Something wrong");
+
+            e.Should().NotBeNull();
+            e.Message.Should().Be(exceptionMessage);
+            i.Should().Be(default);
+
+            (int y, Exception f) = Outcome.Of(10);
+
+            f.Should().BeNull();
+            y.Should().Be(10);
+        }
+    }
  }

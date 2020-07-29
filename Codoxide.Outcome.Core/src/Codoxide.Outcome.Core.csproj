@@ -10,7 +10,7 @@
     <RepositoryUrl>https://github.com/sameera/Codoxide.Outcome</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
     <PackageTags>either monad, c#, chaining, result, functional, try</PackageTags>
-    <Version>6.0.2</Version>
+    <Version>6.0.3</Version>
     <Authors>Sameera Perera</Authors>
     <Company>Codoxide</Company>
     <PackageReleaseNotes>
@@ -25,6 +25,7 @@
     - Failures can be implicitly casted to Exceptions.
     - Task unwrapping extensions.
     - Finally() extension method.
+    
     </PackageReleaseNotes>
     <RootNamespace>Codoxide</RootNamespace>
   </PropertyGroup>
