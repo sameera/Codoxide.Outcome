@@ -20,8 +20,7 @@ namespace Codoxide
         public static Outcome<T> Catch<T>(this Outcome<T> @this, Func<Failure, T> fn)
         {
             if (IsIgnorable(@this)) return @this;
-
-
+            
             return Outcome.Of(() => fn(@this.FailureOrThrow()));
         }
 
