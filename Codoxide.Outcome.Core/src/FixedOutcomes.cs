@@ -23,10 +23,12 @@ namespace Codoxide
             {
                 return (func(), null);
             }
+#pragma warning disable CA1031 // Do not catch general exception types
             catch (Exception ex)
             {
                 return (default(T), ex);
             }
+#pragma warning restore CA1031 // Do not catch general exception types
         }
     }
 }
