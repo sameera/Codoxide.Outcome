@@ -27,7 +27,7 @@ namespace Codoxide
 
                 if (!outcome.IsSuccessful || outcome.ResultOrDefault() == null)
                 {
-                    this._result = default(T);
+                    this._result = default;
                 }
                 else
                 {
