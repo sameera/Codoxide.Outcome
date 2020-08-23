@@ -3,15 +3,13 @@ using System;
 
 namespace Codoxide
 {
-    using static FixedOutcomes;
-
     public static class OutcomeTapExtensions
     {
         public static Outcome<T> Tap<T>(this Outcome<T> @this, Action action)
         {
             if (!@this.IsSuccessful) return @this;
 
-            return Try(() => {
+            return Utility.Try(() => {
                 action();
                 return @this;
             });
@@ -21,22 +19,10 @@ namespace Codoxide
         {
             if (!@this.IsSuccessful) return @this;
 
-            return Try(() => {
+            return Utility.Try(() => {
                 action(@this.ResultOrDefault());
                 return @this;
             });
-        }
-
-        internal static Outcome<T> Try<T>(Func<Outcome<T>> func)
-        {
-            try
-            {
-                return func();
-            }
-            catch (Exception ex)
-            {
-                return Fail(ex);
-            }
         }
     }
 }
