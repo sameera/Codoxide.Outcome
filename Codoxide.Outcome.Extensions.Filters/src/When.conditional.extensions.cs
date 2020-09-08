@@ -1,16 +1,13 @@
 using Codoxide.OutcomeExtensions.Filters;
-using Codoxide.Outcomes;
-using System;
 using System.Threading.Tasks;
 
 namespace Codoxide
 {
-    using static FixedOutcomes;
     using static Codoxide.Internals.Utility;
+    using static FixedOutcomes;
 
     public static class WhenConditionalExtensions
     {
-
         public static Outcome<T> When<T>(this Outcome<T> @this, bool condition)
         {
             var (result, failure) = @this;

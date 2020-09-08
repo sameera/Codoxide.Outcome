@@ -16,12 +16,10 @@
     <Version>6.1.0</Version>
     <Authors>Sameera Perera</Authors>
     <Company>Codoxide</Company>
-    <PackageReleaseNotes>
-    Moved to .NET Standard 2.1.
-    Failures can be implicitly casted to Exceptions.
-    Task unwrapping extensions.
-    Finally() extension method.
-    </PackageReleaseNotes>
+
+      <PackageReleaseNotes>
+          Added Otherwise for async Outcomes.
+      </PackageReleaseNotes>
     <RootNamespace>Codoxide</RootNamespace>
   </PropertyGroup>
 

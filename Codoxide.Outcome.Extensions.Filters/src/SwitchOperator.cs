@@ -1,7 +1,5 @@
 using Codoxide.OutcomeExtensions.Filters;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Codoxide
@@ -33,7 +31,7 @@ namespace Codoxide
         {
             for (int i = 0; i < asyncOutcomes.Length; i++)
             {
-                var outcome = await asyncOutcomes[i]; 
+                var outcome = await asyncOutcomes[i];
                 if (outcome.IsSuccessful) return outcome;
             }
 

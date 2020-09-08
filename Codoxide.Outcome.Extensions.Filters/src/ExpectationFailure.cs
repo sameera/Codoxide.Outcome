@@ -1,5 +1,4 @@
 using Codoxide.Outcomes;
-using System;
 
 namespace Codoxide.OutcomeExtensions.Filters
 {
@@ -14,7 +13,7 @@ namespace Codoxide.OutcomeExtensions.Filters
         }
     }
 
-    class ExpectationFailure<T> : ExpectationFailure
+    internal class ExpectationFailure<T> : ExpectationFailure
     {
         internal T ResultAtSource { get; }
 
