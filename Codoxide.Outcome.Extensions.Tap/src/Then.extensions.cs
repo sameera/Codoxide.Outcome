@@ -4,6 +4,7 @@ using System;
 namespace Codoxide
 {
     using static FixedOutcomes;
+    using static Codoxide.Internals.Utility;
 
     public static class OutcomeThenExtensions
     {
@@ -27,18 +28,6 @@ namespace Codoxide
                 action(@this.ResultOrDefault());
                 return @this;
             });
-        }
-
-        internal static Outcome<T> Try<T>(Func<Outcome<T>> func)
-        {
-            try
-            {
-                return func();
-            }
-            catch (Exception ex)
-            {
-                return Fail(ex);
-            }
         }
     }
 }

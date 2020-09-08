@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 namespace Codoxide
 {
     using static FixedOutcomes;
+    using static Codoxide.Internals.Utility;
 
     public static class OutcomeThenTaskThenExtensions
     {
@@ -105,18 +106,6 @@ namespace Codoxide
 
                 return Outcome<ReturnValue>.Reject(outcome.FailureOrNull());
             });
-        }
-
-        private static async Task<Outcome<T>> Try<T>(Func<Task<Outcome<T>>> func)
-        {
-            try
-            {
-                return await func();
-            }
-            catch (Exception ex)
-            {
-                return Outcome<T>.Reject(Fail(ex));
-            }
         }
     }
 }

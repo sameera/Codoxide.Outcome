@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 namespace Codoxide
 {
     using static FixedOutcomes;
+    using static Codoxide.Internals.Utility;
+
     public static class OutcomeThenAsyncExtensions
     {
         [Obsolete("Use 'Map' instead")]
@@ -44,18 +46,6 @@ namespace Codoxide
 
                 return Outcome<ReturnType>.Reject(outcome.FailureOrNull());
             });
-        }
-
-        private static async Task<Outcome<T>> Try<T>(Func<Task<Outcome<T>>> func)
-        {
-            try
-            {
-                return await func();
-            }
-            catch (Exception ex)
-            {
-                return Outcome<T>.Reject(Fail(ex));
-            }
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -6,21 +6,24 @@ namespace Codoxide
 {
     public static class OutcomeCollectionExtensions
     {
-        public static Outcome<IEnumerable<ResultType>> ThenForEach<T, ResultType>(this Outcome<IEnumerable<T>> @this, Func<ResultType> fn)
+        [Obsolete("Use MapAll")]
+        public static  Outcome<IEnumerable<ResultType>> ThenForEach<T, ResultType>(this Outcome<IEnumerable<T>> @this, Func<ResultType> fn)
         {
             if (!@this.IsSuccessful) return Outcome<IEnumerable<ResultType>>.Reject(@this.FailureOrThrow());
 
             return Outcome.Of(() => @this.ResultOrDefault(Enumerable.Empty<T>()).Select(_ => fn()));
         }
 
-        public static Outcome<IEnumerable<ResultType>> ThenForEach<T, ResultType>(this Outcome<IEnumerable<T>> @this, Func<T, ResultType> fn)
+        [Obsolete("Use MapAll")]
+        public static  Outcome<IEnumerable<ResultType>> ThenForEach<T, ResultType>(this Outcome<IEnumerable<T>> @this, Func<T, ResultType> fn)
         {
             if (!@this.IsSuccessful) return Outcome<IEnumerable<ResultType>>.Reject(@this.FailureOrThrow());
 
             return Outcome.Of(() => @this.ResultOrDefault(Enumerable.Empty<T>()).Select(r => fn(r)));
         }
 
-        public static Outcome<IEnumerable<T>> ThenForEach<T>(this Outcome<IEnumerable<T>> @this, Action fn)
+        [Obsolete("Use methods from Codoxide.Outcome.Extensions.Filters")]
+        public static  Outcome<IEnumerable<T>> ThenForEach<T>(this Outcome<IEnumerable<T>> @this, Action fn)
         {
             if (@this.IsSuccessful)
             {
@@ -33,7 +36,8 @@ namespace Codoxide
             return @this;
         }
             
-        public static Outcome<IEnumerable<T>> ThenForEach<T>(this Outcome<IEnumerable<T>> @this, Action<T> fn)
+        [Obsolete("Use methods from Codoxide.Outcome.Extensions.Filters")]
+        public static  Outcome<IEnumerable<T>> ThenForEach<T>(this Outcome<IEnumerable<T>> @this, Action<T> fn)
         {
             if (@this.IsSuccessful)
             {

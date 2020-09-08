@@ -1,4 +1,4 @@
-﻿using Codoxide.Outcomes;
+using Codoxide.Outcomes;
 using System;
 using System.Threading.Tasks;
 
@@ -6,42 +6,49 @@ namespace Codoxide
 {
     public static class OutcomeConditionalThenPredicatesExtensions
     {
-        public static Outcome<T> Then<T>(
+        [Obsolete("Use methods from Codoxide.Outcome.Extensions.Filters")]
+        public static  Outcome<T> Then<T>(
                 this Outcome<T> @this, 
                 Predicate<T> predicate, 
                 Action action
             ) => @this.Then(@this.IsSuccessful && predicate(@this.ResultOrThrow()), action);
 
-        public static Outcome<T> Then<T>(
+        [Obsolete("Use methods from Codoxide.Outcome.Extensions.Filters")]
+        public static  Outcome<T> Then<T>(
                 this Outcome<T> @this, 
                 Predicate<T> predicate, 
                 Action<T> action
             ) => @this.Then(@this.IsSuccessful && predicate(@this.ResultOrThrow()), action);
 
-        public static Outcome<T> Then<T>(
+        [Obsolete("Use methods from Codoxide.Outcome.Extensions.Filters")]
+        public static  Outcome<T> Then<T>(
                 this Outcome<T> @this,
                 Predicate<T> predicate,
                 Func<T> fn
             ) => @this.Then(@this.IsSuccessful && predicate(@this.ResultOrThrow()), fn);
 
-        public static Outcome<T> Then<T>(
+        [Obsolete("Use methods from Codoxide.Outcome.Extensions.Filters")]
+        public static  Outcome<T> Then<T>(
                 this Outcome<T> @this,
                 Predicate<T> predicate,
                 Func<Failure> fn
             ) => @this.Then(@this.IsSuccessful && predicate(@this.ResultOrThrow()), fn);
 
-        public static Task<Outcome<T>> Then<T>(
+        [Obsolete("Use methods from Codoxide.Outcome.Extensions.Filters")]
+        public static  Task<Outcome<T>> Then<T>(
                 this Outcome<T> @this,
                 Predicate<T> predicate,
                 Func<Task> action) => @this.Then(@this.IsSuccessful && predicate(@this.ResultOrThrow()), action);
 
-        public static Task<Outcome<T>> Then<T>(
+        [Obsolete("Use methods from Codoxide.Outcome.Extensions.Filters")]
+        public static  Task<Outcome<T>> Then<T>(
                 this Outcome<T> @this,
                 Predicate<T> predicate,
                 Func<T, Task> action
             ) => @this.Then(@this.IsSuccessful && predicate(@this.ResultOrThrow()), action);
 
-        public static async Task<Outcome<T>> Then<T>(this Task<Outcome<T>> @this, Predicate<T> condition, Action action)
+        [Obsolete("Use methods from Codoxide.Outcome.Extensions.Filters")]
+        public static  async Task<Outcome<T>> Then<T>(this Task<Outcome<T>> @this, Predicate<T> condition, Action action)
         {
             var outcome = await @this;
 
@@ -50,7 +57,8 @@ namespace Codoxide
             return outcome;
         }
 
-        public static async Task<Outcome<T>> Then<T>(this Task<Outcome<T>> @this, Predicate<T> condition, Action<T> action)
+        [Obsolete("Use methods from Codoxide.Outcome.Extensions.Filters")]
+        public static  async Task<Outcome<T>> Then<T>(this Task<Outcome<T>> @this, Predicate<T> condition, Action<T> action)
         {
             var outcome = await @this;
 
@@ -59,7 +67,8 @@ namespace Codoxide
             return outcome;
         }
 
-        public static async Task<Outcome<T>> Then<T>(this Task<Outcome<T>> @this, Predicate<T> condition, Func<Task> action)
+        [Obsolete("Use methods from Codoxide.Outcome.Extensions.Filters")]
+        public static  async Task<Outcome<T>> Then<T>(this Task<Outcome<T>> @this, Predicate<T> condition, Func<Task> action)
         {
             var outcome = await @this;
 
@@ -68,7 +77,8 @@ namespace Codoxide
             return outcome;
         }
 
-        public static async Task<Outcome<T>> Then<T>(this Task<Outcome<T>> @this, Predicate<T> condition, Func<T, Task> action)
+        [Obsolete("Use methods from Codoxide.Outcome.Extensions.Filters")]
+        public static  async Task<Outcome<T>> Then<T>(this Task<Outcome<T>> @this, Predicate<T> condition, Func<T, Task> action)
         {
             var outcome = await @this;
 
@@ -77,7 +87,8 @@ namespace Codoxide
             return outcome;
         }
 
-        public static async Task<Outcome<T>> Then<T>(this Task<Outcome<T>> @this, Predicate<T> condition, Func<T> fn)
+        [Obsolete("Use methods from Codoxide.Outcome.Extensions.Filters")]
+        public static  async Task<Outcome<T>> Then<T>(this Task<Outcome<T>> @this, Predicate<T> condition, Func<T> fn)
         {
             var outcome = await @this;
 
@@ -86,7 +97,8 @@ namespace Codoxide
             return outcome;
         }
 
-        public static async Task<Outcome<T>> Then<T>(this Task<Outcome<T>> @this, Predicate<T> condition, Func<T, T> fn)
+        [Obsolete("Use methods from Codoxide.Outcome.Extensions.Filters")]
+        public static  async Task<Outcome<T>> Then<T>(this Task<Outcome<T>> @this, Predicate<T> condition, Func<T, T> fn)
         {
             var outcome = await @this;
 
@@ -95,7 +107,8 @@ namespace Codoxide
             return outcome;
         }
 
-        public static async Task<Outcome<T>> Then<T>(this Task<Outcome<T>> @this, Predicate<T> condition, Func<Failure> fn)
+        [Obsolete("Use methods from Codoxide.Outcome.Extensions.Filters")]
+        public static  async Task<Outcome<T>> Then<T>(this Task<Outcome<T>> @this, Predicate<T> condition, Func<Failure> fn)
         {
             var outcome = await @this;
 
@@ -104,7 +117,8 @@ namespace Codoxide
             return outcome;
         }
 
-        public static async Task<Outcome<T>> Then<T>(this Task<Outcome<T>> @this, Predicate<T> condition, Func<T, Failure> fn)
+        [Obsolete("Use methods from Codoxide.Outcome.Extensions.Filters")]
+        public static  async Task<Outcome<T>> Then<T>(this Task<Outcome<T>> @this, Predicate<T> condition, Func<T, Failure> fn)
         {
             var outcome = await @this;
 
@@ -113,7 +127,8 @@ namespace Codoxide
             return outcome;
         }
 
-        public static async Task<Outcome<T>> Then<T>(this Task<Outcome<T>> @this, Predicate<T> condition, Func<Task<T>> fn)
+        [Obsolete("Use methods from Codoxide.Outcome.Extensions.Filters")]
+        public static  async Task<Outcome<T>> Then<T>(this Task<Outcome<T>> @this, Predicate<T> condition, Func<Task<T>> fn)
         {
             var outcome = await @this;
 
@@ -122,7 +137,8 @@ namespace Codoxide
             return outcome;
         }
 
-        public static async Task<Outcome<T>> Then<T>(this Task<Outcome<T>> @this, Predicate<T> condition, Func<T, Task<T>> fn)
+        [Obsolete("Use methods from Codoxide.Outcome.Extensions.Filters")]
+        public static  async Task<Outcome<T>> Then<T>(this Task<Outcome<T>> @this, Predicate<T> condition, Func<T, Task<T>> fn)
         {
             var outcome = await @this;
 
@@ -131,7 +147,8 @@ namespace Codoxide
             return outcome;
         }
 
-        public static async Task<Outcome<T>> Then<T>(this Task<Outcome<T>> @this, Predicate<T> condition, Func<Task<Failure>> fn)
+        [Obsolete("Use methods from Codoxide.Outcome.Extensions.Filters")]
+        public static  async Task<Outcome<T>> Then<T>(this Task<Outcome<T>> @this, Predicate<T> condition, Func<Task<Failure>> fn)
         {
             var outcome = await @this;
 
@@ -140,7 +157,8 @@ namespace Codoxide
             return outcome;
         }
 
-        public static async Task<Outcome<T>> Then<T>(this Task<Outcome<T>> @this, Predicate<T> condition, Func<T, Task<Failure>> fn)
+        [Obsolete("Use methods from Codoxide.Outcome.Extensions.Filters")]
+        public static  async Task<Outcome<T>> Then<T>(this Task<Outcome<T>> @this, Predicate<T> condition, Func<T, Task<Failure>> fn)
         {
             var outcome = await @this;
 

@@ -13,7 +13,7 @@ namespace Codoxide
 
         private readonly Failure _failure;
 
-        private readonly T _result;
+        internal readonly T Result;
 
         public Outcome(in T result) : this(result, null) { }
 
@@ -27,14 +27,14 @@ namespace Codoxide
 
                 if (!outcome.IsSuccessful || outcome.ResultOrDefault() == null)
                 {
-                    this._result = default;
+                    this.Result = default;
                 }
                 else
                 {
                     var innerResult = outcome.ResultOrDefault();
                     if (innerResult is T assignableResult)
                     {
-                        this._result = assignableResult;
+                        this.Result = assignableResult;
                     }
                     else
                     {
@@ -44,7 +44,7 @@ namespace Codoxide
             }
             else
             {
-                _result = result;
+                Result = result;
                 _failure = failure;
             }
         }
@@ -53,13 +53,13 @@ namespace Codoxide
 
         public Failure FailureOrThrow() => this._failure ?? throw new InvalidOperationException("There is no failure as this is a successful Outcome.");
 
-        public T ResultOrDefault() => this._result;
+        public T ResultOrDefault() => this.IsSuccessful ? this.Result : default;
 
-        object IOutcome.ResultOrDefault() => this._result;
+        object IOutcome.ResultOrDefault() => this.ResultOrDefault();
 
-        public T ResultOrDefault(T defaultValue) => this.IsSuccessful ? this._result : defaultValue;
+        public T ResultOrDefault(T defaultValue) => this.IsSuccessful ? this.Result : defaultValue;
 
-        public T ResultOrThrow() => this.IsSuccessful ? this._result : throw this._failure.AsException();
+        public T ResultOrThrow() => this.IsSuccessful ? this.Result : throw this._failure.AsException();
 
         object IOutcome.ResultOrThrow() => this.ResultOrThrow();
 
