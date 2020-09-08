@@ -1,7 +1,5 @@
-using Codoxide.Internals;
 using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Threading.Tasks;
 
 namespace Codoxide.OutcomeExtensions.Filters
 {
@@ -29,6 +27,33 @@ namespace Codoxide.OutcomeExtensions.Filters
             else
             {
                 return (result, new ExpectationFailure<T>(result));
+            }
+        }
+
+        public static async Task<Outcome<T>> Otherwise<T>(this Task<Outcome<T>> @this)
+        {
+            try
+            {
+                var outcome = await @this;
+
+                var (result, failure) = outcome;
+
+                if (failure is ExpectationFailure<T> expected)
+                {
+                    return new Outcome<T>(expected.ResultAtSource);
+                }
+                else if (failure != null)
+                {
+                    return outcome;
+                }
+                else
+                {
+                    return (result, new ExpectationFailure<T>(result));
+                }
+            }
+            catch (Exception ex)
+            {
+                return Outcome<T>.Reject(ex);
             }
         }
     }

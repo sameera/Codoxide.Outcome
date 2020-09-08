@@ -1,13 +1,12 @@
 using Codoxide.OutcomeExtensions.Filters;
-using Codoxide.Outcomes;
 using System;
 using System.Threading.Tasks;
 
 namespace Codoxide
 {
-    using static FixedOutcomes;
     using static Codoxide.Internals.Utility;
     using static Codoxide.OutcomeExtensions.Filters.Utility;
+    using static FixedOutcomes;
 
     public static class WhenPredicateExtensions
     {

@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 namespace Codoxide
 {
     using Codoxide.Internals;
-    using static FixedOutcomes;
+
     public static partial class TapWhenExtensions
     {
         /***************************
@@ -28,7 +28,7 @@ namespace Codoxide
                 return outcome;
             }).ConfigureAwait(false);
         }
-        
+
         public static async Task<Outcome<T>> TapWhen<T>(this Task<Outcome<T>> asyncPromise, Func<bool> predicate, Action action)
         {
             return await Utility.Try(async () => {

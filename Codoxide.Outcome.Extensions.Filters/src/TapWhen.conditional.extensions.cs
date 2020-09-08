@@ -1,10 +1,9 @@
-using Codoxide.Outcomes;
 using System;
 
 namespace Codoxide
 {
-    using static FixedOutcomes;
     using static Codoxide.Internals.Utility;
+    using static FixedOutcomes;
 
     public static partial class TapWhenExtensions
     {
