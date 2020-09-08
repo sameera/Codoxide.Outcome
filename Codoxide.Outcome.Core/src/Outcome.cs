@@ -11,29 +11,20 @@ namespace Codoxide
 
         public static Task<Outcome<T>> Of<T>(Func<Task<T>> func) => Of(func());
 
-        public static Task<Outcome<T>> Of<T>(Task<T> task) =>
-            task.ContinueWith(t => {
-                if (t.IsFaulted && t.Exception?.InnerExceptions?.Count == 1)
-                {
-                    return Outcome<T>.Reject(t.Exception.InnerExceptions.First());
-                }
-                else if (t.IsFaulted && t.Exception != null)
-                {
-                    return Outcome<T>.Reject(t.Exception);
-                }
-                else if (t.IsFaulted)
-                {
-                    return Outcome<T>.Reject("Task failed unexpectedly.");
-                }
-                else if (t.IsCanceled)
-                {
-                    return Outcome<T>.Reject("Task was cancelled", new TaskCanceledException(t));
-                }
-                else
-                {
-                    return new Outcome<T>(t.Result);
-                }
-            });
+        public static async Task<Outcome<T>> Of<T>(Task<T> task)
+        {
+            try
+            {
+                var result = await task.ConfigureAwait(false);
+                return new Outcome<T>(result);
+            }
+#pragma warning disable CA1031 // Do not catch general exception types
+            catch (Exception ex)
+            {
+                return Outcome<T>.Reject(ex);
+            }
+#pragma warning restore CA1031 // Do not catch general exception types
+        }
 
         public static Outcome<T> Of<T>(Func<T> func)
         {

@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <ProjectGuid>7ca48d06-2f3d-4f1d-a644-be789ce16b77</ProjectGuid>
+    <Authors>Sameera Perera</Authors>
+    <Product>Outcome&lt;T&gt;</Product>
+    <RepositoryUrl>https://github.com/sameera/Codoxide.Outcome</RepositoryUrl>
+    <RepositoryType>Git</RepositoryType>
+    <PackageTags>either monad, c#, chaining, result, functional, try</PackageTags>
+    <Description>"Either" Monad-like Implementation for dealing with operation results in C#</Description>
+    <Copyright>Sameera Perera</Copyright>
+    <PackageProjectUrl>https://github.com/sameera/Codoxide.Outcome</PackageProjectUrl>
+    <PackageReleaseNotes></PackageReleaseNotes>
+    <RootNamespace>Codoxide</RootNamespace>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <Company>Codoxide</Company>
+  </PropertyGroup>
+
+</Project>

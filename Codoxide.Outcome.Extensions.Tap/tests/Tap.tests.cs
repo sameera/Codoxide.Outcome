@@ -10,8 +10,8 @@ namespace _.UnitTests
 
     public class TapExtensionTests
     {
-        Action paramlessAction = A.Fake<Action>();
-        Action<string> withparamAction = A.Fake<Action<string>>();
+        readonly Action paramlessAction = A.Fake<Action>();
+        readonly Action<string> withparamAction = A.Fake<Action<string>>();
 
 
         [Fact]

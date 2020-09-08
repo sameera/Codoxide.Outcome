@@ -4,24 +4,25 @@ using System;
 namespace Codoxide
 {
     using static FixedOutcomes;
+    using static Codoxide.Internals.Utility;
 
-    public static class OutcomeConditionalTapExtensions
+    public static partial class TapWhenExtensions
     {
-        public static Outcome<T> Tap<T>(this Outcome<T> @this, bool condition, Action action)
+        public static Outcome<T> TapWhen<T>(this Outcome<T> @this, bool condition, Action action)
         {
             if (!condition || !@this.IsSuccessful) return @this;
 
-            return Utility.Try(() => {
+            return Try(() => {
                 action();
                 return @this;
             });
         }
 
-        public static Outcome<T> Tap<T>(this Outcome<T> @this, bool condition, Action<T> action)
+        public static Outcome<T> TapWhen<T>(this Outcome<T> @this, bool condition, Action<T> action)
         {
             if (!condition || !@this.IsSuccessful) return @this;
 
-            return Utility.Try(() => {
+            return Try(() => {
                 action(@this.ResultOrDefault());
                 return @this;
             });

@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/sameera/Codoxide.Outcome</PackageProjectUrl>
     <Description>Codoxide.Outcome&lt;T&gt; is an Either monad (or Result monad) for .NET Core.It allows for elegant happy path and error path handling through method chaining made available through a number of Extension libraries.</Description>
@@ -10,23 +10,23 @@
     <RepositoryUrl>https://github.com/sameera/Codoxide.Outcome</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
     <PackageTags>either monad, c#, chaining, result, functional, try</PackageTags>
-    <Version>6.0.2</Version>
+    <Version>6.1.0</Version>
     <Authors>Sameera Perera</Authors>
     <Company>Codoxide</Company>
     <PackageReleaseNotes>
-    5.1.0
-    - Minimize explicit casting back and forth as well minimizing wrapping Outcomes inside Outcomes.
-
-    6.0.0
-    - KnownFailure type.
-    - IOutcome is now internal, preventing any unwarranted casting.
-    
-    6.0.1
+    - Moved to .NET Standard 2.1
     - Failures can be implicitly casted to Exceptions.
     - Task unwrapping extensions.
     - Finally() extension method.
     </PackageReleaseNotes>
     <RootNamespace>Codoxide</RootNamespace>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.6">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
 
 </Project>

@@ -3,7 +3,8 @@ using System.Threading.Tasks;
 
 namespace Codoxide
 {
-    using static FixedOutcomes;
+    using Codoxide.Internals;
+
     public static class OutcomeTapAsyncExtensions
     {
         public static async Task<Outcome<T>> Tap<T>(this Outcome<T> outcome, Func<Task> asyncAction)
