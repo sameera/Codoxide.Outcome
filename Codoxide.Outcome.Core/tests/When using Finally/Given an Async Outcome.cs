@@ -33,8 +33,9 @@ namespace _.When_using_Finally
 
             A.CallTo(() => _successHandler.Invoke(A<int>.Ignored)).MustNotHaveHappened();
 
-            var expectedParam = A<Failure>.That.Matches(f => f.Reason == "Oops!" && f.FailureCode == 3456);
-            A.CallTo(() => _failureHandler.Invoke(expectedParam)).MustHaveHappenedOnceExactly();
+            A.CallTo(
+                () => _failureHandler.Invoke(A<Failure>.That.Matches(f => f.Reason == "Oops!" && f.FailureCode == 3456))
+            ).MustHaveHappenedOnceExactly();
         }
 
         [Fact]

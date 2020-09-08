@@ -42,7 +42,7 @@ namespace _
                             .Tap(tapper);
 
             falsySeq.IsSuccessful.Should().BeFalse();
-            falsySeq.FailureOrNull().Should().BeOfType<ExpectationFailure>();
+            falsySeq.FailureOrNull().Should().BeAssignableTo<ExpectationFailure>();
             A.CallTo(() => mapper.Invoke(A<bool>.Ignored)).MustNotHaveHappened();
             A.CallTo(() => tapper.Invoke(A<string>.Ignored)).MustNotHaveHappened();
         }
