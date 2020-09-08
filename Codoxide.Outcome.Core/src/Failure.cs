@@ -27,7 +27,10 @@ namespace Codoxide.Outcomes
 
         protected Failure(Failure another) : this(another.Reason, another._exception, another.FailureCode) { }
 
+        [Obsolete("Use `ToExecption` or allow implicit casting to Exception")]
         public Exception AsException() => _exception;
+
+        public Exception ToException() => _exception;
 
         public override string ToString()
         {
@@ -36,6 +39,6 @@ namespace Codoxide.Outcomes
                 : string.Concat(this.Reason, "\r\n", _exception);
         }
 
-        public static implicit operator Exception(Failure failure) => failure.AsException();
+        public static implicit operator Exception(Failure failure) => failure.ToException();
     }
 }

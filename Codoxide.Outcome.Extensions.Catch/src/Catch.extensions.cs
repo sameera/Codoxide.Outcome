@@ -20,8 +20,7 @@ namespace Codoxide
         public static Outcome<T> Catch<T>(this Outcome<T> @this, Func<Failure, T> fn)
         {
             if (IsIgnorable(@this)) return @this;
-
-
+            
             return Outcome.Of(() => fn(@this.FailureOrThrow()));
         }
 
@@ -61,7 +60,7 @@ namespace Codoxide
 
         public static async Task<Outcome<T>> Catch<T>(this Task<Outcome<T>> @this, Func<Failure, T> fn)
         {
-            var outcome = await @this;
+            var outcome = await @this.ConfigureAwait(false);
             if (IsIgnorable(outcome)) return outcome;
 
             return Outcome.Of(() => fn(outcome.FailureOrNull()));
@@ -69,7 +68,7 @@ namespace Codoxide
         
         public static async Task<Outcome<T>> Catch<T>(this Task<Outcome<T>> @this, Func<Outcome<T>> fn)
         {
-            var outcome = await @this;
+            var outcome = await @this.ConfigureAwait(false);
             if (IsIgnorable(outcome)) return outcome;
 
             try

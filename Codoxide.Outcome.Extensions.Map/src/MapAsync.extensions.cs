@@ -4,54 +4,46 @@ using System.Threading.Tasks;
 namespace Codoxide
 {
     using static FixedOutcomes;
+    using static Codoxide.Internals.Utility;
+
     public static class OutcomeAsyncExtensions
     {
-        public static async Task<Outcome<ReturnType>> Map<T, ReturnType>(this Outcome<T> outcome, Func<Task<ReturnType>> asyncFunc)
+        public static Task<Outcome<ReturnType>> Map<T, ReturnType>(this Outcome<T> outcome, Func<Task<ReturnType>> asyncFunc)
         {
-            return await Try(async () => {
-                if (outcome.IsSuccessful) return new Outcome<ReturnType>(await asyncFunc());
+            if (outcome.IsSuccessful) return Outcome.Of(asyncFunc);
 
-                return Outcome<ReturnType>.Reject(outcome.FailureOrNull());
+            return Outcome<ReturnType>
+                .Reject(outcome.FailureOrNull())
+                .ForAsync();
+        }
+
+        public static Task<Outcome<ReturnType>> Map<T, ReturnType>(this Outcome<T> outcome, Func<T, Task<ReturnType>> asyncFunc)
+        {
+            if (outcome.IsSuccessful) return Outcome.Of(() => asyncFunc(outcome.ResultOrDefault()));
+
+            return Outcome<ReturnType>.Reject(outcome
+                    .FailureOrNull())
+                    .ForAsync();
+        }
+
+        public static Task<Outcome<ReturnType>> Map<T, ReturnType>(this Outcome<T> outcome, Func<Task<Outcome<ReturnType>>> asyncFunc)
+        {
+            return Try(() => {
+                if (outcome.IsSuccessful) return asyncFunc();
+
+                return Outcome<ReturnType>.Reject(outcome.FailureOrNull()).ForAsync();
             });
         }
 
-        public static async Task<Outcome<ReturnType>> Map<T, ReturnType>(this Outcome<T> outcome, Func<T, Task<ReturnType>> asyncFunc)
+        public static Task<Outcome<ReturnType>> Map<T, ReturnType>(this Outcome<T> outcome, Func<T, Task<Outcome<ReturnType>>> asyncFunc)
         {
-            return await Try(async () => {
-                if (outcome.IsSuccessful) return new Outcome<ReturnType>(await asyncFunc(outcome.ResultOrDefault()));
+            return Try(() => {
+                if (outcome.IsSuccessful) return asyncFunc(outcome.ResultOrDefault());
 
-                return Outcome<ReturnType>.Reject(outcome.FailureOrNull());
+                return Outcome<ReturnType>
+                        .Reject(outcome.FailureOrNull())
+                        .ForAsync();
             });
-        }
-
-        public static async Task<Outcome<ReturnType>> Map<T, ReturnType>(this Outcome<T> outcome, Func<Task<Outcome<ReturnType>>> asyncFunc)
-        {
-            return await Try(async () => {
-                if (outcome.IsSuccessful) return await asyncFunc();
-
-                return Outcome<ReturnType>.Reject(outcome.FailureOrNull());
-            });
-        }
-
-        public static async Task<Outcome<ReturnType>> Map<T, ReturnType>(this Outcome<T> outcome, Func<T, Task<Outcome<ReturnType>>> asyncFunc)
-        {
-            return await Try(async () => {
-                if (outcome.IsSuccessful) return await asyncFunc(outcome.ResultOrDefault());
-
-                return Outcome<ReturnType>.Reject(outcome.FailureOrNull());
-            });
-        }
-
-        private static async Task<Outcome<T>> Try<T>(Func<Task<Outcome<T>>> func)
-        {
-            try
-            {
-                return await func();
-            }
-            catch (Exception ex)
-            {
-                return Outcome<T>.Reject(Fail(ex));
-            }
         }
     }
 }

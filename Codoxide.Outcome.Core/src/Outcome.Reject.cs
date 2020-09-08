@@ -15,12 +15,6 @@ namespace Codoxide
         public static Outcome<Nop> Reject(Exception exception) => Reject(exception.Message, exception);
 
         internal static Outcome<Nop> Reject(Failure failure) => new Outcome<Nop>(failure);
-
-        //public static Task<Outcome<Nop>> NeverAsync() => Task.FromResult(Never());
-        //public static Task<Outcome<Nop>> RejectAsync(string reason) => Task.FromResult(Reject(new Failure(reason)));
-        //public static Task<Outcome<Nop>> RejectAsync(string reason, Exception exception) => Task.FromResult(Reject(new Failure(reason, exception)));
-        //public static Task<Outcome<Nop>> RejectAsync(Exception exception) => Task.FromResult(Reject(exception.Message, exception));
-        //internal static Task<Outcome<Nop>> RejectAsync(Failure failure) => Task.FromResult(Reject(failure));
     }
 
     partial struct Outcome<T>

@@ -3,11 +3,11 @@ using System;
 
 namespace Codoxide
 {
-    using static FixedOutcomes;
+    using Codoxide.Internals;
 
-    public static class OutcomeTapPredicateExtensions
+    public static partial class TapWhenExtensions
     {
-        public static Outcome<T> Tap<T>(this Outcome<T> @this, Func<bool> predicate, Action action)
+        public static Outcome<T> TapWhen<T>(this Outcome<T> @this, Func<bool> predicate, Action action)
         {
             if (!@this.IsSuccessful || !predicate()) return @this;
 
@@ -17,7 +17,7 @@ namespace Codoxide
             });
         }
 
-        public static Outcome<T> Tap<T>(this Outcome<T> @this, Func<bool> predicate, Action<T> action)
+        public static Outcome<T> TapWhen<T>(this Outcome<T> @this, Func<bool> predicate, Action<T> action)
         {
             if (!@this.IsSuccessful || !predicate()) return @this;
 
@@ -27,7 +27,7 @@ namespace Codoxide
             });
         }
 
-        public static Outcome<T> Tap<T>(this Outcome<T> @this, Func<T, bool> predicate, Action action)
+        public static Outcome<T> TapWhen<T>(this Outcome<T> @this, Func<T, bool> predicate, Action action)
         {
             if (!@this.IsSuccessful || !predicate(@this.ResultOrThrow())) return @this;
 
@@ -37,7 +37,7 @@ namespace Codoxide
             });
         }
 
-        public static Outcome<T> Tap<T>(this Outcome<T> @this, Func<T, bool> predicate, Action<T> action)
+        public static Outcome<T> TapWhen<T>(this Outcome<T> @this, Func<T, bool> predicate, Action<T> action)
         {
             if (!@this.IsSuccessful || !predicate(@this.ResultOrThrow())) return @this;
 
