@@ -57,15 +57,19 @@ namespace _
                             .When(1 == 2)
                                 .Map(mapper)
                                 .Tap(tapper)
+                                .Catch(f => "Failed 1==2")
                             .When(2 == 3)
                                 .Map(mapper)
                                 .Tap(tapper)
+                                .Catch(f => "Failed 2==3")
                             .When(3 == 4)
                                 .Map(mapper)
                                 .Tap(tapper)
+                                .Catch(f => "Failed 3==4")
                             .Otherwise()
                                 .Map(s => s + "+Otherwise")
-                                .Tap(tapper);
+                                .Tap(tapper)
+                                .Catch(f => "Failed Otherwise");
 
             whenSeq.IsSuccessful.Should().BeTrue();
 
