@@ -9,9 +9,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace _
+namespace _.Given_multiple_choices
 {
-    public class SwitchExtensionsTests
+    public class When_using_Switch_and_When
+
     {
         [Fact]
         public void Returns_the_outcome_of_the_matched_expectation()
@@ -29,18 +30,18 @@ namespace _
 
             var matched = new Outcome<int>(100)
                             .Switch(
-                                c => c.When(c <= 10)
+                                c => c.When(c <= 10, x => x
                                         .Tap(tapper1)
                                         .Map(mapper)
-                                        .Catch(catcher),
-                                c => c.When(c <= 100)
+                                        .Catch(catcher)),
+                                c => c.When(c <= 100, x => x
                                         .Map(mapper)
                                         .Tap(tapper2)
-                                        .Catch(catcher),
-                                c => c.When(c <= 1000)
+                                        .Catch(catcher)),
+                                c => c.When(c <= 1000, x => x
                                         .Map(mapper)
                                         .Tap(tapper2)
-                                        .Catch(catcher)
+                                        .Catch(catcher))
                             );
 
             matched.IsSuccessful.Should().BeTrue();
@@ -59,12 +60,12 @@ namespace _
         {
             var seq = await new Outcome<string>("Original").ForAsync()
                         .Switch(
-                            c => c.When(1 == 2)
+                            c => c.When(1 == 2, x => x
                                 .Map(s => Task.FromResult(100))
-                                .Catch(f => -100),
-                            c => c.When(true)
+                                .Catch(f => -100)),
+                            c => c.When(true, x => x
                                 .Map(s => Task.FromResult(50))
-                                .Catch(f => -50)
+                                .Catch(f => -50))
                             );
 
             seq.IsSuccessful.Should().BeTrue();
@@ -76,15 +77,15 @@ namespace _
         {
             var seq = await Outcome.Of(new WhenClauseTester { TestValue = 100 }).ForAsync()
                         .Switch(
-                            c => c.When(10)
+                            c => c.When(10, x => x
                                     .Map(s => Task.FromResult(100))
-                                    .Catch(f => -100),
-                            c => c.When(100)
+                                    .Catch(f => -100)),
+                            c => c.When(100, x => x
                                     .Map(s => Task.FromResult(100))
-                                    .Catch(f => -100),
-                            c => c.When(true)
+                                    .Catch(f => -100)),
+                            c => c.Otherwise(x => x
                                     .Map(s => Task.FromResult(50))
-                                    .Catch(f => -50)
+                                    .Catch(f => -50))
                         );
 
             seq.IsSuccessful.Should().BeTrue();
@@ -104,22 +105,22 @@ namespace _
 
             var original = Outcome.Of("Original");
             var whenSeq = original.Switch(
-                            c => c.When(1 == 2)
-                                .Map(mapper)
-                                .Tap(tapper)
-                                .Catch(f => "Failed 1==2"),
-                            c => c.When(2 == 3)
-                                .Map(mapper)
-                                .Tap(tapper)
-                                .Catch(f => "Failed 2==3"),
-                            c => c.When(3 == 4)
-                                .Map(mapper)
-                                .Tap(tapper)
-                                .Catch(f => "Failed 3==4"),
-                            c => c.Otherwise()
-                                .Map(s => s + "+Otherwise")
-                                .Tap(tapper)
-                                .Catch(f => "Failed Otherwise")
+                            c => c.When(1 == 2, x => x
+                                    .Map(mapper)
+                                    .Tap(tapper)
+                                    .Catch(f => "Failed 1==2")),
+                            c => c.When(2 == 3, x => x
+                                    .Map(mapper)
+                                    .Tap(tapper)
+                                    .Catch(f => "Failed 2==3")),
+                            c => c.When(3 == 4, x => x
+                                    .Map(mapper)
+                                    .Tap(tapper)
+                                    .Catch(f => "Failed 3==4")),
+                            c => c.Otherwise(x => x
+                                    .Map(s => s + "+Otherwise")
+                                    .Tap(tapper)
+                                    .Catch(f => "Failed Otherwise"))
                         );
 
             whenSeq.IsSuccessful.Should().BeTrue();
@@ -130,7 +131,6 @@ namespace _
             sideEffect.Should().Be("Original+Otherwise");
         }
     }
-
     class WhenClauseTester
     {
         public int TestValue { get; set; }
