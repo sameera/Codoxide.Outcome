@@ -69,16 +69,6 @@ namespace Codoxide
             });
         }
 
-        public static Task<Outcome<T>> Map<T>(this Task<Outcome<T>> asyncPromise, Func<Task<Outcome<T>>> aysncFunc)
-        {
-            return Try(async () => {
-                var outcome = await asyncPromise;
-                if (outcome.IsSuccessful) return await aysncFunc();
-
-                return outcome;
-            });
-        }
-
         public static Task<Outcome<ReturnType>> Map<T, ReturnType>(this Task<Outcome<T>> asyncPromise, Func<Task<Outcome<ReturnType>>> aysncFunc)
         {
             return Try(async () => {
