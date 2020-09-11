@@ -62,7 +62,7 @@ namespace Codoxide
         public T ResultOrThrow() => this.IsSuccessful ? this.Result : throw this._failure.AsException();
 
         object IOutcome.ResultOrThrow() => this.ResultOrThrow();
-
+        
         public void Deconstruct(out T result, out Failure failure)
         {
             failure = this.FailureOrNull();
