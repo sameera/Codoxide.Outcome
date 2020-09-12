@@ -18,7 +18,7 @@ namespace _.Given_methods_that_throw_exceptions
 
             var failure = outcome.FailureOrNull();
             failure.Should().NotBeNull();
-            failure.AsException().Should().BeOfType<FormatException>("An Assertion failed.");
+            failure.ToException().Should().BeOfType<FormatException>("An Assertion failed.");
         }
 
         [Fact]
@@ -31,7 +31,7 @@ namespace _.Given_methods_that_throw_exceptions
 
             var failure = outcome.FailureOrNull();
             failure.Should().NotBeNull();
-            failure.AsException().Should().BeOfType<FormatException>("An Assertion failed.");
+            failure.ToException().Should().BeOfType<FormatException>("An Assertion failed.");
         }
     }
 }

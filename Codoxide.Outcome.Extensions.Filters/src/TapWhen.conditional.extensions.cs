@@ -3,7 +3,6 @@ using System;
 namespace Codoxide
 {
     using static Codoxide.Internals.Utility;
-    using static FixedOutcomes;
 
     public static partial class TapWhenExtensions
     {

@@ -1,8 +1,4 @@
-﻿using Codoxide;
-using Codoxide.Outcomes;
-using System.Threading.Tasks;
-
-namespace _.When_processing_async_methods
+﻿namespace _.When_processing_async_methods
 {
     public class BaseWhen: TestSpec
     {

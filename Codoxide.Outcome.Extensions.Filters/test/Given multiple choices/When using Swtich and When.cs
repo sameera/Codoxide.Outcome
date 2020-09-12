@@ -1,11 +1,8 @@
-using Castle.DynamicProxy.Generators;
 using Codoxide;
 using Codoxide.Outcomes;
 using FakeItEasy;
 using FluentAssertions;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -53,6 +50,37 @@ namespace _.Given_multiple_choices
             A.CallTo(() => tapper1.Invoke(A<int>.Ignored)).MustNotHaveHappened();
             A.CallTo(() => tapper2.Invoke(A<string>.Ignored)).MustHaveHappenedOnceExactly();
             A.CallTo(() => mapper.Invoke(100)).MustHaveHappened();
+        }
+        
+        [Fact]
+        public void Does_not_execute_other_branches_if_the_matched_branch_fails()
+        {
+            var tapper1 = A.Fake<Action<int>>();
+            var tapper2 = A.Fake<Action<int>>();
+            var tapper3 = A.Fake<Action<int>>();
+            var catcher = A.Fake<Func<Failure, int>>();
+
+            var catcherCall = A.CallTo(() => catcher.Invoke(A<Failure>.Ignored));
+
+            var matched = new Outcome<int>(100)
+                .Switch(
+                    c => c.When(c <= 10, x => x
+                            .Tap(tapper1)
+                            .Catch(catcher)),
+                    c => c.When(c <= 100, x => x
+                            .Tap(tapper2)
+                            .Fail(() => new Failure("Intentional"))),
+                    c => c.Otherwise(x => x
+                            .Tap(tapper3)
+                            .Catch(catcher))
+                );
+
+            matched.IsSuccessful.Should().BeFalse();
+            catcherCall.MustNotHaveHappened();
+
+            A.CallTo(() => tapper1.Invoke(A<int>.Ignored)).MustNotHaveHappened();
+            A.CallTo(() => tapper2.Invoke(A<int>.Ignored)).MustHaveHappenedOnceExactly();
+            A.CallTo(() => tapper3.Invoke(A<int>.Ignored)).MustNotHaveHappened();
         }
 
         [Fact]

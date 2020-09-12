@@ -1,10 +1,5 @@
-﻿using System;
-using System.Threading.Tasks;
-
-namespace Codoxide
+﻿namespace Codoxide
 {
-    using static FixedOutcomes;
-
     public static class OutcomeTaskExtensions
     {
         public static async Task<Outcome<T>> Then<T>(this Task<Outcome<T>> asyncPromise, Action action)

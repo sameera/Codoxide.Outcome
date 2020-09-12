@@ -5,8 +5,6 @@ using System.Threading.Tasks;
 using static Codoxide.FixedOutcomes;
 using static Codoxide.OutcomeCatchExtensions;
 
-using System.Diagnostics;
-
 namespace Codoxide
 {
     public static partial class OutcomeTapFailureExtensions

@@ -1,9 +1,4 @@
-﻿using Codoxide;
-using FluentAssertions;
-using System.Threading.Tasks;
-using Xunit;
-
-namespace _.When_processing_async_methods
+﻿namespace _.When_processing_async_methods
 {
     public class Given_explicit_await_statements_are_not_used: BaseWhen
     {

@@ -5,8 +5,6 @@ using System;
 // ReSharper disable once IdentifierTypo
 namespace Codoxide
 {
-    using static FixedOutcomes;
-
     public readonly partial struct Outcome<T> : IOutcome<T>, IOutcome
     {
         public bool IsSuccessful => _failure == null;

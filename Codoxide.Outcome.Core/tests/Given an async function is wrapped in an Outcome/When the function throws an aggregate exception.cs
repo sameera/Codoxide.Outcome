@@ -13,7 +13,7 @@ namespace _.Given_an_async_function_is_wrapped_in_an_Outcome
         {
             var outcome = await Outcome.Of(ThrowAggregateException);
             outcome.IsSuccessful.Should().BeFalse();
-            var ex = outcome.FailureOrThrow().AsException();
+            var ex = outcome.FailureOrThrow().ToException();
             ex.Should().BeOfType<AggregateException>();
             
             ((AggregateException)ex).InnerExceptions.Count.Should().Be(3);

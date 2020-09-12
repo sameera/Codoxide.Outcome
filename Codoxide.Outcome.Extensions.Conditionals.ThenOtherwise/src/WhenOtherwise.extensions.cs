@@ -1,8 +1,4 @@
-﻿using Codoxide.Outcomes;
-using System;
-using System.Threading.Tasks;
-
-namespace Codoxide
+﻿namespace Codoxide
 {
     public static class OutcomeWhenOtherwiseExtensions
     {
