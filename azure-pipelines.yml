@@ -45,7 +45,7 @@ steps:
     script: |
       $proj = "$(Build.DefinitionName)"
       $xml = [Xml] (Get-Content $proj/src/$proj.csproj)
-      $version = [Version] $xml.Project.PropertyGroup.Version
+      $version = $xml.Project.PropertyGroup.Version
       $qualifier = $proj.Substring($proj.LastIndexOf(".") + 1)
       $tag = "$qualifier/$version"
       Write-Host "Target Tag: $tag"
