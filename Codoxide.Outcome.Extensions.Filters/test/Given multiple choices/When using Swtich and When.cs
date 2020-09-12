@@ -77,10 +77,10 @@ namespace _.Given_multiple_choices
         {
             var seq = await Outcome.Of(new WhenClauseTester { TestValue = 100 }).ForAsync()
                         .Switch(
-                            c => c.When(10, x => x
+                            c => c.When(c.Result.TestValue == 10, x => x
                                     .Map(s => Task.FromResult(100))
                                     .Catch(f => -100)),
-                            c => c.When(100, x => x
+                            c => c.When(c.Result.TestValue == 100, x => x
                                     .Map(s => Task.FromResult(100))
                                     .Catch(f => -100)),
                             c => c.Otherwise(x => x
