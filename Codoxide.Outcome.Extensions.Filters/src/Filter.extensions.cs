@@ -1,3 +1,4 @@
+using System;
 using Codoxide.OutcomeExtensions.Filters;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -52,6 +53,18 @@ namespace Codoxide
 
             return @this;
         }
+
+        public static Outcome<T> Filter<T>(this Outcome<T> @this, Func<T, bool> predicate)
+        {
+            if (IsUnprocessable(@this)) return @this;
+
+            T result = @this.IsSuccessful ? @this.ResultOrThrow() : (@this.FailureOrThrow() as ExpectationFailure<T>).ResultAtSource;
+            return Try(() => {
+                if (!predicate(result)) return new ExpectationFailure<T>(result);
+
+                return @this;
+            });
+        }
         
         // *********
         // Async
@@ -91,5 +104,15 @@ namespace Codoxide
                 })
                 .ConfigureAwait(false);
         }
+
+        public static async Task<Outcome<T>> Filter<T>(this Task<Outcome<T>> asyncOutcome, Func<T, bool> predicate)
+        {
+            return await Try(async () => {
+                    var @this = await asyncOutcome;
+                    return Filter(@this, predicate);
+                })
+                .ConfigureAwait(false);            
+        }
+
     }
 }
