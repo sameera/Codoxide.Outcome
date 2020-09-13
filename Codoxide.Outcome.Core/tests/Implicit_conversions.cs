@@ -1,6 +1,8 @@
-﻿using Codoxide;
+using Codoxide;
 using Codoxide.Outcomes;
+using FakeItEasy;
 using FluentAssertions;
+using System;
 using Xunit;
 
 namespace UnitTest.Codoxide.Outcome
@@ -38,5 +40,18 @@ namespace UnitTest.Codoxide.Outcome
             valueOutcome.failure.Reason.Should().Be("Test Failure");
 
         }
+
+        [Fact]
+        public void Implicitly_casts_Failures_to_Exceptions()
+        {
+            var logger = A.Fake<Action<Exception, string>>();
+            var failure = new Failure("ABCDEF", 101);
+
+            logger(failure, "Logged!");
+
+            A.CallTo(() => logger.Invoke(A<Exception>.That.Matches(e => e.Message == "ABCDEF"), A<string>.Ignored))
+                .MustHaveHappened();
+        }
     }
+
 }

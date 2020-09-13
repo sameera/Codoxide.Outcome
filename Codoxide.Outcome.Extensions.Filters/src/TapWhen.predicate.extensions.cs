@@ -2,7 +2,7 @@ using System;
 
 namespace Codoxide
 {
-    using Codoxide.Internals;
+    using Codoxide.OutcomeInternals;
 
     public static partial class TapWhenExtensions
     {

@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Codoxide.Internals
+namespace Codoxide.OutcomeInternals
 {
     public static class InternalAccessExtensions
     {

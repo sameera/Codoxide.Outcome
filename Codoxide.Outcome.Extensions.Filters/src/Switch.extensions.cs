@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Codoxide
 {
-    using static Internals.Utility;
+    using static OutcomeInternals.Utility;
 
     public static class SwitchExtensions
     {

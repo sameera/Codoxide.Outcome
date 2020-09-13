@@ -1,4 +1,4 @@
-using Codoxide.Internals;
+using Codoxide.OutcomeInternals;
 using System;
 using System.Collections;
 using System.Collections.Generic;

@@ -1,4 +1,4 @@
-using Codoxide.Internals;
+using Codoxide.OutcomeInternals;
 using Codoxide.OutcomeExtensions.Filters;
 using Codoxide.Outcomes;
 using System;
@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Codoxide.OutcomeExtensions.Filters
 {
-    using static Codoxide.Internals.Utility;
+    using static Codoxide.OutcomeInternals.Utility;
 
     public struct Switchable<T>
     {

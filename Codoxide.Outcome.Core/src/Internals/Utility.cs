@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Codoxide.Internals
+namespace Codoxide.OutcomeInternals
 {
     using static Codoxide.FixedOutcomes;
 
