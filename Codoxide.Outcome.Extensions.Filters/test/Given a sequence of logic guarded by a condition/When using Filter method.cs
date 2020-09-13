@@ -120,33 +120,33 @@ namespace _.Given_a_sequence_of_logic_guarded_by_a_condition
         public async Task It_can_filter_using_a_predicate()
         {
             var hundred = new Outcome<int>(100).ForAsync();
-            var falsy = new Outcome<int>(200).ForAsync();
+            var thousand = new Outcome<int>(1000).ForAsync();
 
-            var mapper = A.Fake<Func<bool, Task<string>>>();
+            var mapper = A.Fake<Func<int, Task<string>>>();
             var tapper = A.Fake<Func<string, Task>>();
 
-            A.CallTo(() => mapper.Invoke(A<bool>.Ignored)).Returns("Invoked!");
+            A.CallTo(() => mapper.Invoke(A<int>.Ignored)).Returns("Invoked!");
 
             var truthySeq = await hundred
-                            .Filter()
+                            .Filter(h => h == 100)
                             .Map(mapper)
                             .Tap(tapper);
 
             truthySeq.IsSuccessful.Should().BeTrue();
-            A.CallTo(() => mapper.Invoke(true)).MustHaveHappenedOnceExactly();
+            A.CallTo(() => mapper.Invoke(100)).MustHaveHappenedOnceExactly();
             A.CallTo(() => tapper.Invoke("Invoked!")).MustHaveHappenedOnceExactly();
 
             Fake.ClearRecordedCalls(mapper);
             Fake.ClearRecordedCalls(tapper);
 
-            var falsySeq = await falsy
-                            .Filter()
+            var falsySeq = await thousand
+                            .Filter(t => t == 100)
                             .Map(mapper)
                             .Tap(tapper);
 
             falsySeq.IsSuccessful.Should().BeFalse();
             falsySeq.FailureOrNull().Should().BeAssignableTo<ExpectationFailure>();
-            A.CallTo(() => mapper.Invoke(A<bool>.Ignored)).MustNotHaveHappened();
+            A.CallTo(() => mapper.Invoke(A<int>.Ignored)).MustNotHaveHappened();
             A.CallTo(() => tapper.Invoke(A<string>.Ignored)).MustNotHaveHappened();
         }
     }
