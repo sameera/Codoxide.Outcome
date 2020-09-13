@@ -1,8 +1,5 @@
 using Codoxide;
 using FluentAssertions;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Xunit;
 
 namespace _.Given_an_if_elseif_else_scenario
