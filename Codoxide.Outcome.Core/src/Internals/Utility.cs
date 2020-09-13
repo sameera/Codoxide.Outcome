@@ -3,7 +3,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace Codoxide.Internals
+namespace Codoxide.OutcomeInternals
 {
     using static Codoxide.FixedOutcomes;
 

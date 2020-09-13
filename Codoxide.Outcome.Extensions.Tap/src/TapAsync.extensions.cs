@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace Codoxide
 {
-    using Codoxide.Internals;
+    using Codoxide.OutcomeInternals;
 
     public static class OutcomeTapAsyncExtensions
     {

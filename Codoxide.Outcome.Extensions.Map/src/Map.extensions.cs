@@ -3,7 +3,7 @@ using System;
 
 namespace Codoxide
 {
-    using static Codoxide.Internals.Utility;
+    using static Codoxide.OutcomeInternals.Utility;
 
     public static class OutcomeMapExtensions
     {

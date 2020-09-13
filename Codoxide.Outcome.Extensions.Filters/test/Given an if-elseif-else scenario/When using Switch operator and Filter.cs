@@ -2,14 +2,14 @@ using Codoxide;
 using FluentAssertions;
 using Xunit;
 
-namespace _
+namespace _.Given_an_if_elseif_else_scenario
 {
     using static Codoxide.SwitchOperator;
 
-    public class SwitchOperatorTests
+    public class When_using_Switch_operator_and_Filter
     {
         [Fact]
-        public void Returns_the_outcome_of_the_matched_expectation()
+        public void It_returns_the_outcome_of_the_matched_expectation()
         {
             const string TruthyText = "Truthy";
             const string FalseyText = "Falsey";

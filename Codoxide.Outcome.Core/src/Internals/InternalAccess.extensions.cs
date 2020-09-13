@@ -1,4 +1,4 @@
-namespace Codoxide.Internals
+namespace Codoxide.OutcomeInternals
 {
     public static class InternalAccessExtensions
     {

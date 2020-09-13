@@ -3,6 +3,8 @@ using System.Threading.Tasks;
 
 namespace Codoxide.OutcomeExtensions.Filters
 {
+    using static Codoxide.OutcomeInternals.Utility;
+
     public struct Switchable<T>
     {
         public T Result { get; }
