@@ -1,9 +1,4 @@
-﻿using Codoxide;
-using FluentAssertions;
-using System.Threading.Tasks;
-using Xunit;
-
-namespace _.When_chaining_Tasks
+﻿namespace _.When_chaining_Tasks
 {
     public class Given_no_exceptions_are_thrown
     {

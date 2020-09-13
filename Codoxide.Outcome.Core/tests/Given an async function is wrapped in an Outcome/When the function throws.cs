@@ -13,7 +13,7 @@ namespace _.Given_an_async_function_is_wrapped_in_an_Outcome
         {
             var outcome = await Outcome.Of(ThrowException);
             outcome.IsSuccessful.Should().BeFalse();
-            var ex = outcome.FailureOrThrow().AsException();
+            var ex = outcome.FailureOrThrow().ToException();
             ex.Should().BeOfType<ApplicationException>();
             ex.Message.Should().Be(_expectedException.Message);
         }

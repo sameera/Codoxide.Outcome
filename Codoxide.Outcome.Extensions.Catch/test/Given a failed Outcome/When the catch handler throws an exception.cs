@@ -16,7 +16,7 @@ namespace _.Given_a_failed_Outcome
         {
             finalOutcome.IsSuccessful.Should().BeFalse();
 
-            var thrown = finalOutcome.FailureOrNull().AsException();
+            var thrown = finalOutcome.FailureOrNull().ToException();
             thrown.Should().BeOfType<InvalidCastException>();
             thrown.Message.Should().StartWith("Dummy");
         }
@@ -29,7 +29,7 @@ namespace _.Given_a_failed_Outcome
             
             finalOutcome.IsSuccessful.Should().BeFalse();
 
-            var thrown = finalOutcome.FailureOrNull().AsException();
+            var thrown = finalOutcome.FailureOrNull().ToException();
             thrown.Should().BeOfType<InvalidCastException>();
             thrown.Message.Should().StartWith("Dummy");
         }

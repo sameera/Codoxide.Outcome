@@ -1,10 +1,4 @@
-using Codoxide.OutcomeInternals;
-using Codoxide.OutcomeExtensions.Filters;
-using Codoxide.Outcomes;
 using System;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Codoxide.OutcomeExtensions.Filters
@@ -13,91 +7,83 @@ namespace Codoxide.OutcomeExtensions.Filters
 
     public struct Switchable<T>
     {
-        private static readonly Outcome<T> _failedOutcome = Outcome<T>.Reject(new KnownFailure("Case expression was not met.", 101));
+        public T Result { get; }
 
-        public T PrecedentValue { get; }
-
-        internal Switchable(T precedentValue)
+        internal Switchable(T result)
         {
-            PrecedentValue = precedentValue;
+            Result = result;
         }
 
-        public Outcome<TResult> When<TResult>(bool condition, Func<Outcome<T>, Outcome<TResult>> func)
+        public (bool, Func<Outcome<TResult>>) When<TResult>(bool condition, Func<Outcome<T>, Outcome<TResult>> func)
         {
-            var precedent = Outcome.Of(PrecedentValue);
-            return condition
-                ? Try(() => func(precedent))
-                : Outcome<TResult>.Reject(new ExpectationFailure<T>(PrecedentValue));
+            var precedent = Outcome.Of(Result);
+            return (condition, () => func(precedent));
         }
 
-        public async Task<Outcome<TResult>> When<TResult>(bool condition, Func<Outcome<T>, Task<Outcome<TResult>>> func)
+        public (bool, Func<Outcome<TResult>>) When<TResult>(T match, Func<Outcome<T>, Outcome<TResult>> func)
         {
-            var precedent = Outcome.Of(PrecedentValue);
-            return condition
-                ? await Try(async () => await func(precedent).ConfigureAwait(false)).ConfigureAwait(false)
-                : Outcome<TResult>.Reject(new ExpectationFailure<T>(PrecedentValue));
+            var result = this.Result;
+
+            return (Equals(Result, match), () => func(Outcome.Of(result)));
         }
 
-        public Outcome<TResult> When<TResult>(T match, Func<Outcome<T>, Outcome<TResult>> func)
+        public (bool, Func<Task<Outcome<TResult>>>) When<TResult>(T match, Func<Outcome<T>, Task<Outcome<TResult>>> func)
         {
-            var precedent = Outcome.Of(PrecedentValue);
-            return Equals(PrecedentValue, match)
-                ? Try(() => func(precedent))
-                : Outcome<TResult>.Reject(new ExpectationFailure<T>(PrecedentValue));
+            var precedent = Outcome.Of(Result);
+            return (
+                Equals(Result, match), 
+                async () => await func(precedent).ConfigureAwait(false)
+            );
         }
 
-        public async Task<Outcome<TResult>> When<TResult>(T match, Func<Outcome<T>, Task<Outcome<TResult>>> func)
+        public (bool, Func<Outcome<TResult>>) When<TResult>(object match, Func<Outcome<T>, Outcome<TResult>> func)
         {
-            var precedent = Outcome.Of(PrecedentValue);
-            return Equals(PrecedentValue, match)
-                ? await Try(async () => await func(precedent).ConfigureAwait(false)).ConfigureAwait(false)
-                : Outcome<TResult>.Reject(new ExpectationFailure<T>(PrecedentValue));
+            var precedent = Outcome.Of(Result);
+            return (
+                Equals(Result, match),
+                () => func(precedent)
+            );
         }
 
-        public Outcome<TResult> When<TResult>(object match, Func<Outcome<T>, Outcome<TResult>> func)
+        public (bool, Func<Outcome<TResult>>) When<TResult>(Func<T, bool> predicate, Func<Outcome<T>, Outcome<TResult>> func)
         {
-            var precedent = Outcome.Of(PrecedentValue);
-            return Equals(PrecedentValue, match)
-                ? Try(() => func(precedent))
-                : Outcome<TResult>.Reject(new ExpectationFailure<T>(PrecedentValue));
+            var precedent = Outcome.Of(Result);
+            var result = Result;
+            
+            return (
+                predicate != null && predicate(result), 
+                () => func(precedent)
+            );
         }
 
-        public async Task<Outcome<TResult>> When<TResult>(object match, Func<Outcome<T>, Task<Outcome<TResult>>> func)
+        public (bool, Func<Outcome<TResult>>) Otherwise<TResult>(Func<Outcome<T>, Outcome<TResult>> func)
         {
-            var precedent = Outcome.Of(PrecedentValue);
-            return Equals(PrecedentValue, match)
-                ? await Try(async () => await func(precedent).ConfigureAwait(false)).ConfigureAwait(false)
-                : Outcome<TResult>.Reject(new ExpectationFailure<T>(PrecedentValue));
+            var precedent = Outcome.Of(Result);
+            return (true, () => func(precedent));
         }
 
-        public Outcome<TResult> When<TResult>(Func<T, bool> predicate, Func<Outcome<T>, Outcome<TResult>> func)
+        // ************
+        // Async
+        // ************
+
+        public (bool, Func<Task<Outcome<TResult>>>) When<TResult>(bool condition, Func<Outcome<T>, Task<Outcome<TResult>>> func)
         {
-            var precedent = Outcome.Of(PrecedentValue);
-            return predicate != null && predicate(PrecedentValue)
-                ? Try(() => func(precedent))
-                : Outcome<TResult>.Reject(new ExpectationFailure<T>(PrecedentValue));
+            var precedent = Outcome.Of(Result);
+            return (condition, async () => await func(precedent).ConfigureAwait(false));
         }
 
-        public async Task<Outcome<TResult>> When<TResult>(Func<T, Task<bool>> predicate, Func<Outcome<T>, Task<Outcome<TResult>>> func)
+        public (bool, Func<Task<Outcome<TResult>>>) When<TResult>(object match, Func<Outcome<T>, Task<Outcome<TResult>>> func)
         {
-            var precedent = Outcome.Of(PrecedentValue);
-            return predicate != null && await predicate(PrecedentValue).ConfigureAwait(false)
-                ? await Try(async () => await func(precedent).ConfigureAwait(false)).ConfigureAwait(false)
-                : Outcome<TResult>.Reject(new ExpectationFailure<T>(PrecedentValue));
+            var precedent = Outcome.Of(Result);
+            return (Equals(Result, match), async () => await func(precedent).ConfigureAwait(false));
         }
 
-        public Outcome<TResult> Otherwise<TResult>(Func<Outcome<T>, Outcome<TResult>> func)
+        public (bool, Func<Task<Outcome<TResult>>>) Otherwise<TResult>(Func<Outcome<T>, Task<Outcome<TResult>>> func)
         {
-            var precedent = Outcome.Of(PrecedentValue);
-            return Try(() => func(precedent));
+            var precedent = Outcome.Of(Result);
+            return (true, async () => await func(precedent).ConfigureAwait(false));
         }
-
-        public async Task<Outcome<TResult>> Otherwise<TResult>(Func<Outcome<T>, Task<Outcome<TResult>>> func)
-        {
-            var precedent = Outcome.Of(PrecedentValue);
-            return await Try(async () => await func(precedent).ConfigureAwait(false)).ConfigureAwait(false);
-        }
-
-        public static implicit operator T(Switchable<T> source) => source.PrecedentValue;
+        
+        public static implicit operator T(Switchable<T> source) => source.Result;
     }
 }

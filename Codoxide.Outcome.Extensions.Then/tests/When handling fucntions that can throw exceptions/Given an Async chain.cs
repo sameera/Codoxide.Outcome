@@ -1,6 +1,5 @@
 using System.Threading.Tasks;
 using Codoxide;
-using FluentAssertions;
 using Xunit;
 
 namespace _.Given_methods_that_throw_exceptions

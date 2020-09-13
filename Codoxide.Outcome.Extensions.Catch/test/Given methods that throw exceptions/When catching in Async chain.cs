@@ -14,7 +14,7 @@ namespace _.Given_methods_that_throw_exceptions
                 .Map(AsyncMethodThatThrowsException)
                 
                 // sig: Task<Outcome<T>> Catch<T>(this Task<Outcome<T>> @this, Func<Failure, Outcome<T>> handler)
-                .Catch(failure => Outcome<string>.Reject("Test Failure", failure.AsException()));
+                .Catch(failure => Outcome<string>.Reject("Test Failure", failure));
 
             t.IsSuccessful.Should().BeFalse();
 

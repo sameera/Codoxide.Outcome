@@ -1,9 +1,4 @@
-﻿using Codoxide;
-using FluentAssertions;
-using System.Threading.Tasks;
-using Xunit;
-
-namespace UnitTest.Codoxide.Outcome
+﻿namespace UnitTest.Codoxide.Outcome
 {
     public class Outcome_of_async_operations
     {

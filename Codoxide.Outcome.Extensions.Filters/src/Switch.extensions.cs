@@ -1,7 +1,5 @@
 using Codoxide.OutcomeExtensions.Filters;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Codoxide
@@ -10,26 +8,33 @@ namespace Codoxide
 
     public static class SwitchExtensions
     {
-        public static Outcome<TResult> Switch<T, TResult>(this Outcome<T> @this, params Func<Switchable<T>, Outcome<TResult>>[] branches)
+        public static Outcome<TResult> Switch<T, TResult>(this Outcome<T> @this, params Func<Switchable<T>, (bool, Func<Outcome<TResult>>)>[] branches)
         {
             if (!@this.IsSuccessful) return Outcome<TResult>.Reject(@this.FailureOrThrow());
 
             var switchable = new Switchable<T>(@this.ResultOrThrow());
 
-            for (int i = 0; i < branches.Length; i++)
-            {
-                var outcome = branches[i](switchable);
-                if (outcome.IsSuccessful) return outcome;
-            }
+            return Try(() => {
+                foreach (var branch in branches)
+                {
+                    var (canExecute, handler) = branch(switchable);
+                    if (canExecute) return handler();
+                }
+                return new ExpectationFailure<T>(default);
+            });
 
-            return new ExpectationFailure<T>(default);
         }
 
-        public static async Task<Outcome<TResult>> Switch<T, TResult>(this Task<Outcome<T>> @this, params Func<Switchable<T>, Outcome<TResult>>[] branches)
+        public static async Task<Outcome<TResult>> Switch<T, TResult>(
+            this Task<Outcome<T>> @this, 
+            params Func<Switchable<T>, (bool, Func<Outcome<TResult>>)>[] branches)
         {
             return await Try(async () => Switch(await @this.ConfigureAwait(false), branches)).ConfigureAwait(false);
         }
-        public static async Task<Outcome<TResult>> Switch<T, TResult>(this Task<Outcome<T>> asyncOutcome, params Func<Switchable<T>, Task<Outcome<TResult>>>[] branches)
+        
+        public static async Task<Outcome<TResult>> Switch<T, TResult>(
+            this Task<Outcome<T>> asyncOutcome, 
+            params Func<Switchable<T>, (bool, Func<Task<Outcome<TResult>>>)>[] branches)
         {
             return await Try(async () => {
                 var @this = await asyncOutcome.ConfigureAwait(false);
@@ -40,11 +45,12 @@ namespace Codoxide
 
                 for (int i = 0; i < branches.Length; i++)
                 {
-                    var outcome = await branches[i](switchable).ConfigureAwait(false);
-                    if (outcome.IsSuccessful) return outcome;
+                    var (canExecute, handler) = branches[i](switchable);
+                    if (canExecute) return await handler().ConfigureAwait(false);
                 }
-
-                return new ExpectationFailure<T>(default);
+                
+                return Outcome<TResult>
+                    .Reject(new ExpectationFailure<T>(default));
             }).ConfigureAwait(false);
         }
     }

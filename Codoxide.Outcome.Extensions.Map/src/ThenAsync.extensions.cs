@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 
 namespace Codoxide
 {
-    using static FixedOutcomes;
     using static Codoxide.OutcomeInternals.Utility;
 
     public static class OutcomeThenAsyncExtensions

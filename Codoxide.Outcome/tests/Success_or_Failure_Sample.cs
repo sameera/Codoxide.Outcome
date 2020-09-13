@@ -1,8 +1,3 @@
-using Codoxide;
-using FluentAssertions;
-using System;
-using Xunit;
-
 namespace UnitTest.Codoxide.Outcome
 {
     public class Success_or_Failure_Sample

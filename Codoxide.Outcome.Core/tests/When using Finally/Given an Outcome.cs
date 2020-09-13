@@ -3,8 +3,6 @@ using Codoxide.Outcomes;
 using FakeItEasy;
 using FluentAssertions;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using Xunit;
 
 namespace _.When_using_Finally

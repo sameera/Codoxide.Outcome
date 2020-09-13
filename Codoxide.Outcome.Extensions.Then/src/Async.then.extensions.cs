@@ -1,9 +1,5 @@
-﻿using System;
-using System.Threading.Tasks;
-
-namespace Codoxide
+﻿namespace Codoxide
 {
-    using static FixedOutcomes;
     public static class OutcomeAsyncExtensions
     {
         [Obsolete("Use the Tap method from Codoxide.Outcome.Extensions.Tap instead.")]

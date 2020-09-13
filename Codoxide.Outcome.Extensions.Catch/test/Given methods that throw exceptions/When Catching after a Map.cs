@@ -1,6 +1,5 @@
 using Codoxide;
 using FluentAssertions;
-using FluentAssertions.Execution;
 using System;
 using System.Threading.Tasks;
 using Xunit;
@@ -20,7 +19,7 @@ namespace _.Given_methods_that_throw_exceptions
                     .Tap(() => Assert.False(true, "Catch should have been invoked and flow should have exited."))
                     .Catch((error, failed) => {
                         error.Should().NotBeNull();
-                        error.AsException().Should().BeOfType<InvalidOperationException>();
+                        error.ToException().Should().BeOfType<InvalidOperationException>();
                         return failed;
                     });
 
@@ -42,7 +41,7 @@ namespace _.Given_methods_that_throw_exceptions
                     .Tap(() => Assert.False(true, "Catch should have been invoked and flow should have exited."))
                     .Catch((error, failed) => {
                         error.Should().NotBeNull();
-                        error.AsException().Should().BeOfType<InvalidOperationException>();
+                        error.ToException().Should().BeOfType<InvalidOperationException>();
                         return failed;
                     });
 

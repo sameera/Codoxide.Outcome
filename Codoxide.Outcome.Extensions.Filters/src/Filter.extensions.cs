@@ -1,12 +1,16 @@
+using System;
 using Codoxide.OutcomeExtensions.Filters;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Codoxide
 {
     using static Codoxide.OutcomeExtensions.Filters.Utility;
+    using static Codoxide.OutcomeInternals.Utility;
 
-    public static class FilterEtensions
+    public static class FilterExtensions
     {
+        
         public static Outcome<bool> Filter(this Outcome<bool> @this)
         {
             if (@this.IsSuccessful && !@this.ResultOrThrow())
@@ -49,5 +53,18 @@ namespace Codoxide
 
             return @this;
         }
+
+        public static Outcome<T> Filter<T>(this Outcome<T> @this, Func<T, bool> predicate)
+        {
+            if (IsUnprocessable(@this)) return @this;
+
+            T result = @this.IsSuccessful ? @this.ResultOrThrow() : (@this.FailureOrThrow() as ExpectationFailure<T>).ResultAtSource;
+            return Try(() => {
+                if (!predicate(result)) return new ExpectationFailure<T>(result);
+
+                return @this;
+            });
+        }
+        
     }
 }

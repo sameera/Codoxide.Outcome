@@ -13,12 +13,12 @@
     <RepositoryUrl>https://github.com/sameera/Codoxide.Outcome</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
     <PackageTags>either monad, c#, chaining, result, functional, try</PackageTags>
-    <Version>6.1.2</Version>
+    <Version>6.1.6-alpha</Version>
     <Authors>Sameera Perera</Authors>
     <Company>Codoxide</Company>
 
       <PackageReleaseNotes>
-          Removed When extension methods and replaced with Switch extension methods.
+          Async Filter methods.
       </PackageReleaseNotes>
     <RootNamespace>Codoxide</RootNamespace>
   </PropertyGroup>

@@ -1,6 +1,4 @@
 using Codoxide;
-using System;
-using System.Threading.Tasks;
 
 namespace _.Given_a_failed_Outcome
 {

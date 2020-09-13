@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 
 namespace Codoxide
 {
-    using static FixedOutcomes;
     using static Codoxide.OutcomeInternals.Utility;
 
     public static class OutcomeTaskMapExtensions
@@ -66,16 +65,6 @@ namespace Codoxide
                 if (outcome.IsSuccessful) return new Outcome<ReturnType>(await asyncFunc(outcome.ResultOrDefault()));
 
                 return Outcome<ReturnType>.Reject(outcome.FailureOrNull());
-            });
-        }
-
-        public static Task<Outcome<T>> Map<T>(this Task<Outcome<T>> asyncPromise, Func<Task<Outcome<T>>> aysncFunc)
-        {
-            return Try(async () => {
-                var outcome = await asyncPromise;
-                if (outcome.IsSuccessful) return await aysncFunc();
-
-                return outcome;
             });
         }
 

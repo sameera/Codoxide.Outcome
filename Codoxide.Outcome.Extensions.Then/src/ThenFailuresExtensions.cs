@@ -1,8 +1,4 @@
-﻿using Codoxide.Outcomes;
-using System;
-using System.Threading.Tasks;
-
-namespace Codoxide.Extensions
+﻿namespace Codoxide.Extensions
 {
     public static class ThenFailuresExtensions
     {

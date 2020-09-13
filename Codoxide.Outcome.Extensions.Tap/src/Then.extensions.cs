@@ -1,9 +1,7 @@
-using Codoxide.Outcomes;
 using System;
 
 namespace Codoxide
 {
-    using static FixedOutcomes;
     using static Codoxide.OutcomeInternals.Utility;
 
     public static class OutcomeThenExtensions
