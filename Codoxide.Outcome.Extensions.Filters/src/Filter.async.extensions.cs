@@ -1,4 +1,5 @@
 using Codoxide.OutcomeExtensions.Filters;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -30,7 +31,7 @@ namespace Codoxide
         {
             return await Try(async () => {
                 var @this = await asyncOutcome;
-                return Filter(@this, matchValue);
+                return FilterExtensions.Filter(@this, matchValue);
             })
                 .ConfigureAwait(false);
         }
@@ -39,7 +40,7 @@ namespace Codoxide
         {
             return await Try(async () => {
                 var @this = await asyncOutcome;
-                return Filter(@this, matchValue, comparer);
+                return FilterExtensions.Filter(@this, matchValue, comparer);
             })
                 .ConfigureAwait(false);
         }
@@ -48,9 +49,9 @@ namespace Codoxide
         {
             return await Try(async () => {
                 var @this = await asyncOutcome;
-                return Filter(@this, predicate);
+                return FilterExtensions.Filter(@this, predicate);
             })
-                .ConfigureAwait(false);
+            .ConfigureAwait(false);
         }
 
     }
