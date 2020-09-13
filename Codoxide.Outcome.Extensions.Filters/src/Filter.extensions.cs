@@ -65,54 +65,6 @@ namespace Codoxide
                 return @this;
             });
         }
-        
-        // *********
-        // Async
-        // *********
-        
-        public static async Task<Outcome<bool>> Filter(this Task<Outcome<bool>> asyncOutcome)
-        {
-            return await Try(async () => {
-                    var @this = await asyncOutcome.ConfigureAwait(false);
-                    return Filter(@this);
-                })
-                .ConfigureAwait(false);
-        }
-
-        /// <summary>
-        /// Filters through outcomes that match the given value and marks others with an <see cref="Codoxide.OutcomeExtensions.Filters.ExpectaionFailure"/>.
-        /// </summary>
-        /// <typeparam name="T">The type of the precedent Outcome.</typeparam>
-        /// <param name="this">The precedent.</param>
-        /// <param name="matchValue">The expected value.</param>
-        /// <returns></returns>
-        /// <remarks>This method will cause boxing of value types.</remarks>
-        public static async Task<Outcome<T>> Filter<T>(this Task<Outcome<T>> asyncOutcome, T matchValue)
-        {
-            return await Try(async () => {
-                    var @this = await asyncOutcome;
-                    return Filter(@this, matchValue);
-                })
-                .ConfigureAwait(false);
-        }
-
-        public static async Task<Outcome<T>> Filter<T>(this Task<Outcome<T>> asyncOutcome, T matchValue, IComparer<T> comparer)
-        {
-            return await Try(async () => {
-                    var @this = await asyncOutcome;
-                    return Filter(@this, matchValue, comparer);
-                })
-                .ConfigureAwait(false);
-        }
-
-        public static async Task<Outcome<T>> Filter<T>(this Task<Outcome<T>> asyncOutcome, Func<T, bool> predicate)
-        {
-            return await Try(async () => {
-                    var @this = await asyncOutcome;
-                    return Filter(@this, predicate);
-                })
-                .ConfigureAwait(false);            
-        }
 
     }
 }

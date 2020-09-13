@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using Codoxide.Internals;
+using Codoxide.OutcomeInternals;
 
 namespace Codoxide
 {
