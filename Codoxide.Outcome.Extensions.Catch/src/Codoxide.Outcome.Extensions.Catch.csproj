@@ -10,7 +10,7 @@
     <RepositoryUrl>https://github.com/sameera/Codoxide.Outcome</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
     <PackageTags>either monad, c#, chaining, result, functional, try</PackageTags>
-    <Version>6.1.0</Version>
+    <Version>6.1.2</Version>
     <Authors>Sameera Perera</Authors>
     <Company>Codoxide</Company>
     <RootNamespace>Codoxide</RootNamespace>

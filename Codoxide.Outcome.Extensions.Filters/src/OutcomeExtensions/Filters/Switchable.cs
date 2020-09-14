@@ -61,6 +61,12 @@ namespace Codoxide.OutcomeExtensions.Filters
             var precedent = Outcome.Of(Result);
             return (true, () => func(precedent));
         }
+        
+        public (bool, Func<Outcome<T>>) Otherwise()
+        {
+            var precedent = Outcome.Of(Result);
+            return (true, () => precedent);
+        }
 
         // ************
         // Async
@@ -82,6 +88,17 @@ namespace Codoxide.OutcomeExtensions.Filters
         {
             var precedent = Outcome.Of(Result);
             return (true, async () => await func(precedent).ConfigureAwait(false));
+        }
+        
+        public (bool, Func<Task<Outcome<TResult>>>) When<TResult>(Func<T, bool> predicate, Func<Outcome<T>, Task<Outcome<TResult>>> func)
+        {
+            var precedent = Outcome.Of(Result);
+            var result = Result;
+            
+            return (
+                predicate != null && predicate(result), 
+                async () => await func(precedent).ConfigureAwait(false)
+            );
         }
         
         public static implicit operator T(Switchable<T> source) => source.Result;
