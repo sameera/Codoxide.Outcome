@@ -20,6 +20,17 @@ namespace Codoxide
             return @this;
         }
 
+        public static Outcome<bool> When(this Outcome<bool> @this) => Filter(@this);
+        
+        public static Outcome<bool> Otherwise(this Outcome<bool> @this)
+        {
+            if (@this.IsSuccessful && @this.ResultOrThrow())
+            {
+                return (false, new ExpectationFailure<bool>(false));
+            }
+            return @this;
+        }
+
         /// <summary>
         /// Filters through outcomes that match the given value and marks others with an <see cref="Codoxide.OutcomeExtensions.Filters.ExpectaionFailure"/>.
         /// </summary>

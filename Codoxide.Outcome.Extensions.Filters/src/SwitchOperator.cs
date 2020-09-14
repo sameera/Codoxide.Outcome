@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 
 namespace Codoxide
 {
+    using static Codoxide.OutcomeInternals.Utility;
+    
     public static class SwitchOperator
     {
         public static Outcome<T> Switch<T>(params Outcome<T>[] outcomes)
@@ -21,7 +23,7 @@ namespace Codoxide
             for (int i = 0; i < fns.Length; i++)
             {
                 var outcome = fns[i]();
-                if (outcome.IsSuccessful) return outcome;
+                if (CanProceedWithCase(outcome)) return outcome;
             }
 
             return new ExpectationFailure<T>(default);
@@ -32,10 +34,24 @@ namespace Codoxide
             for (int i = 0; i < asyncOutcomes.Length; i++)
             {
                 var outcome = await asyncOutcomes[i];
-                if (outcome.IsSuccessful) return outcome;
+                if (CanProceedWithCase(outcome)) return outcome;
             }
 
             return new ExpectationFailure<T>(default);
         }
+
+        public static async Task<Outcome<T>> Switch<T>(params Func<Task<Outcome<T>>>[] fns)
+        {
+            for (int i = 0; i < fns.Length; i++)
+            {
+                var outcome = await fns[i]();
+                if (CanProceedWithCase(outcome)) return outcome;
+            }
+
+            return new ExpectationFailure<T>(default);
+        }
+
+        private static bool CanProceedWithCase<T>(Outcome<T> caseOutcome) =>
+            caseOutcome.IsSuccessful || !(caseOutcome.FailureOrNull() is ExpectationFailure);
     }
 }

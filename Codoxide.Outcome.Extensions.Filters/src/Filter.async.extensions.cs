@@ -19,6 +19,18 @@ namespace Codoxide
                 .ConfigureAwait(false);
         }
 
+        public static Task<Outcome<bool>> When(this Task<Outcome<bool>> @this) => Filter(@this);
+        
+        public static async Task<Outcome<bool>> Otherwise(this Task<Outcome<bool>> asyncCondition)
+        {
+            var @this = await asyncCondition.ConfigureAwait(false);
+            if (@this.IsSuccessful && @this.ResultOrThrow())
+            {
+                return (false, new ExpectationFailure<bool>(false));
+            }
+            return @this;
+        }
+        
         /// <summary>
         /// Filters through outcomes that match the given value and marks others with an <see cref="Codoxide.OutcomeExtensions.Filters.ExpectaionFailure"/>.
         /// </summary>
