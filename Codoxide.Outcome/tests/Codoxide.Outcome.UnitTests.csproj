@@ -1,7 +1,7 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <ProjectGuid>a0faf0ed-c0b9-47d5-a656-f883cfdc9351</ProjectGuid>
     <IsPackable>false</IsPackable>
 
@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Codoxide.Outcome.Extensions.Catch\src\Codoxide.Outcome.Extensions.Catch.csproj" />
+    <ProjectReference Include="..\src\Codoxide.Outcome.csproj" />
   </ItemGroup>
 
 </Project>

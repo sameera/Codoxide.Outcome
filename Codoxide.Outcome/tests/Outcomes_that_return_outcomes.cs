@@ -1,13 +1,18 @@
-﻿namespace UnitTest.Codoxide.Outcome
+using Codoxide;
+using Codoxide.Outcomes;
+using FluentAssertions;
+using Xunit;
+
+namespace UnitTest.Codoxide.Outcome
 {
     public class Outcomes_that_return_outcomes
     {
 
         [Fact]
-        public void A_Then_that_returns_an_outcome_doesnt_wrap_return_value_in_another_outcome()
+        public void A_Map_that_returns_an_outcome_doesnt_wrap_return_value_in_another_outcome()
         {
             var outcome = this.BeginTest()
-                            .Then(value => new Outcome<int>(++value));
+                            .Map(value => new Outcome<int>(++value));
 
             outcome.Should().BeOfType<Outcome<int>>();
             outcome.ResultOrDefault().Should().BeOfType(typeof(int));

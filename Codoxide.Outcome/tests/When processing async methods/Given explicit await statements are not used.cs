@@ -1,19 +1,30 @@
-﻿namespace _.When_processing_async_methods
+using Codoxide;
+using FluentAssertions;
+using System.Threading.Tasks;
+using Xunit;
+
+namespace _.When_processing_async_methods
 {
     public class Given_explicit_await_statements_are_not_used: BaseWhen
     {
         [Fact]
         public async void It_still_waits_for_the_statements_to_end()
         {
+            bool awaited = false;
+
             await this.DoAsyncParameterizedOutcome(100d)
-                .Then(number => {
+                .Map(number => {
                     return this.DoAsyncParameterizedOutcome(number);
-                }).Then(result => {
+                })
+                .Map(result => {
                     result.Should().BeOfType(typeof(double));
                     return this.DoAsyncOutcome();
-                }).Then(result => {
+                })
+                .Tap(result => {
                     result.Should().Be(_theResult);
                 });
+
+            awaited.Should().BeTrue();
         }
 
         private async Task<Outcome<double>> DoAsyncParameterizedOutcome(double number)

@@ -1,4 +1,9 @@
-﻿namespace _.When_chaining_Tasks
+using Codoxide;
+using FluentAssertions;
+using System.Threading.Tasks;
+using Xunit;
+
+namespace _.When_chaining_Tasks
 {
     public class Given_no_exceptions_are_thrown
     {
@@ -6,8 +11,8 @@
         public async Task It_returns_a_successful_outcome()
         {
             var outcome = await Begin()
-                .Then(i => Increment(i))
-                .Then(i => Increment(i));
+                .Map(i => Increment(i))
+                .Map(i => Increment(i));
 
             outcome.IsSuccessful.Should().BeTrue();
             outcome.ResultOrDefault().Should().Be(102);

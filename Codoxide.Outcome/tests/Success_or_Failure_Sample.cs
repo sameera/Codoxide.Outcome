@@ -1,3 +1,8 @@
+using Codoxide;
+using FluentAssertions;
+using System;
+using Xunit;
+
 namespace UnitTest.Codoxide.Outcome
 {
     public class Success_or_Failure_Sample
@@ -6,11 +11,11 @@ namespace UnitTest.Codoxide.Outcome
         public void Working_with_a_function_that_could_sometimes_fail()
         {
             int result = FunctionThatCallsTheFailingFunctionAndDoesOtherUsefulStuff(false)
-                            .Then(value => {
+                            .Map(value => {
                                 value.Should().Be(100);
                                 return ++value;
                             })
-                            .Then(value => {
+                            .Map(value => {
                                 value.Should().Be(101);
                                 return ++value;
                             })
@@ -23,10 +28,10 @@ namespace UnitTest.Codoxide.Outcome
 
 
             result = FunctionThatCallsTheFailingFunctionAndDoesOtherUsefulStuff(true)
-                        .Then(value => {
+                        .Tap(value => {
                             Assert.False(true, "This should never be hit because the function has failed");
                         })
-                        .Then(value => {
+                        .Tap(value => {
                             Assert.False(true, "This should also not be hit because the function has failed");
                         })
                         .TapFailure(failure => {
@@ -34,7 +39,7 @@ namespace UnitTest.Codoxide.Outcome
                         })
                         .ResultOrDefault();
 
-            result.Should().Be(default(int));
+            result.Should().Be(default);
         }
 
         private const int _fixed_initial_value = 100;

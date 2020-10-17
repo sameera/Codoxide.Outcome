@@ -1,11 +1,23 @@
-# Codoxide.Outcome
-`Codoxide.Outcome<T>` is a chainable class for representing the outcome of an operation that uses "Either Monad-like" behavior for Exception-free design.
+# Codoxide.Outcome<T>
 
-The `Codoxide.Outcome` is a collection of libraries that help you write functional-programming style code without going all-out on the functional philosophy.
+`Codoxide.Outcome<T>` is a suite of classes and extension methods that assist you in writing Functional-style C# code. At the core of it is the `Outcome<T>` that represents the outcome of an operation similar to the `Try[T]` monad in [Scala](https://www.scala-lang.org/api/2.9.3/scala/util/Try.html).
+
+The `Codoxide.Outcome` helps you write functional-programming style code without going all-out on the functional philosophy. 
 
 NuGet: https://www.nuget.org/packages/Codoxide.Outcome
 
-## 
+## Why?
+
+Firstly, I'm not a strong functional-programming advocate; nor am I even an expert. Having programmed in OOP for nearly 20 years, I'd imagine my transition, to functional would be a very very slow process; if ever it even happens. I believe that would hold true for most C# developers. And I know it's true for my team. I wrote `Outcome<T>` to enforce few disciplines borrowed from functional programming.
+
+There are of course, other similar C# libraries (e.g. [LanguageExt](https://languageext.readthedocs.io/en/latest/README.html#getting-started)) that allows you to write functional-style code. `Outcome<T>` is different in that:
+
+1. Low allocations (`Outcome<T>` is a value type) which makes it inexpensive to construct.
+2. Deconstructs in to a value tuple of `(T, Failure)` or `(T, Exception)` ***
+3. Effortlessly wraps async code
+4. Extensively modular, allowing you to pick just the features you need.
+
+*** If you are writing a Class Library and you do not want to force `Outcome<T>` on your users, you can simply return `(T, Exception)` tuples instead.
 
 
 Sample code:
