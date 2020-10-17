@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace Codoxide
@@ -7,10 +8,27 @@ namespace Codoxide
     {
         public static int IntendedFailureCode => -1;
 
-        public static Task<Outcome<T>> Of<T>(Func<Task<T>> func) => Of(func());
+        public static async Task<Outcome<T>> Of<T>(Func<Task<T>> func)
+        {
+            Debug.Assert(func != null);
+
+            try
+            {
+                var result = await func().ConfigureAwait(false);
+                return new Outcome<T>(result);
+            }
+#pragma warning disable CA1031 // Do not catch general exception types
+            catch (Exception ex)
+            {
+                return Outcome<T>.Reject(ex);
+            }
+#pragma warning restore CA1031 // Do not catch general exception types
+        }
 
         public static async Task<Outcome<T>> Of<T>(Task<T> task)
         {
+            Debug.Assert(task != null);
+
             try
             {
                 var result = await task.ConfigureAwait(false);
@@ -26,6 +44,8 @@ namespace Codoxide
 
         public static Outcome<T> Of<T>(Func<T> func)
         {
+            Debug.Assert(func != null);
+
             try
             {
                 var result = func();
@@ -40,6 +60,57 @@ namespace Codoxide
         }
 
         public static Outcome<T> Of<T>(T result) => new Outcome<T>(result);
+
+        public static async Task<Outcome<Nop>> Of(Task asyncAction)
+        {
+            Debug.Assert(asyncAction != null);
+
+            try
+            {
+                await asyncAction.ConfigureAwait(false);
+                return Any();
+            }
+#pragma warning disable CA1031 // Do not catch general exception types
+            catch (Exception e)
+            {
+                return Reject(e);
+            }
+#pragma warning restore CA1031 // Do not catch general exception types
+        }
+
+        public static async Task<Outcome<Nop>> Of(Func<Task> asyncAction)
+        {
+            Debug.Assert(asyncAction != null);
+
+            try
+            {
+                await asyncAction().ConfigureAwait(false);
+                return Any();
+            }
+#pragma warning disable CA1031 // Do not catch general exception types
+            catch (Exception ex)
+            {
+                return Reject(ex);
+            }
+#pragma warning restore CA1031 // Do not catch general exception types
+        }
+
+        public static Outcome<Nop> Of(Action action)
+        {
+            Debug.Assert(action != null);
+
+            try
+            {
+                action();
+                return Any();
+            }
+#pragma warning disable CA1031 // Do not catch general exception types
+            catch (Exception e)
+            {
+                return Reject(e);
+            }
+#pragma warning restore CA1031 // Do not catch general exception types
+        }
 
 
         /// <summary>
@@ -56,20 +127,8 @@ namespace Codoxide
         /// <returns></returns>
         public static Outcome<Nop> Any() => new Outcome<Nop>(Nop.Void);
 
-        public static Outcome<Nop> Any(Action action)
-        {
-            try
-            {
-                action();
-                return Any();
-            }
-#pragma warning disable CA1031 // Do not catch general exception types
-            catch (Exception e)
-            {
-                return Reject(e);
-            }
-#pragma warning restore CA1031 // Do not catch general exception types
-        }
+        [Obsolete("Use Outcome.Of(Action) instead.")]
+        public static Outcome<Nop> Any(Action action) => Of(action);
 
     }
 }

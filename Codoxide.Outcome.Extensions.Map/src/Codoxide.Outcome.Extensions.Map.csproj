@@ -13,7 +13,7 @@
     <PackageReleaseNotes>
         Removed a redundant Map method that caused ambiguous invocation errors.
     </PackageReleaseNotes>
-    <Version>6.1.2</Version>
+    <Version>6.2.0</Version>
     <Authors>Sameera Perera</Authors>
     <Company>Codoxide</Company>
   </PropertyGroup>

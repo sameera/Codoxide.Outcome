@@ -10,10 +10,11 @@
     <RepositoryUrl>https://github.com/sameera/Codoxide.Outcome</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
     <PackageTags>either monad, c#, chaining, result, functional, try</PackageTags>
-    <Version>6.1.2</Version>
+    <Version>6.2.0</Version>
     <Authors>Sameera Perera</Authors>
     <Company>Codoxide</Company>
     <PackageReleaseNotes>
+    - Outcome.Of overrides for wrapping Action and Task for elavating methods with void or Task return types.
     - DiscardResult extension methods for converting an Outcome of T, to an Outcome of Nop.
     </PackageReleaseNotes>
     <RootNamespace>Codoxide</RootNamespace>

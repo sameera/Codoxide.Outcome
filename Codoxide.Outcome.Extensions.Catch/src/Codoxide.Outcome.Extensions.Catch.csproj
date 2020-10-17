@@ -10,13 +10,13 @@
     <RepositoryUrl>https://github.com/sameera/Codoxide.Outcome</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
     <PackageTags>either monad, c#, chaining, result, functional, try</PackageTags>
-    <Version>6.1.2</Version>
+    <Version>6.2.0</Version>
     <Authors>Sameera Perera</Authors>
     <Company>Codoxide</Company>
     <RootNamespace>Codoxide</RootNamespace>
     <PackageReleaseNotes>
      Complied for .NET Standard 2.1
-     Bumped version to be inline with 6.x branch.
+     Bumped version to be inline with 6.2 branch.
     </PackageReleaseNotes>
   </PropertyGroup>
 
