@@ -59,7 +59,12 @@ namespace Codoxide
 #pragma warning restore CA1031 // Do not catch general exception types
         }
 
+        // Following is marked obsolete as it leads to improper use where 
+        // results of an operation is passed instead of the delegate of the operation.
+        [Obsolete("Use Outcome.FromResult instead")]
         public static Outcome<T> Of<T>(T result) => new Outcome<T>(result);
+
+        public static Outcome<T> FromResult<T>(T result) => new Outcome<T>(result);
 
         public static async Task<Outcome<Nop>> Of(Task asyncAction)
         {
