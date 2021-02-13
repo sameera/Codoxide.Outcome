@@ -22,6 +22,7 @@ namespace _.When_processing_async_methods
                 })
                 .Tap(result => {
                     result.Should().Be(_theResult);
+                    awaited = true;
                 });
 
             awaited.Should().BeTrue();
