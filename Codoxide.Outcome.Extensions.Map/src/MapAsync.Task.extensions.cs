@@ -8,9 +8,9 @@ namespace Codoxide
     public static class OutcomeTaskMapExtensions
     {
 
-        public static Task<Outcome<ResultType>> Map<T, ResultType>(this Task<Outcome<T>> asyncPromise, Func<ResultType> func) //where ResultType: class
+        public static async Task<Outcome<ResultType>> Map<T, ResultType>(this Task<Outcome<T>> asyncPromise, Func<ResultType> func) //where ResultType: class
         {
-            return Try(async () => {
+            return await Try(async () => {
                 var outcome = await asyncPromise;
                 if (outcome.IsSuccessful) return Outcome.Of(func);
 
@@ -18,9 +18,9 @@ namespace Codoxide
             });
         }
 
-        public static Task<Outcome<ResultType>> Map<T, ResultType>(this Task<Outcome<T>> asyncPromise, Func<Outcome<ResultType>> func)
+        public static async Task<Outcome<ResultType>> Map<T, ResultType>(this Task<Outcome<T>> asyncPromise, Func<Outcome<ResultType>> func)
         {
-            return Try(async () => {
+            return await Try(async () => {
                 var outcome = await asyncPromise;
                 if (outcome.IsSuccessful) return func();
 
@@ -28,9 +28,9 @@ namespace Codoxide
             });
         }
 
-        public static Task<Outcome<ResultType>> Map<T, ResultType>(this Task<Outcome<T>> asyncPromise, Func<T, ResultType> func)
+        public static async Task<Outcome<ResultType>> Map<T, ResultType>(this Task<Outcome<T>> asyncPromise, Func<T, ResultType> func)
         {
-            return Try(async () => {
+            return await Try(async () => {
                 var outcome = await asyncPromise;
                 if (outcome.IsSuccessful) return new Outcome<ResultType>(func(outcome.ResultOrDefault()));
 
@@ -38,9 +38,9 @@ namespace Codoxide
             });
         }
 
-        public static Task<Outcome<ResultType>> Map<T, ResultType>(this Task<Outcome<T>> asyncPromise, Func<T, Outcome<ResultType>> func)
+        public static async Task<Outcome<ResultType>> Map<T, ResultType>(this Task<Outcome<T>> asyncPromise, Func<T, Outcome<ResultType>> func)
         {
-            return Try(async () => {
+            return await Try(async () => {
                 var outcome = await asyncPromise;
                 if (outcome.IsSuccessful) return func(outcome.ResultOrDefault());
 
@@ -48,9 +48,9 @@ namespace Codoxide
             });
         }
 
-        public static Task<Outcome<ReturnType>> Map<T, ReturnType>(this Task<Outcome<T>> asyncPromise, Func<Task<ReturnType>> asyncFunc)
+        public static async Task<Outcome<ReturnType>> Map<T, ReturnType>(this Task<Outcome<T>> asyncPromise, Func<Task<ReturnType>> asyncFunc)
         {
-            return Try(async () => {
+            return await Try(async () => {
                 var outcome = await asyncPromise;
                 if (outcome.IsSuccessful) return new Outcome<ReturnType>(await asyncFunc());
 
@@ -58,9 +58,9 @@ namespace Codoxide
             });
         }
 
-        public static Task<Outcome<ReturnType>> Map<T, ReturnType>(this Task<Outcome<T>> asyncPromise, Func<T, Task<ReturnType>> asyncFunc) 
+        public static async Task<Outcome<ReturnType>> Map<T, ReturnType>(this Task<Outcome<T>> asyncPromise, Func<T, Task<ReturnType>> asyncFunc) 
         {
-            return Try(async () => {
+            return await Try(async () => {
                 var outcome = await asyncPromise;
                 if (outcome.IsSuccessful) return new Outcome<ReturnType>(await asyncFunc(outcome.ResultOrDefault()));
 
@@ -68,9 +68,9 @@ namespace Codoxide
             });
         }
 
-        public static Task<Outcome<ReturnType>> Map<T, ReturnType>(this Task<Outcome<T>> asyncPromise, Func<Task<Outcome<ReturnType>>> aysncFunc)
+        public static async Task<Outcome<ReturnType>> Map<T, ReturnType>(this Task<Outcome<T>> asyncPromise, Func<Task<Outcome<ReturnType>>> aysncFunc)
         {
-            return Try(async () => {
+            return await Try(async () => {
                 var outcome = await asyncPromise;
                 if (outcome.IsSuccessful) return await aysncFunc();
 
@@ -78,9 +78,9 @@ namespace Codoxide
             });
         }
 
-        public static Task<Outcome<ReturnValue>> Map<T, ReturnValue>(this Task<Outcome<T>> asyncPromise, Func<T, Task<Outcome<ReturnValue>>> aysncFunc)
+        public static async Task<Outcome<ReturnValue>> Map<T, ReturnValue>(this Task<Outcome<T>> asyncPromise, Func<T, Task<Outcome<ReturnValue>>> aysncFunc)
         {
-            return Try(async () => {
+            return await Try(async () => {
                 var outcome = await asyncPromise;
                 if (outcome.IsSuccessful) return await aysncFunc(outcome.ResultOrDefault());
 

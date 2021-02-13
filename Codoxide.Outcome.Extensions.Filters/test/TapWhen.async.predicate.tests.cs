@@ -13,7 +13,7 @@ namespace _.UnitTests
         [Fact]
         public async Task It_executes_if_the_precedent_is_successful_and_condition_is_true()
         {
-            var successful = Outcome.Of("success");
+            var successful = Outcome.FromResult("success");
 
             await successful.TapWhen(predicate, anAction);
             await successful.TapWhen(predicateWithParams, anActionWithParams);
@@ -37,7 +37,7 @@ namespace _.UnitTests
         [Fact]
         public async Task It_does_not_execute_if_the_precedent_is_successful_and_condition_is_false()
         {
-            var successful = Outcome.Of("success");
+            var successful = Outcome.FromResult("success");
 
             await successful.TapWhen(falsyPredicate, anAction);
             await successful.TapWhen(falsyPredicateWithParams, anActionWithParams);

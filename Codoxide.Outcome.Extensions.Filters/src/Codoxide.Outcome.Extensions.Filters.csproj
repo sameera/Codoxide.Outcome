@@ -13,14 +13,15 @@
     <RepositoryUrl>https://github.com/sameera/Codoxide.Outcome</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
     <PackageTags>either monad, c#, chaining, result, functional, try</PackageTags>
-    <Version>6.2.0</Version>
+    <Version>6.3.0</Version>
     <Authors>Sameera Perera</Authors>
     <Company>Codoxide</Company>
 
       <PackageReleaseNotes>
-          Parameterless Otherwise method.
-          Async When with Predicates.
-          When, Otherwise for boolean Outcomes.
+          Removes the asycn conditional filter functions. Due to the nature of implemenation, a chain such as 
+          `await Something().Tap(() => isTappable = true).TapWhen(isTappable, () => {...})`
+          will not invoke the lambda in TapWhen because the isTappable is early evaluated without event awaiting
+          the Something().
       </PackageReleaseNotes>
     <RootNamespace>Codoxide</RootNamespace>
   </PropertyGroup>
