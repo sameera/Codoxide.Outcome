@@ -1,10 +1,11 @@
 using System;
 using System.Threading.Tasks;
-using _;
 using FluentAssertions;
 using Xunit;
 
-namespace Codoxide.Outcome.Extensions.Merge.UnitTests.Given_multiple_async_functions
+using Codoxide;
+
+namespace _.Given_multiple_async_functions
 {
     public class When_mixing_with_Map_operations: GivenMultipleFunctions
     {
