@@ -3,10 +3,13 @@ using Codoxide.Outcomes;
 using FakeItEasy;
 using FluentAssertions;
 using System;
+using System.Threading.Tasks;
 using Xunit;
 
-namespace UnitTest.Codoxide.Outcome
+namespace UnitTest.Codoxide.OutcomeTests
 {
+    using static FixedOutcomes;
+
     public class Implicit_conversions
     {
         [Fact]
@@ -18,7 +21,7 @@ namespace UnitTest.Codoxide.Outcome
             result.Should().Be("AAB");
             failure.Should().BeNull();
 
-            outcome = FixedOutcomes.Fail("Test Failure");
+            outcome = Fail("Test Failure");
             (result, failure) = outcome;
             result.Should().Be(null);
             failure.Reason.Should().Be("Test Failure");
@@ -34,17 +37,16 @@ namespace UnitTest.Codoxide.Outcome
             valueOutcome.result.Should().Be("AAB");
             valueOutcome.failure.Should().BeNull();
 
-            outcome = FixedOutcomes.Fail("Test Failure");
+            outcome = Fail("Test Failure");
             valueOutcome = outcome;
             valueOutcome.result.Should().Be(null);
             valueOutcome.failure.Reason.Should().Be("Test Failure");
-
         }
 
         [Fact]
         public void Implicitly_casts_Failures_to_Exceptions()
         {
-            var logger = A.Fake<Action<Exception, string>>();
+            var logger = A.Fake<Action<Exception, string>>(); 
             var failure = new Failure("ABCDEF", 101);
 
             logger(failure, "Logged!");

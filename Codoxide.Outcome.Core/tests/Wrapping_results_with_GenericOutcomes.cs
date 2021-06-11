@@ -2,7 +2,7 @@
 using Codoxide.Outcomes;
 using Xunit;
 
-namespace UnitTest.Codoxide.Outcome
+namespace UnitTest.Codoxide.OutcomeTests
 {
     using FluentAssertions;
 

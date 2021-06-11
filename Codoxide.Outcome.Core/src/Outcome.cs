@@ -1,139 +1,78 @@
+using Codoxide.Outcomes;
 using System;
-using System.Diagnostics;
-using System.Threading.Tasks;
 
+// ReSharper disable once CheckNamespace
+// ReSharper disable once IdentifierTypo
 namespace Codoxide
 {
-    public static partial class Outcome
+    public readonly partial struct Outcome<T> : IOutcome<T>, IOutcome
     {
-        public static int IntendedFailureCode => -1;
+        public bool IsSuccessful => _failure == null;
 
-        public static async Task<Outcome<T>> Of<T>(Func<Task<T>> func)
+        private readonly Failure _failure;
+
+        internal readonly T Result;
+
+        public Outcome(in T result) : this(result, null) { }
+
+        internal Outcome(Failure failure) : this(default, failure) { }
+
+        private Outcome(in T result, Failure failure)
         {
-            Debug.Assert(func != null);
+            if (result is IOutcome outcome)
+            {
+                this._failure = outcome.FailureOrNull();
 
-            try
-            {
-                var result = await func().ConfigureAwait(false);
-                return new Outcome<T>(result);
+                if (!outcome.IsSuccessful || outcome.ResultOrDefault() == null)
+                {
+                    this.Result = default;
+                }
+                else
+                {
+                    var innerResult = outcome.ResultOrDefault();
+                    if (innerResult is T assignableResult)
+                    {
+                        this.Result = assignableResult;
+                    }
+                    else
+                    {
+                        throw new InvalidCastException(
+                            $"Cannot cast from {innerResult.GetType().Name} to {typeof(T).Name}");
+                    }
+                }
             }
-#pragma warning disable CA1031 // Do not catch general exception types
-            catch (Exception ex)
+            else
             {
-                return Outcome<T>.Reject(ex);
+                Result = result;
+                _failure = failure;
             }
-#pragma warning restore CA1031 // Do not catch general exception types
         }
 
-        public static async Task<Outcome<T>> Of<T>(Task<T> task)
+        public Failure FailureOrNull() => this._failure;
+
+        public Failure FailureOrThrow() => 
+            this._failure ?? 
+            throw new InvalidOperationException(
+                    "There is no failure as this is a successful Outcome."
+                );
+
+        public T ResultOrDefault() => this.IsSuccessful ? this.Result : default;
+
+        object IOutcome.ResultOrDefault() => this.ResultOrDefault();
+
+        public T ResultOrDefault(T defaultValue) => 
+            this.IsSuccessful ? this.Result : defaultValue;
+
+        public T ResultOrThrow() => 
+            this.IsSuccessful ? this.Result : throw this._failure.ToException();
+
+        object IOutcome.ResultOrThrow() => this.ResultOrThrow();
+        
+        public void Deconstruct(out T result, out Failure failure)
         {
-            Debug.Assert(task != null);
-
-            try
-            {
-                var result = await task.ConfigureAwait(false);
-                return new Outcome<T>(result);
-            }
-#pragma warning disable CA1031 // Do not catch general exception types
-            catch (Exception ex)
-            {
-                return Outcome<T>.Reject(ex);
-            }
-#pragma warning restore CA1031 // Do not catch general exception types
+            failure = this.FailureOrNull();
+            result = this.ResultOrDefault();
         }
-
-        public static Outcome<T> Of<T>(Func<T> func)
-        {
-            Debug.Assert(func != null);
-
-            try
-            {
-                var result = func();
-                return new Outcome<T>(result);
-            }
-#pragma warning disable CA1031 // Do not catch general exception types
-            catch (Exception e)
-            {
-                return Outcome<T>.Reject(e.Message, e);
-            }
-#pragma warning restore CA1031 // Do not catch general exception types
-        }
-
-        // Following is marked obsolete as it leads to improper use where 
-        // results of an operation is passed instead of the delegate of the operation.
-        [Obsolete("Use Outcome.FromResult instead")]
-        public static Outcome<T> Of<T>(T result) => new Outcome<T>(result);
-
-        public static Outcome<T> FromResult<T>(T result) => new Outcome<T>(result);
-
-        public static async Task<Outcome<Nop>> Of(Task asyncAction)
-        {
-            Debug.Assert(asyncAction != null);
-
-            try
-            {
-                await asyncAction.ConfigureAwait(false);
-                return Any();
-            }
-#pragma warning disable CA1031 // Do not catch general exception types
-            catch (Exception e)
-            {
-                return Reject(e);
-            }
-#pragma warning restore CA1031 // Do not catch general exception types
-        }
-
-        public static async Task<Outcome<Nop>> Of(Func<Task> asyncAction)
-        {
-            Debug.Assert(asyncAction != null);
-
-            try
-            {
-                await asyncAction().ConfigureAwait(false);
-                return Any();
-            }
-#pragma warning disable CA1031 // Do not catch general exception types
-            catch (Exception ex)
-            {
-                return Reject(ex);
-            }
-#pragma warning restore CA1031 // Do not catch general exception types
-        }
-
-        public static Outcome<Nop> Of(Action action)
-        {
-            Debug.Assert(action != null);
-
-            try
-            {
-                action();
-                return Any();
-            }
-#pragma warning disable CA1031 // Do not catch general exception types
-            catch (Exception e)
-            {
-                return Reject(e);
-            }
-#pragma warning restore CA1031 // Do not catch general exception types
-        }
-
-
-        /// <summary>
-        /// Returns an outcome, that returns "nothing". Useful in situations where you have conditionals that
-        /// need to be chained and don't have any other Outcome-returning initiation function.
-        /// </summary>
-        /// <example>
-        ///     <code>
-        ///     Outcome.Any()
-        ///             .Then(isSomething, () => doSomething())
-        ///             .Then(isOther, () => doOtherthing())
-        ///     </code>
-        /// </example>
-        /// <returns></returns>
-        public static Outcome<Nop> Any() => new Outcome<Nop>(Nop.Void);
-
-        [Obsolete("Use Outcome.Of(Action) instead.")]
-        public static Outcome<Nop> Any(Action action) => Of(action);
 
     }
 }

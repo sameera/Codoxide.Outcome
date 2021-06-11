@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 
 namespace Codoxide.Outcomes
 {
@@ -39,6 +40,6 @@ namespace Codoxide.Outcomes
                 : string.Concat(this.Reason, "\r\n", _exception);
         }
 
-        public static implicit operator Exception(Failure failure) => failure.ToException();
+        public static implicit operator Exception(Failure failure) => failure?.ToException();
     }
 }

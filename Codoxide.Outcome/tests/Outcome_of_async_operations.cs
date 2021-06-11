@@ -3,7 +3,7 @@ using FluentAssertions;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace UnitTest.Codoxide.Outcome
+namespace UnitTest.Codoxide.OutcomeTests
 {
     public class Outcome_of_async_operations
     {

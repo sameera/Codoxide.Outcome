@@ -1,10 +1,12 @@
 [*]
 charset = utf-8
 end_of_line = lf
+guidelines = 80
+guidelines_style = 1px dotted 2F6550
 indent_size = 4
 indent_style = space
 insert_final_newline = false
-max_line_length = 120
+max_line_length = 80
 tab_width = 4
 trim_trailing_whitespace = false
 ij_continuation_indent_size = 8
