@@ -9,23 +9,70 @@ namespace Codoxide
 {
     public static class MapAllExtensions
     {
-        public static Outcome<IEnumerable<TResult>> MapAll<T, TResult>(this Outcome<IEnumerable<T>> @this, Func<TResult> fn)
+        /// <summary>
+        /// Applies the given function on all elements of the input enumerable and
+        /// returns an enumerable of the results.
+        /// </summary>
+        /// <typeparam name="TResult">The return type of the generator function.</typeparam>
+        /// <typeparam name="TParam">The element type of the input enumerable.</typeparam>
+        /// <param name="parameters">The input enumerable.</param>
+        /// <param name="generator">The function to be applied.</param>
+        /// <returns>The enumerable of results.</returns>
+        public static Outcome<IEnumerable<TResult>> MapAll<T, TResult>(
+            this Outcome<IEnumerable<T>> @this, 
+            Func<TResult> fn)
         {
-            if (!@this.IsSuccessful) return Outcome<IEnumerable<TResult>>.Reject(@this.FailureOrThrow());
+            if (!@this.IsSuccessful)
+            {
+                return Outcome<IEnumerable<TResult>>
+                    .Reject(@this.FailureOrThrow());
+            }
 
-            return Outcome.Of(() => @this.ResultOrDefault(Enumerable.Empty<T>()).Select(_ => fn()));
+            return Outcome.Of(
+                () => @this
+                    .ResultOrDefault(Enumerable.Empty<T>())
+                    .Select(_ => fn())
+            );
         }
 
-        public static Outcome<IEnumerable<TResult>> MapAll<T, TResult>(this Outcome<IEnumerable<T>> @this, Func<T, TResult> fn)
+        /// <summary>
+        /// Applies the given function on all elements of the input enumerable and
+        /// returns an enumerable of the results.
+        /// </summary>
+        /// <typeparam name="TResult">The return type of the generator function.</typeparam>
+        /// <typeparam name="TParam">The element type of the input enumerable.</typeparam>
+        /// <param name="parameters">The input enumerable.</param>
+        /// <param name="generator">The function to be applied.</param>
+        /// <returns>The enumerable of results.</returns>
+        public static Outcome<IEnumerable<TResult>> MapAll<T, TResult>(
+            this Outcome<IEnumerable<T>> @this, 
+            Func<T, TResult> fn)
         {
-            if (!@this.IsSuccessful) return Outcome<IEnumerable<TResult>>.Reject(@this.FailureOrThrow());
+            if (!@this.IsSuccessful)
+            {
+                return Outcome<IEnumerable<TResult>>
+                    .Reject(@this.FailureOrThrow());
+            }
 
-            return Outcome.Of(() => @this.ResultOrDefault(Enumerable.Empty<T>()).Select(r => fn(r)));
+            return Outcome.Of(
+                () => @this
+                    .ResultOrDefault(Enumerable.Empty<T>())
+                    .Select(r => fn(r))
+            );
         }
 
-
-
-        public static async Task<Outcome<IEnumerable<TResult>>> MapAll<T, TResult>(this Outcome<IEnumerable<T>> @this, Func<Task<TResult>> fn)
+        /// <summary>
+        /// Applies the given async function on all elements of the input enumerable and
+        /// returns an enumerable of the results.
+        /// </summary>
+        /// <typeparam name="TResult">The return type of the generator function.</typeparam>
+        /// <typeparam name="TParam">The element type of the input enumerable.</typeparam>
+        /// <param name="parameters">The input enumerable.</param>
+        /// <param name="generator">The async function to be applied.</param>
+        /// <returns>The enumerable of results.</returns>
+        public static async Task<Outcome<IEnumerable<TResult>>> MapAll<T, TResult>(
+            this Outcome<IEnumerable<T>> @this, 
+            Func<Task<TResult>> fn)
         {
             if (@this.IsSuccessful)
             {
@@ -45,7 +92,18 @@ namespace Codoxide
             return @this.FailureOrThrow();
         }
 
-        public static async Task<Outcome<IEnumerable<TResult>>> MapAll<T, TResult>(this Outcome<IEnumerable<T>> @this, Func<T, Task<TResult>> fn)
+        /// <summary>
+        /// Applies the given async function on all elements of the input enumerable and
+        /// returns an enumerable of the results.
+        /// </summary>
+        /// <typeparam name="TResult">The return type of the generator function.</typeparam>
+        /// <typeparam name="TParam">The element type of the input enumerable.</typeparam>
+        /// <param name="parameters">The input enumerable.</param>
+        /// <param name="generator">The async function to be applied.</param>
+        /// <returns>The enumerable of results.</returns>
+        public static async Task<Outcome<IEnumerable<TResult>>> MapAll<T, TResult>(
+            this Outcome<IEnumerable<T>> @this, 
+            Func<T, Task<TResult>> fn)
         {
             if (@this.IsSuccessful)
             {
@@ -67,12 +125,27 @@ namespace Codoxide
             return @this.FailureOrThrow();
         }
 
-        public static async Task<Outcome<IEnumerable<TResult>>> MapAll<T, TResult>(this Task<Outcome<IEnumerable<T>>> asyncOutcome, Func<Task<TResult>> fn)
+        /// <summary>
+        /// Applies the given async function on all elements of the input enumerable and
+        /// returns an enumerable of the results.
+        /// </summary>
+        /// <typeparam name="TResult">The return type of the generator function.</typeparam>
+        /// <typeparam name="TParam">The element type of the input enumerable.</typeparam>
+        /// <param name="parameters">The input enumerable.</param>
+        /// <param name="generator">The async function to be applied.</param>
+        /// <returns>The enumerable of results.</returns>
+        public static async Task<Outcome<IEnumerable<TResult>>> MapAll<T, TResult>(
+            this Task<Outcome<IEnumerable<T>>> asyncOutcome, 
+            Func<Task<TResult>> fn)
         {
             return await Utility.Try(async () => {
                 var @this = await asyncOutcome;
 
-                if (!@this.IsSuccessful) Outcome<IEnumerable<TResult>>.Reject(@this.FailureOrThrow());
+                if (!@this.IsSuccessful)
+                {
+                    Outcome<IEnumerable<TResult>>
+                        .Reject(@this.FailureOrThrow());
+                }
 
                 var source = @this.ResultOrDefault(Enumerable.Empty<T>());
                 int count = source is ICollection c ? c.Count : 5;
@@ -86,12 +159,27 @@ namespace Codoxide
             });
         }
 
-        public static async Task<Outcome<IEnumerable<TResult>>> MapAll<T, TResult>(this Task<Outcome<IEnumerable<T>>> asyncOutcome, Func<T, Task<TResult>> fn)
+        /// <summary>
+        /// Applies the given async function on all elements of the input enumerable and
+        /// returns an enumerable of the results.
+        /// </summary>
+        /// <typeparam name="TResult">The return type of the generator function.</typeparam>
+        /// <typeparam name="TParam">The element type of the input enumerable.</typeparam>
+        /// <param name="parameters">The input enumerable.</param>
+        /// <param name="generator">The async function to be applied.</param>
+        /// <returns>The enumerable of results.</returns>
+        public static async Task<Outcome<IEnumerable<TResult>>> MapAll<T, TResult>(
+            this Task<Outcome<IEnumerable<T>>> asyncOutcome, 
+            Func<T, Task<TResult>> fn)
         {
             return await Utility.Try(async () => {
                 var @this = await asyncOutcome;
 
-                if (!@this.IsSuccessful) Outcome<IEnumerable<TResult>>.Reject(@this.FailureOrThrow());
+                if (!@this.IsSuccessful)
+                {
+                    Outcome<IEnumerable<TResult>>
+                        .Reject(@this.FailureOrThrow());
+                }
 
                 var source = @this.ResultOrDefault(Enumerable.Empty<T>());
                 int count = source is ICollection c ? c.Count : 5;
@@ -105,12 +193,27 @@ namespace Codoxide
             });
         }
 
-        public static async Task<Outcome<IEnumerable<TResult>>> MapAll<T, TResult>(this Task<Outcome<IEnumerable<T>>> asyncOutcome, Func<TResult> fn)
+        /// <summary>
+        /// Applies the given function on all elements of the input enumerable and
+        /// returns an enumerable of the results.
+        /// </summary>
+        /// <typeparam name="TResult">The return type of the generator function.</typeparam>
+        /// <typeparam name="TParam">The element type of the input enumerable.</typeparam>
+        /// <param name="parameters">The input enumerable.</param>
+        /// <param name="generator">The function to be applied.</param>
+        /// <returns>The enumerable of restuls.</returns>
+        public static async Task<Outcome<IEnumerable<TResult>>> MapAll<T, TResult>(
+            this Task<Outcome<IEnumerable<T>>> asyncOutcome, 
+            Func<TResult> fn)
         {
             return await Utility.Try(async () => {
                 var @this = await asyncOutcome;
 
-                if (!@this.IsSuccessful) Outcome<IEnumerable<TResult>>.Reject(@this.FailureOrThrow());
+                if (!@this.IsSuccessful)
+                {
+                    Outcome<IEnumerable<TResult>>
+                        .Reject(@this.FailureOrThrow());
+                }
 
                 var source = @this.ResultOrDefault(Enumerable.Empty<T>());
                 int count = source is ICollection c ? c.Count : 5;
@@ -124,13 +227,28 @@ namespace Codoxide
             });
         }
 
-        public static async Task<Outcome<IEnumerable<TResult>>> MapAll<T, TResult>(this Task<Outcome<IEnumerable<T>>> asyncOutcome, Func<T, TResult> fn)
+        /// <summary>
+        /// Applies the given function on all elements of the input enumerable and
+        /// returns an enumerable of the results.
+        /// </summary>
+        /// <typeparam name="TResult">The return type of the generator function.</typeparam>
+        /// <typeparam name="TParam">The element type of the input enumerable.</typeparam>
+        /// <param name="parameters">The input enumerable.</param>
+        /// <param name="generator">The function to be applied.</param>
+        /// <returns>The enumerable of restuls.</returns>
+        public static async Task<Outcome<IEnumerable<TResult>>> MapAll<T, TResult>(
+            this Task<Outcome<IEnumerable<T>>> asyncOutcome, 
+            Func<T, TResult> fn)
         {
 
             return await Utility.Try(async () => {
                 var @this = await asyncOutcome;
 
-                if (!@this.IsSuccessful) Outcome<IEnumerable<TResult>>.Reject(@this.FailureOrThrow());
+                if (!@this.IsSuccessful)
+                {
+                    Outcome<IEnumerable<TResult>>
+                        .Reject(@this.FailureOrThrow());
+                }
 
                 var source = @this.ResultOrDefault(Enumerable.Empty<T>());
                 int count = source is ICollection c ? c.Count : 5;
