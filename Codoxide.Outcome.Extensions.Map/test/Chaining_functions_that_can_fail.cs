@@ -16,11 +16,11 @@ namespace _
         public void A_rejection_can_be_returned_from_within_a_block()
         {
             var intResult = Outcome.Of(() => "Start of test")
-                .Map(value =>
+                .Map((value, rejector) =>
                 {
                     if (!string.IsNullOrEmpty(value))
                     {
-                        return Fail<int>("Was expecting a value");
+                        return rejector("Was expecting a value");
                     }
                     return 100;
                 });
